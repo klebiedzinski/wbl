@@ -216,6 +216,9 @@ h2 {
   text-align: center;
 }
 
+.ScoreBoard .time {
+  width: 8ch;
+}
 .ScoreBoard .header {
   display: flex;
   justify-content: space-between;

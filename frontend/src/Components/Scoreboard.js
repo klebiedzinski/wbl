@@ -1,14 +1,15 @@
 import React, { useState,useEffect } from "react";
-import Countdown from 'react-countdown';
+import Countdown from "./Countdown";
 const ScoreBoard = () => {
-    const [quarter, setQuarter] = useState(1);
+    const [quarter, setQuarter] = useState("1st");
     const [team1, setTeam1] = useState("Popowiczki");
     const [team2, setTeam2] = useState("Przecina");
-    const [time, setTime] = useState(600000);
+    // const [time, setTime] = useState(600000);
     const [isLive, setIsLive] = useState(false);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [team1Score, setTeam1Score] = useState(0);
     const [team2Score, setTeam2Score] = useState(0);
+
 
     const addPoints = (team,ammount) => {
             (team === team1) ? setTeam1Score(team1Score + ammount) : setTeam2Score(team2Score + ammount);
@@ -18,40 +19,13 @@ const ScoreBoard = () => {
             (team === team1) ? setTeam1Score(team1Score - ammount) : setTeam2Score(team2Score - ammount);
         }
     };
-    //ref of countdown component
-    const timerRef = React.useRef(null);
-    const startTimer = () => {
-        console.log(timerRef.current)
-        setIsLive(true);
-        timerRef.pause();
-    }
-
+    
     return ( 
         <div className="ScoreBoard">
             <div className="header">
-                <button onClick={() => startTimer()}>Play</button>
+                <button>Play</button>
                 <div className="time">
-                    {//Countdown component from react-countdown library that is controllable
-                    //and can be started and stopped by passing a controlled prop as true
-                    //and then using the start() and stop() methods of the ref
-                    
-                    
-
-
-                    }
-
-
-
-                    <Countdown
-                        date={Date.now() + time}
-                        intervalDelay={0}
-                        precision={2}
-                        renderer={({minutes, seconds,completed }) => <div>{minutes}:{seconds}</div>}
-                        ref={timerRef}
-                        autoStart={true}
-                        controlled={true}
-                        
-                    />
+                    <Countdown quarter={quarter} setQuarter={setQuarter} team1Score={team1Score} team2Score={team2Score}/>
                 </div>
                 <div className="quarter">{quarter}</div>
                 <button className="edit">edit</button>
