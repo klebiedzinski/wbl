@@ -12,19 +12,17 @@ const playerSchema = new Schema({
     },
     picture: {
         type: String,
-        required: false
+        required: false,
+        default: "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
     },
     yearOfBirth: {
         type: Number,
         required: true
     },
-    currentTeamId: {
-        type: String,
-        required: false
-    },
     career: {
         type: Array,
         required: false
+
     }
 
 }, { timestamps: true });
