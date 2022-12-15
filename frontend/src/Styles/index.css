@@ -216,12 +216,25 @@ h2 {
   text-align: center;
 }
 
+.ScoreBoard .clock-buttons {
+  display: flex;
+  justify-content: space-around;
+}
+.ScoreBoard .clock-buttons button {
+  width: 10vw;
+  height: 10vh;
+  font-size: 2vw;
+}
 .ScoreBoard .time {
   width: 8ch;
 }
 .ScoreBoard .header {
   display: flex;
   justify-content: space-between;
+}
+.ScoreBoard .header .edit {
+  margin-block: 7vh;
+  margin-inline: 2vw;
 }
 .ScoreBoard .content {
   display: flex;
