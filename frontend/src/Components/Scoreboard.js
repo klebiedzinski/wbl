@@ -4,7 +4,6 @@ const ScoreBoard = () => {
     const [quarter, setQuarter] = useState("1st");
     const [team1, setTeam1] = useState("Popowiczki");
     const [team2, setTeam2] = useState("Przecina");
-    // const [time, setTime] = useState(600000);
     const [isLive, setIsLive] = useState(false);
     const [isEditClicked, setIsEditClicked] = useState(false);
     const [team1Score, setTeam1Score] = useState(0);
@@ -23,12 +22,27 @@ const ScoreBoard = () => {
     return ( 
         <div className="ScoreBoard">
             <div className="header">
-                <button>Play</button>
+            
                 <div className="time">
                     <Countdown quarter={quarter} setQuarter={setQuarter} team1Score={team1Score} team2Score={team2Score}/>
                 </div>
                 <div className="quarter">{quarter}</div>
-                <button className="edit">edit</button>
+                <button className="edit" onClick={() => {(!isLive) ? setIsEditClicked(!isEditClicked) : setIsLive(false)}}>edit</button>
+                {isEditClicked && <div className="edit">
+                <select name="quarter" id="quarter" onChange={(e) => setQuarter(e.target.value)} >
+                    <option value="1st" on>1st</option>
+                    <option value="2nd">2nd</option>
+                    <option value="3rd">3rd</option>
+                    <option value="4th">4th</option>
+                    <option value="OT">OT</option>
+                </select>
+                
+                   
+                    <button onClick={() => setIsEditClicked(!isEditClicked)}>save</button>
+
+
+                </div>}
+               
             </div>
             <div className="content">
                 <div className="team">
@@ -43,7 +57,7 @@ const ScoreBoard = () => {
                         <div className="team-score">{team1Score}</div>
                     </div>
                 </div>
-                <p>X</p>
+                
                 <div className="team">
                     <div className="team-rightbar">
                         <div className="team-name">{team2}</div>

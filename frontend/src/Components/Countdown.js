@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 const Countdown = ({quarter, setQuarter, team1Score, team2Score}) => {
-    const [time, setTime] = useState(5000);
+    const [time, setTime] = useState(600000);
     const [isLive, setIsLive] = useState(false);
 
     useEffect(() => {
@@ -45,12 +45,12 @@ const Countdown = ({quarter, setQuarter, team1Score, team2Score}) => {
     }, [isLive, time]);
     return ( 
         <>
-        <div>
+        <div className="clock">
             <span>{("0"+Math.floor(((time / 60000) % 60))).slice(-2)}:</span>
             <span>{("0"+Math.floor(((time / 1000) % 60))).slice(-2)}:</span>
             <span>{("0"+((time / 10) % 100)).slice(-2)}</span>
         </div>
-        <div>
+        <div className="clock-buttons">
             <button onClick={() => setIsLive(true)}>Start</button>
             <button onClick={() => setIsLive(false)}>Stop</button>
             <button onClick={() => setTime(time + 10000)}>+10sec</button>
