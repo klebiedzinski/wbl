@@ -1,8 +1,9 @@
 import { Team,Player } from "../../Data";
 import { useState } from "react";
+import styles from "./TeamsList.module.scss";
 import { Link } from "react-router-dom";
 import TeamForm from "../TeamForm";
-const Teams = ({teams,setTeams}) => {
+const TeamsList = ({teams,setTeams}) => {
 
 
 
@@ -13,23 +14,23 @@ const Teams = ({teams,setTeams}) => {
 
     return ( 
         <>
-        <h1 className="header">Teams</h1>
-        <div className="teams">
+        <h1 className={styles.header}>Teams</h1>
+        <div className={styles.teams}>
             {teams.map(team => {
                 return(
                     <Link to={`/teams/${team.name}`} key={team.id}>
-                    <div className="team" >
-                        <div className="team-name" >
+                    <div className={styles.team} >
+                        <div className={styles.teamName} >
                         <h1>{team.name}</h1>
                         </div>
-                        <div className="team-img">
+                        <div className={styles.teamImg}>
                         <img src={team.image.src} alt="" />
                         </div>
                     </div>
                     </Link>
                 );
             })}
-        <div className="addTeamForm">
+        <div className={styles.addTeamForm}>
             <button onClick={() => setAddTeamClicked(!addTeamClicked)}>Add team</button>
             {addTeamClicked && <TeamForm setTeams={setTeams} teams={teams}/>}
         </div>
@@ -38,4 +39,4 @@ const Teams = ({teams,setTeams}) => {
      );
 }
  
-export default Teams;
+export default TeamsList;

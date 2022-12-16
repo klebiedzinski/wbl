@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
 import Navbar from "./Components/Navbar/Navbar";
-import Teams from "./Components/Teams/Teams";
+import TeamsList from "./Components/TeamsList/TeamsList";
 import Home from "./Components/Home";
 import TeamOverview from './Components/TeamOverview';
 import NotFound from './Components/NotFound';
@@ -16,7 +16,7 @@ import ypo_pic from "./Data/Teams_pics/ypo_pic.jpg"
 import przecina_pic from "./Data/Teams_pics/przecina_pic.jpg"
 import astrodunkteam_pic from "./Data/Teams_pics/astrodunkteam_pic.jpg"
 import PlayerDetails from './Components/PlayerDetails';
-import ScoreBoard from './Components/Scoreboard';
+import ScoreBoard from './Components/Scoreboard/Scoreboard';
 function App() {
   
   
@@ -54,7 +54,7 @@ const [teams,setTeams] = useState([popowiczki,wieniec,przecina,ypo,astrodunkteam
       <Route path="/" element={ <Home/> }/>
       <Route path="/scoreboard" element={<ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/>}/>
       <Route path={"/teams"}> 
-      <Route index element={<Teams teams={teams} setTeams={setTeams}/>}/>
+      <Route index element={<TeamsList teams={teams} setTeams={setTeams}/>}/>
         <Route path=":name">
           <Route index element={<TeamOverview teams={teams} setTeams={setTeams}/>}/>
           <Route path='PlayersList' element={<PlayersList teams={teams}/>}></Route>

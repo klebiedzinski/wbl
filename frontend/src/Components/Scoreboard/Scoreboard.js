@@ -1,5 +1,6 @@
-import React, { useState,useEffect } from "react";
-import Countdown from "./Countdown";
+import React, { useState } from "react";
+import Countdown from "./utils/Countdown";
+import styles from "./Scoreboard.module.scss";
 const ScoreBoard = ({setIsScoreboardShown}) => {
     
     setIsScoreboardShown(true)
@@ -22,15 +23,15 @@ const ScoreBoard = ({setIsScoreboardShown}) => {
     };
     
     return ( 
-        <div className="ScoreBoard">
-            <div className="header">
+        <div className={styles.ScoreBoard}>
+            <div className={styles.header}>
             
-                <div className="time">
+                <div className={styles.time}>
                     <Countdown quarter={quarter} setQuarter={setQuarter} team1Score={team1Score} team2Score={team2Score}/>
                 </div>
-                <div className="quarter">{quarter}</div>
-                <button className="edit" onClick={() => {(!isLive) ? setIsEditClicked(!isEditClicked) : setIsLive(false)}}>edit</button>
-                {isEditClicked && <div className="edit">
+                <div className={styles.quarter}>{quarter}</div>
+                <button className={styles.edit} onClick={() => {(!isLive) ? setIsEditClicked(!isEditClicked) : setIsLive(false)}}>edit</button>
+                {isEditClicked && <div className={styles.edit}>
                 <select name="quarter" id="quarter" onChange={(e) => setQuarter(e.target.value)} >
                     <option value="1st" on>1st</option>
                     <option value="2nd">2nd</option>
@@ -46,26 +47,26 @@ const ScoreBoard = ({setIsScoreboardShown}) => {
                 </div>}
                
             </div>
-            <div className="content">
-                <div className="team">
-                    <div className="team-leftbar">
+            <div className={styles.content}>
+                <div className={styles.team}>
+                    <div className={styles.teamLeftbar}>
                         <button onClick={() => addPoints(team1,1)}>+1</button>
                         <button onClick={() => addPoints(team1,2)}>+2</button>
                         <button onClick={() => addPoints(team1,3)}>+3</button>
                         <button onClick={() => removePoints(team1,1)}>-1</button>
                     </div>
-                    <div className="team-rightbar">
-                        <div className="team-name">{team1}</div>
-                        <div className="team-score">{team1Score}</div>
+                    <div className={styles.teamRightbar}>
+                        <div className={styles.teamName}>{team1}</div>
+                        <div className={styles.teamScore}>{team1Score}</div>
                     </div>
                 </div>
                 
-                <div className="team">
-                    <div className="team-rightbar">
-                        <div className="team-name">{team2}</div>
-                        <div className="team-score">{team2Score}</div>
+                <div className={styles.team}>
+                    <div className={styles.teamRightbar}>
+                        <div className={styles.teamName}>{team2}</div>
+                        <div className={styles.teamScore}>{team2Score}</div>
                     </div>
-                    <div className="team-leftbar">
+                    <div className={styles.teamLeftbar}>
                         <button onClick={() => addPoints(team2,1)}>+1</button>
                         <button onClick={() => addPoints(team2,2)}>+2</button>
                         <button onClick={() => addPoints(team2,3)}>+3</button>
