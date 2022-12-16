@@ -1,7 +1,7 @@
-import { Team,Player } from "../Data";
+import { Team,Player } from "../../Data";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import TeamForm from "./TeamForm";
+import TeamForm from "../TeamForm";
 const Teams = ({teams,setTeams}) => {
 
 

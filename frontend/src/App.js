@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import Navbar from "./Components/Navbar";
-import Teams from "./Components/Teams";
+import Navbar from "./Components/Navbar/Navbar";
+import Teams from "./Components/Teams/Teams";
 import Home from "./Components/Home";
 import TeamOverview from './Components/TeamOverview';
 import NotFound from './Components/NotFound';

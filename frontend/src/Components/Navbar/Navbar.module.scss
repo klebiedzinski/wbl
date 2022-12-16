@@ -1,0 +1,28 @@
+.navbar {
+    padding-inline: 20px;
+    display: flex;
+    align-items: center;
+    max-width: 80vw;
+    min-height: 10vh;
+    margin: 0 auto;
+    border-bottom: 2px solid #f2f2f2;
+    background-color: white;
+  }
+  .navbar img {
+    width: 10vw;
+  }
+  .navbar .links {
+    margin-left: auto;
+  }
+  .navbar a {
+    @media only screen and (max-width: 700px) {
+      font-size: 4vw;
+    }
+    margin-left: 1vw;
+    text-decoration: none;
+    padding-inline: 6px;
+    font-size: 2vw;
+  }
+  .navbar a:hover {
+    color: #f1356d;
+  }
