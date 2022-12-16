@@ -1,6 +1,8 @@
 import React, { useState,useEffect } from "react";
 import Countdown from "./Countdown";
-const ScoreBoard = () => {
+const ScoreBoard = ({setIsScoreboardShown}) => {
+    
+    setIsScoreboardShown(true)
     const [quarter, setQuarter] = useState("1st");
     const [team1, setTeam1] = useState("Popowiczki");
     const [team2, setTeam2] = useState("Przecina");

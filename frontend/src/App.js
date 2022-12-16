@@ -8,7 +8,6 @@ import PlayersList from './Components/PlayersList'
 import PlayerForm from './Components/PlayerForm';
 import {Team, Player} from './Data';
 import { useState } from 'react';
-
 //DATA SRCS
 
 import teampopowiczki_pic from "./Data/Teams_pics/teampopowiczki_pic.jpg"
@@ -18,9 +17,9 @@ import przecina_pic from "./Data/Teams_pics/przecina_pic.jpg"
 import astrodunkteam_pic from "./Data/Teams_pics/astrodunkteam_pic.jpg"
 import PlayerDetails from './Components/PlayerDetails';
 import ScoreBoard from './Components/Scoreboard';
-
 function App() {
-
+  
+  
 /////////DATA
       const popowiczki = new Team({
         name: "Popowiczki",
@@ -44,13 +43,16 @@ function App() {
     })
 //////////////////////////
 
+const [isScoreboardShown, setIsScoreboardShown] = useState(false)
+
 const [teams,setTeams] = useState([popowiczki,wieniec,przecina,ypo,astrodunkteam])
   return (
     <>
-    <Navbar/>
+    
+    {!isScoreboardShown && <Navbar/>}
     <Routes>
       <Route path="/" element={ <Home/> }/>
-      <Route path="/scoreboard" element={<ScoreBoard/>}/>
+      <Route path="/scoreboard" element={<ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/>}/>
       <Route path={"/teams"}> 
       <Route index element={<Teams teams={teams} setTeams={setTeams}/>}/>
         <Route path=":name">

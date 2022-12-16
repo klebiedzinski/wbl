@@ -3,8 +3,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const teamsRoutes = require('./routes/teams');
 const playersRoutes = require('./routes/players');
+const cors = require('cors');
 
 const app = express();
+
+//enable all cors requests
+app.use(cors());
+
 
 //middleware
 app.use(express.json());
