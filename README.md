@@ -1,3 +1,3 @@
 # wbl
 
-[production page](https://www.wbl.klebiedzinski.pl)
+[production page](https://wbl.klebiedzinski.pl)
