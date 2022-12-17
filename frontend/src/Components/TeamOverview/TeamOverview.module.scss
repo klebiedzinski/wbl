@@ -1,0 +1,57 @@
+.teamOverview{
+    a{
+      margin: 1%;
+    }
+    margin-top: 1vh;
+    width: 80vw;
+    padding: 20px;
+    margin-inline: auto;
+    background-color: white;
+    .teamInfo{
+      .teamInfoHeader{
+        h1{
+          text-align: center;
+          padding-bottom: 1vw;
+        }
+        border-bottom: 2px solid whitesmoke;
+      }
+      .teamInfoContainer{
+        @media only screen and (max-width: 900px) {
+          flex-wrap: wrap;
+          .teamLogo, .contact, .teamImage{
+            flex-basis: 90%;
+          }
+        }
+        padding-top: 1vw;
+        display: flex;
+        justify-content: space-around;
+        .teamLogo{
+          max-width: fit-content;
+          img{
+            width: 20vw;
+          }
+          
+        }
+        .contact{
+          width: 20%;
+          h1{
+            text-align: center;
+          }
+        }
+        .teamImage{
+          border: 1px solid whitesmoke;
+          width: 50%;
+          margin:auto;
+          text-align: center;
+        }
+      }
+      
+    }
+    .roster{
+      text-align: center;
+      padding: 1vw;
+      margin-top: 5vh;
+    }
+    
+  }
+  
