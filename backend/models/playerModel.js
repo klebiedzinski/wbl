@@ -13,17 +13,22 @@ const playerSchema = new Schema({
     picture: {
         type: String,
         required: false,
-        default: "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png"
+        default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/player.png"
     },
     yearOfBirth: {
-        type: Number,
+        type: String, // not sure what type to put here
         required: true
     },
+    
     career: {
         type: Array,
         required: false
-
-    }
+    },
+    
+    teamName: {
+        type: String,
+        required: false
+    },
 
 }, { timestamps: true });
 

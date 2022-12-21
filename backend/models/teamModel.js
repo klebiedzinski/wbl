@@ -10,12 +10,12 @@ const teamSchema = new Schema({
     logo: {
         type: String,
         required: false,
-        default: "https://drive.google.com/file/d/1A-JJkijOkz-eIU2lMpIN9AaN6rP-n59r/view?usp=sharing"
+        default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/wbl.png"
 
     },
     players: {
         type: [playerModel],
-        required: true,
+        required: false,
         default: []
     },
     games: {

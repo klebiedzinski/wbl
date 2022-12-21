@@ -1,29 +1,23 @@
 const express = require('express');
+const { addPlayer, getAllPlayers, getSinglePlayer, deletePlayer, updatePlayer, getPlayersByTeam } = require('../controllers/playerController');
 const router = express.Router();
 
 //get all players
-router.get('/', (req,res) => {
-    res.json({mssg: "Get all players"});
-});
+router.get('/', getAllPlayers);
 
 //get single player
-router.get('/:id', (req,res) => {
-    res.json({mssg: "Get single player"});
-});
+router.get('/:id', getSinglePlayer);
+
+//get players by team
+router.get('/team/:id', getPlayersByTeam);
 
 //add player
-router.post('/', async (req,res) => {
-
-});
+router.post('/', addPlayer);
 
 //update player
-router.patch('/:id', (req,res) => {
-    res.json({mssg: "Update player"});
-});
+router.patch('/:id', updatePlayer);
 
 //delete player
-router.delete('/:id', (req,res) => {
-    res.json({mssg: "Delete player"});
-});
+router.delete('/:id', deletePlayer);
 
 module.exports = router;
