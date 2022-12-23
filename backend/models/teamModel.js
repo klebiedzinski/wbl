@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-import playerModel from './playerModel';
+const playerModel = require('./playerModel');
+const gameModel = require('./gameModel');
 const Schema = mongoose.Schema;
 
 const teamSchema = new Schema({
@@ -13,16 +14,6 @@ const teamSchema = new Schema({
         default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/wbl.png"
 
     },
-    players: {
-        type: [playerModel],
-        required: false,
-        default: []
-    },
-    games: {
-        type: [gameModel],
-        required: false,
-        default: []
-    },
     wins: {
         type: Number,
         required: false,
@@ -35,3 +26,5 @@ const teamSchema = new Schema({
     },
 
 }, { timestamps: true });
+
+module.exports = mongoose.model('Team', teamSchema);

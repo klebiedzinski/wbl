@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const gameSchema = new Schema({
     status: {
-        type: "scheduled" | "live" | "done",
+        type: String,
         required: false,
         default: "scheduled"
     },
