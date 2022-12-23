@@ -1,20 +1,21 @@
 import { Link, useParams } from "react-router-dom";
-import PlayerForm from "../PlayerForm";
-import PlayersList from "../PlayersList/PlayersList";
+import PlayersList from "../../Components/PlayersList/PlayersList";
 import styles from "./TeamOverview.module.scss"
-const TeamOverview = ({teams, setTeams}) => {
-    const {name} = useParams()
-    const targetTeam = teams.find(el => el.name===name)
+import useFetch from "../../hooks/useFetch";
+const TeamOverview = () => {
+    const {id} = useParams()
+    const {data: team, isLoading, error} = useFetch('/teams/' + id)
+    
     return ( 
         <>
         <div className={styles.teamOverview}>
             <div className={styles.teamInfo}>
                 <div className={styles.teamInfoHeader}>
-                    <h1 className={styles.teamName}>Team {targetTeam.name}</h1>
+                   {team ? <h1 className={styles.teamName}>Team {team.team.name}</h1> : <h1 className={styles.teamName}>Loading...</h1>}
                 </div>
                 <div className={styles.teamInfoContainer}>
                     <div className={styles.teamLogo}>
-                        <img src={targetTeam.image.src} alt="" />
+                        {team && <img src={team.team.logo} alt="" />}
                     </div>
                     <div className={styles.contact}>
                         <h1>Kontakt</h1>
@@ -24,10 +25,8 @@ const TeamOverview = ({teams, setTeams}) => {
                     </div>
                 </div>
             </div>
-            <PlayersList teams={teams}/>
-            <Link to={`/teams/${targetTeam.name}/PlayerForm`}>Add player</Link>
-            <Link to={`/teams/${targetTeam.name}/PlayersList`}>Players</Link>
         </div>
+        <PlayersList/>
         </>
      );
 }

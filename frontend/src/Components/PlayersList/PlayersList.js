@@ -1,24 +1,34 @@
 import { Link, useParams } from "react-router-dom"
 import styles from "./PlayersList.module.scss"
+import useFetch from "../../hooks/useFetch";
 
-const PlayersList = ({teams}) => {
-    const {name} = useParams();
-    const team = teams.find(team => team.name === name)
+const PlayersList = () => {
+    const {id} = useParams();
+    const {data: players, isLoading, error} = useFetch('/players/team/' + id)
+
     return ( 
+        <>
+
         <div className={styles.playersList}>
-        <h1 className={styles.roster}>Roster - w zadaniu lab06 jako notesList</h1>
-        <div className={styles.teamPlayers}>
-            {team.players.map(player =>{
-                return (
-                    <Link to={`/teams/${team.name}/${player.id}`} className={styles.player} key={player.id}>
-                        <img src={player.image.src} alt="" className={styles.playerImg} />
-                        <h5>{player.firstName}</h5>
-                        <h5>{player.lastName}</h5>
-                    </Link>
-                );
-            })}
+            <h1 className={styles.roster}></h1>
+            <div className={styles.teamPlayers}>
+                {isLoading && <div>Loading...</div>}
+                {players && players.players.map(player =>{
+                    return (
+                        <Link to={`/teams/${id}/${player._id}`} className={styles.player} key={player._id}>
+                            <img src={player.picture} alt="" className={styles.playerImg} />
+                            <h5>{player.firstName}</h5>
+                            <h5>{player.lastName}</h5>
+                        </Link>
+                    );
+                })}
+                <Link to={`/teams`} className={styles.player}>
+                            <img src={"/plus-icon.png"} alt="" className={styles.playerImg} />
+                            <h5>Add Player</h5>
+                </Link>
+            </div>
         </div>
-        </div>
+        </>
      );
 }
  

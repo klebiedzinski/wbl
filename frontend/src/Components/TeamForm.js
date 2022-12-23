@@ -1,7 +1,5 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Team,Player } from "../Data";
-import wbl from "../Data/Teams_pics/wbl.jpg"
 
 import * as Yup from 'yup'
 const TeamForm = ({setTeams, teams }) => {
@@ -24,12 +22,12 @@ const TeamForm = ({setTeams, teams }) => {
             window.alert("Dodano!")
             console.log(values)
             setIsSubmitClicked(false)
-            const newTeam = new Team({
-                name: formik.values.name,
-                src: formik.values.image || wbl
-            })
-            console.log(newTeam)
-            setTeams([...teams,newTeam])
+            // const newTeam = new Team({
+            //     name: formik.values.name,
+            //     src: formik.values.image || wbl
+            // })
+            // console.log(newTeam)
+            // setTeams([...teams,newTeam])
             
         }
     })
