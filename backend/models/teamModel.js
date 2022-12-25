@@ -6,7 +6,8 @@ const Schema = mongoose.Schema;
 const teamSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     logo: {
         type: String,

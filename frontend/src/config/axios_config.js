@@ -1,10 +1,13 @@
-import axios from "axios";
+
+import axios from 'axios';
+
 const axiosInstance = axios.create({
-    baseURL: `${window._env_.BACKEND_URL}`,
-    headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
-    }
+  baseURL: `${window._env_.BACKEND_URL}`
 });
+
+axiosInstance.interceptors.response.use(response => {
+  response.headers['Access-Control-Allow-Origin'] = `*`;
+  return response;
+});
+
 export default axiosInstance;

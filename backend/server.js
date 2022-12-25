@@ -8,7 +8,12 @@ const cors = require('cors');
 const app = express();
 
 //enable all cors requests
-app.use(cors());
+app.use(
+  cors({
+    origin: '*',    
+  })
+);
+
 
 
 //middleware

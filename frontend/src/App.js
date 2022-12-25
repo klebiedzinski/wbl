@@ -4,12 +4,12 @@ import TeamsList from "./Pages/TeamsList/TeamsList";
 import Home from "./Pages/Home";
 import TeamOverview from './Pages/TeamOverview/TeamOverview';
 import NotFound from './Pages/NotFound';
-import PlayersList from './Components/PlayersList/PlayersList'
-// import PlayerForm from './Components/PlayerForm';
+import PlayersList from './Components/PlayersList/PlayersList';
+import PlayerForm from './Components/PlayerForm';
 import { useState } from 'react';
 import PlayerOverview from './Pages/PlayerOverview/PlayerOverview';
 import ScoreBoard from './Pages/Scoreboard/Scoreboard';
-import useFetch from './hooks/useFetch';
+import TeamForm from './Components/TeamForm';
 
 function App() {
   
@@ -26,10 +26,11 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
       <Route path="/scoreboard" element={<ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/>}/>
       <Route path={"/teams"}> 
       <Route index element={<TeamsList />}/>
+        <Route path="TeamForm" element={<TeamForm/>}> </Route>
         <Route path=":id">
           <Route index element={<TeamOverview/>}/>
           <Route path='PlayersList' element={<PlayersList/>}></Route>
-          {/* <Route path='PlayerForm' element={<PlayerForm teams={teams} />}></Route> */}
+          <Route path='PlayerForm' element={<PlayerForm/>}></Route>
           <Route path=':player_id' element={<PlayerOverview/>}/>
         </Route>
       </Route>

@@ -1,21 +1,16 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import { Team,Player } from "../Data";
-import player from "../Data/player.jpg"
 import { useParams } from "react-router-dom";
 import * as Yup from 'yup'
 
 const PlayerForm = ({setTeams, teams}) => {
-    const {name} = useParams();
-    const targetTeam = teams.find(el => el.name===name)
-    console.log(targetTeam)
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const formik = useFormik({
         initialValues: {
             firstName: "",
             lastName: "",
             age: 0,
-            image: player
+            
             
         },
         validationSchema: Yup.object({
@@ -33,23 +28,8 @@ const PlayerForm = ({setTeams, teams}) => {
         onSubmit: (values) => {
             window.alert("Dodano!")
             setIsSubmitClicked(false)
-            const newPlayer = new Player({
-                firstName: values.firstName,
-                lastName: values.lastName,
-                age: values.age,
-                src: values.image
-            })
-            const updatedPlayersList = [...targetTeam.players, newPlayer]
-            const newTeams = teams.map(team => {
-                if (team.id === targetTeam.id) return new Team({
-                    name: targetTeam.name,
-                    id: targetTeam.id,
-                    src: targetTeam.image.src,
-                    players: updatedPlayersList
-                })
-                return team
-            })
-            setTeams(newTeams)
+           
+            
 
         }
     })

@@ -22,8 +22,8 @@ const PlayersList = () => {
                         </Link>
                     );
                 })}
-                <Link to={`/teams`} className={styles.player}>
-                            <img src={"/plus-icon.png"} alt="" className={styles.playerImg} />
+                <Link to={`/teams/${id}/PlayerForm`} className={styles.player}>
+                            <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
                             <h5>Add Player</h5>
                 </Link>
             </div>

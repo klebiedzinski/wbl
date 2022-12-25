@@ -23,6 +23,14 @@ const TeamOverview = () => {
                     <div className={styles.teamImage}>
                         Team pic
                     </div>
+                    <div className={styles.editBtn}>
+                        <Link to={`/teams/${id}/TeamForm`}>
+                            <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" />
+                        </Link>
+                    </div>
+                    <div className={styles.removeBtn}>
+                        <img src="https://wbl.klebiedzinski.pl/photos/icons/remove-icon.png" alt="" />
+                    </div>
                 </div>
             </div>
         </div>

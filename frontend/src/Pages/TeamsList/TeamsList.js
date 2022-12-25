@@ -30,13 +30,13 @@ const TeamsList = () => {
                 );
             })}
         {teams && 
-            <Link to={`/teams`}>
+            <Link to={`/teams/TeamForm`}>
             <div className={styles.team} >
                 <div className={styles.teamName} >
                 <h1>Add team</h1>
                 </div>
                 <div className={styles.teamImg}>
-                <img src={"/plus-icon.png"} alt="" />
+                <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" />
                 </div>
             </div>
             </Link>}

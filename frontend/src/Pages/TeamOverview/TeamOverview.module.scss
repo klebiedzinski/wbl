@@ -54,4 +54,15 @@
     }
     
   }
+  //edit btn to be small in right corner of team info
+  .editBtn, .removeBtn{
+    margin: 1vw;
+    img{
+      &:hover{
+        background-color: red;
+      }
+      width: 2vw;
+    }
   
+  }
+ 
