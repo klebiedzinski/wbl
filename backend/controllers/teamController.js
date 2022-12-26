@@ -59,7 +59,7 @@ const deleteTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid team ID"});
     }
-    const team = await Team.findOneAndDelete({_id: req.id});
+    const team = await Team.findOneAndDelete({_id: req.params.id});
     if (!team) {
         return res.status(404).json({error: "Team not found"});
     }

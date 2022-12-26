@@ -1,11 +1,15 @@
 import { Link, useParams } from "react-router-dom";
+import { useState } from "react";
 import PlayersList from "../../Components/PlayersList/PlayersList";
 import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
+import TeamEditModal from "../../Components/TeamEditModal/TeamEditModal";
+import axiosInstance from "../../config/axios_config";
 const TeamOverview = () => {
     const {id} = useParams()
     const {data: team, isLoading, error} = useFetch('/teams/' + id)
-    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
     return ( 
         <>
         <div className={styles.teamOverview}>
@@ -24,16 +28,13 @@ const TeamOverview = () => {
                         Team pic
                     </div>
                     <div className={styles.editBtn}>
-                        <Link to={`/teams/${id}/TeamForm`}>
-                            <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" />
-                        </Link>
+                        <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" onClick={() => setIsModalOpen(true)}/>
                     </div>
-                    <div className={styles.removeBtn}>
-                        <img src="https://wbl.klebiedzinski.pl/photos/icons/remove-icon.png" alt="" />
-                    </div>
+
                 </div>
             </div>
         </div>
+        {isModalOpen && <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id}/>}
         <PlayersList/>
         </>
      );
