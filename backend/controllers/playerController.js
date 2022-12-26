@@ -1,4 +1,5 @@
 const Player = require('../models/playerModel');
+const Team = require('../models/teamModel');
 const mongoose = require('mongoose');
 //get all players
 const getAllPlayers = async (req, res) => {
@@ -29,7 +30,10 @@ const getPlayersByTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid team ID"});
     }
-    const players = await Player.find({currentTeamId: req.params.id});
+    // find team by id
+    const team = await Team.findById(req.params.id);
+
+    const players = await Player.find({teamName: team.name});
     if (!players) {
         return res.status(404).json({error: "Players not found"});
     }
