@@ -1,35 +1,65 @@
 .navbar {
-    padding-inline: 20px;
-    display: flex;
-    align-items: center;
-    max-width: 80vw;
+  padding-inline: 20px;
+  display: flex;
+  align-items: center;
+  max-width: 80vw;
+  @media screen and (max-width: 700px) {
+    max-width: 100vw;
+  }
+  min-height: 10vh;
+  margin: 0 auto;
+  border-bottom: 2px solid #f2f2f2;
+  background-color: white;
+  img {
+    width: 200px;
     @media screen and (max-width: 700px) {
-      max-width: 100vw;
+      width: 100px;
     }
-    min-height: 10vh;
-    margin: 0 auto;
-    border-bottom: 2px solid #f2f2f2;
+    
+  }
+  .links {
+    margin-left: auto;
+  }
+  a {
+    @media only screen and (max-width: 700px) {
+      font-size: 4vw;
+    }
+    margin-left: 1vw;
+    text-decoration: none;
+    padding-inline: 6px;
+    font-size: 2vw;
+  }
+  a:hover {
+    color: #f1356d;
+  }
+}
+
+.auth{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 15vw;
+  @media only screen and (max-width: 700px) {
+    width: 30vw;
+  }
+  .login{
+    background-color: #f1356d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .login:hover{
+    background-color: #d32f6c;
+  }
+  .signup{
     background-color: white;
-    img {
-      width: 200px;
-      @media screen and (max-width: 700px) {
-        width: 100px;
-      }
-      
-    }
-    .links {
-      margin-left: auto;
-    }
-    a {
-      @media only screen and (max-width: 700px) {
-        font-size: 4vw;
-      }
-      margin-left: 1vw;
-      text-decoration: none;
-      padding-inline: 6px;
-      font-size: 2vw;
-    }
-    a:hover {
-      color: #f1356d;
-    }
+    color: #f1356d;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+  }
+  .signup:hover{
+    background-color: #f2f2f2;
+  } 
 }

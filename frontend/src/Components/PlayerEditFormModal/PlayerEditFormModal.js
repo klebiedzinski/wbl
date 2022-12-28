@@ -195,7 +195,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
             <div className={styles.deleteConfirmation}>
                 <h2>Zawodnik został usunięty</h2>
                 <div className={styles.deleteConfirmationBtns}>
-                    <button className="submit-btn" onClick={() => window.location.replace('wbl.klebiedzinski.pl/teams')}>OK</button>
+                    <button className="submit-btn" onClick={() => window.location.replace('/')}>OK</button>
                 </div>
             </div> }
         </div>

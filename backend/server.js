@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const teamsRoutes = require('./routes/teams');
 const playersRoutes = require('./routes/players');
+const userRoutes = require('./routes/user');
 const cors = require('cors');
 
 const app = express();
@@ -22,6 +23,8 @@ app.use(express.json());
 //routes
 app.use('/api/teams', teamsRoutes);
 app.use('/api/players', playersRoutes);
+app.use('/api/user', userRoutes);
+
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)

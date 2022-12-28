@@ -22,9 +22,9 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     <Routes>
       <Route path="/" element={ <Home/> }/>
       <Route path="/players">
+      <Route path='/players/PlayerForm' element={<PlayerForm/>}></Route>
         <Route index element={<Players/>}/>
         <Route path=":player_id" element={<PlayerOverview/>}/>
-        <Route path='PlayerForm' element={<PlayerForm/>}></Route>
       </Route> 
       <Route path="/teams"> 
       <Route index element={<TeamsList />}/>

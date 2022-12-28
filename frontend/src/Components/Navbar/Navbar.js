@@ -10,6 +10,11 @@ const Navbar = () => {
                 <Link to="/teams">Teams</Link>
                 <Link to="/players">Players</Link>
                 <Link to="/games">Games</Link>
+        
+            </div>
+            <div className={styles.auth}>
+                <Link to="/login" className={styles.login}>Login</Link>
+                <Link to="/signup" className={styles.signup}>Sign up</Link>
             </div>
         </nav>
      );

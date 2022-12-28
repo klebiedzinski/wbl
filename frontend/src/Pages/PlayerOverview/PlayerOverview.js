@@ -6,8 +6,8 @@ import PlayerEditFormModal from "../../Components/PlayerEditFormModal/PlayerEdit
 import { useState } from "react";
 const PlayerOverview = () => {
 
-    const {data: player, isLoading, error} = useFetch('/players/' + player_id)
     const {player_id} = useParams()
+    const {data: player, isLoading, error} = useFetch('/players/' + player_id)
     const [isModalOpen, setIsModalOpen] = useState(false);
     return ( 
         <>
