@@ -29,6 +29,9 @@
           max-width: fit-content;
           img{
             width: 20vw;
+            @media only screen and (max-width: 700px) {
+              width: 40vw;
+            }
           }
           
         }
@@ -55,13 +58,13 @@
     
   }
   //edit btn to be small in right corner of team info
-  .editBtn, .removeBtn{
+  .editBtn{
     margin: 1vw;
     img{
       &:hover{
         background-color: red;
       }
-      width: 2vw;
+      width: 5vw;
     }
   
   }

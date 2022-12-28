@@ -1,10 +1,9 @@
 import { Link, useParams } from "react-router-dom";
 import { useState } from "react";
-import PlayersList from "../../Components/PlayersList/PlayersList";
+import PlayersList from "../../Components/TeamPlayersList/TeamPlayersList";
 import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
 import TeamEditModal from "../../Components/TeamEditModal/TeamEditModal";
-import axiosInstance from "../../config/axios_config";
 const TeamOverview = () => {
     const {id} = useParams()
     const {data: team, isLoading, error} = useFetch('/teams/' + id)

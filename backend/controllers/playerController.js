@@ -31,8 +31,8 @@ const getPlayersByTeam = async (req, res) => {
         return res.status(404).json({error: "Invalid team ID"});
     }
     // find team by id
-    const team = await Team.findById(req.params.id);
-
+    const team = await Team.find({_id: req.params.id});
+    console.log(team);
     const players = await Player.find({teamName: team.name});
     if (!players) {
         return res.status(404).json({error: "Players not found"});
@@ -43,8 +43,15 @@ const getPlayersByTeam = async (req, res) => {
 
 // add player
 const addPlayer = async (req, res) => {
-    const { firstName, lastName, picture, yearOfBirth, currentTeamId, career } = req.body;
-    
+    const { firstName, lastName, picture, yearOfBirth, teamName, career } = req.body;
+    // check if team exists
+    const team = await Team.findOne({name: teamName});
+    if (!team) {
+        return res.status(404).json({error: "Team not found"});
+    }
+    const currentTeamId = team._id;
+    console.log(currentTeamId);
+
 // add document to database
     try {
         const player = await Player.create({

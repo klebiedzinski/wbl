@@ -1,8 +1,9 @@
 import { useState } from "react";
 import styles from "./TeamsList.module.scss";
 import { Link } from "react-router-dom";
-import TeamForm from "../../Components/TeamForm";
+import TeamForm from "../../Components/TeamForm/TeamForm";
 import useFetch from "../../hooks/useFetch";
+import ClipLoader from "react-spinners/ClipLoader";
 const TeamsList = () => {
 
     const {data: teams, isLoading, error} = useFetch('/teams')
@@ -13,8 +14,14 @@ const TeamsList = () => {
     return ( 
         <>
         <h1 className={styles.header}>Teams</h1>
-        {isLoading && <div>Loading...</div>}
-        <div className={styles.teams}>
+        {isLoading &&  <ClipLoader
+                    loading={isLoading}
+                    size={50}
+                    aria-label="Loading Spinner"
+                    data-testid="loader"
+                />
+        }
+        {teams && <div className={styles.teams}>
             {teams && teams.teams.map(team => {
                 return(
                     <Link to={`/teams/${team._id}`} key={team._id}>
@@ -40,7 +47,7 @@ const TeamsList = () => {
                 </div>
             </div>
             </Link>}
-        </div>
+        </div>}
         </>
      );
 }

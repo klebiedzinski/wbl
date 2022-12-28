@@ -22,11 +22,54 @@ body{
     }
 }
 
-.addTeamForm{
-  float: right;
-}
+
 
 h2{
   background-color: gray;
   text-align: center;
 }
+
+// remove all styling from select
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><path fill='%23bdc3c7' d='M7.41 7.83L12 12.42l4.59-4.59L18 9.25l-6 6-6-6z'/></svg>") no-repeat right 0.75rem center;
+  background-size: 1rem auto;
+  padding-right: 3rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+
+
+
+
+input,select{
+  margin: 1vw;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1vw;
+  width: 30vw;
+}
+.submit-btn{
+  background-color: #2ECC71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover{
+      background-color: #27AE60;
+  }
+}
+

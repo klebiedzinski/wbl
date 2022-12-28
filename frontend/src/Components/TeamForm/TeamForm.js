@@ -1,33 +1,30 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import axiosInstance from "../config/axios_config";
-
+import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
-const TeamForm = ({setTeams, teams }) => {
+import styles from "./TeamForm.module.scss"
+const TeamForm = () => {
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
     const formik = useFormik({
         initialValues: {
             name: "",
-            link: "",
+            link: "https://wbl.klebiedzinski.pl/photos/sample_pictures/wbl.png",
         },
         validationSchema: Yup.object({
             name: Yup.string()
                 .required("Podaj nazwę drużyny"),
             link: Yup.string()
-                .required("Podaj link do logo, zaczynając od https://wbl.klebiedzinski.pl/photos/")
             
         }),
         onSubmit: (values) => {
             setIsSubmitClicked(false)
-            
-            
-
             axiosInstance.post('/teams', {
                 name: values.name,
                 logo: values.link,
             })
             .then((response) => {
+                console.log(response)
                 if (response.status === 200) {
                     setIsAdded(true)
                     console.log("Dodano drużynę")
@@ -43,7 +40,7 @@ const TeamForm = ({setTeams, teams }) => {
         }
     })
     return ( 
-        <div className="TeamForm">
+        <div className={styles.TeamForm}>
             <form onSubmit={formik.handleSubmit}>
                 <div className="input-container">
                     <input 

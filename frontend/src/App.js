@@ -4,18 +4,16 @@ import TeamsList from "./Pages/TeamsList/TeamsList";
 import Home from "./Pages/Home";
 import TeamOverview from './Pages/TeamOverview/TeamOverview';
 import NotFound from './Pages/NotFound';
-import PlayersList from './Components/PlayersList/PlayersList';
-import PlayerForm from './Components/PlayerForm';
+import PlayersList from './Components/TeamPlayersList/TeamPlayersList';
+import PlayerForm from './Components/PlayerForm/PlayerForm';
 import { useState } from 'react';
 import PlayerOverview from './Pages/PlayerOverview/PlayerOverview';
 import ScoreBoard from './Pages/Scoreboard/Scoreboard';
-import TeamForm from './Components/TeamForm';
-
+import TeamForm from './Components/TeamForm/TeamForm';
+import Players from './Pages/Players/Players';
 function App() {
   
 const [isScoreboardShown, setIsScoreboardShown] = useState(false)
-
-  // const {data: teams, isLoading, error} = useFetch('http://localhost:4001/teams')
 
   return (
     <>
@@ -23,17 +21,21 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     {!isScoreboardShown && <Navbar/>}
     <Routes>
       <Route path="/" element={ <Home/> }/>
-      <Route path="/scoreboard" element={<ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/>}/>
-      <Route path={"/teams"}> 
+      <Route path="/players">
+        <Route index element={<Players/>}/>
+        <Route path=":player_id" element={<PlayerOverview/>}/>
+        <Route path='PlayerForm' element={<PlayerForm/>}></Route>
+      </Route> 
+      <Route path="/teams"> 
       <Route index element={<TeamsList />}/>
         <Route path="TeamForm" element={<TeamForm/>}> </Route>
         <Route path=":id">
           <Route index element={<TeamOverview/>}/>
           <Route path='PlayersList' element={<PlayersList/>}></Route>
-          <Route path='PlayerForm' element={<PlayerForm/>}></Route>
           <Route path=':player_id' element={<PlayerOverview/>}/>
         </Route>
       </Route>
+      <Route path="/scoreboard" element={<ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/>}/>
 
       <Route path='*' element={<NotFound/>}/>
     </Routes>
