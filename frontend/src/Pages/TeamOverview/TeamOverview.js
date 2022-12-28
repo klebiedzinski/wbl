@@ -33,7 +33,9 @@ const TeamOverview = () => {
                 </div>
             </div>
         </div>
-        {isModalOpen && <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id}/>}
+        {isModalOpen && 
+        <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id}/>
+        }
         <PlayersList/>
         </>
      );

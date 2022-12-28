@@ -13,23 +13,24 @@ const getAllTeams = async (req, res) => {
 
 // get single team
 const getSingleTeam = async (req, res) => {
-        
-        if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-            return res.status(404).json({error: "Invalid team ID"});
-        }
-        const team = await Team.findById(req.params.id);
-        if (!team) {
-            return res.status(404).json({error: "Team not found"});
-        }
-        
-        return res.status(200).json({team});
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({error: "Invalid team ID"});
+    }
+    // find team by id
+    const team = await Team.findById(req.params.id);
+    if (!team) {
+        return res.status(404).json({error: "Team not found"});
+    }
+    
+    return res.status(200).json({team});
         
 }
 
 // add team
 const addTeam = async (req, res) => {
     const {name, logo, wins, loses} = req.body;
-    // add document to database
+
+    // add team to database
     try {
         const team = await Team.create({
             name,
@@ -47,6 +48,8 @@ const updateTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid team ID"});
     }
+
+    // grab team by id and update
     const team = await Team.findOneAndUpdate({_id: req.params.id},{...req.body});
     if (!team) {
         return res.status(404).json({error: "Team not found"});
@@ -59,10 +62,13 @@ const deleteTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid team ID"});
     }
+
+    // grab team by id and delete
     const team = await Team.findOneAndDelete({_id: req.params.id});
     if (!team) {
         return res.status(404).json({error: "Team not found"});
     }
+    
     return res.status(200).json({team});
 }
 

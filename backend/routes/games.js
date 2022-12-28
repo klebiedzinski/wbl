@@ -1,4 +1,3 @@
-// set up games routes just like players and teams
 const express = require('express');
 const router = express.Router();
 

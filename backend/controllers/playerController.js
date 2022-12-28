@@ -1,6 +1,7 @@
 const Player = require('../models/playerModel');
 const Team = require('../models/teamModel');
 const mongoose = require('mongoose');
+
 //get all players
 const getAllPlayers = async (req, res) => {
     try {
@@ -10,29 +11,31 @@ const getAllPlayers = async (req, res) => {
         res.status(400).json({error: error.message});
     }
 }
+
 // get single player
 const getSinglePlayer = async (req, res) => {
-    
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid player ID"});
     }
+
+    // find player by id
     const player = await Player.findById(req.params.id);
     if (!player) {
         return res.status(404).json({error: "Player not found"});
     }
     
     return res.status(200).json({player});
-    
 } 
 
-//get players by team
+// get players by team
 const getPlayersByTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid team ID"});
     }
+
     // find team by id
     const team = await Team.find({_id: req.params.id});
-    console.log(team);
+    // find players by team name
     const players = await Player.find({teamName: team.name});
     if (!players) {
         return res.status(404).json({error: "Players not found"});
@@ -44,15 +47,16 @@ const getPlayersByTeam = async (req, res) => {
 // add player
 const addPlayer = async (req, res) => {
     const { firstName, lastName, picture, yearOfBirth, teamName, career } = req.body;
-    // check if team exists
+
+    // find team by name
     const team = await Team.findOne({name: teamName});
+    // check if team exists
     if (!team) {
         return res.status(404).json({error: "Team not found"});
     }
     const currentTeamId = team._id;
-    console.log(currentTeamId);
 
-// add document to database
+    // add document to database
     try {
         const player = await Player.create({
             firstName,
@@ -64,7 +68,7 @@ const addPlayer = async (req, res) => {
         });
         res.status(200).json({player});
     } catch (err) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -73,9 +77,12 @@ const updatePlayer = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid player ID"});
     }
+
+    // grab player by id and update
     const player = await Player.findOneAndUpdate({_id: req.params.id}, {
         ...req.body
     })
+    // check if player exists
     if (!player) {
         return res.status(404).json({error: "Player not found"});
     }
@@ -88,6 +95,7 @@ const deletePlayer = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid player ID"});
     }
+    //grab player by id and delete
     const player = await Player.findByIdAndDelete(req.params.id);
     if (!player) {
         return res.status(404).json({error: "Player not found"});

@@ -4,8 +4,10 @@ import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamForm.module.scss"
 const TeamForm = () => {
+
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
+
     const formik = useFormik({
         initialValues: {
             name: "",
@@ -15,7 +17,7 @@ const TeamForm = () => {
             name: Yup.string()
                 .required("Podaj nazwę drużyny"),
             link: Yup.string()
-            
+                .required("Podaj link do logo, zaczynając od https://wbl.klebiedzinski.pl/photos/")
         }),
         onSubmit: (values) => {
             setIsSubmitClicked(false)
@@ -24,24 +26,21 @@ const TeamForm = () => {
                 logo: values.link,
             })
             .then((response) => {
-                console.log(response)
                 if (response.status === 200) {
                     setIsAdded(true)
-                    console.log("Dodano drużynę")
                 }
                 
-            }
-            )
+            })
             .catch((error) => {
                 console.log(error)
-            }
-            )
-            
+            })
         }
     })
     return ( 
         <div className={styles.TeamForm}>
+
             <form onSubmit={formik.handleSubmit}>
+
                 <div className="input-container">
                     <input 
                     type="text"
@@ -51,7 +50,9 @@ const TeamForm = () => {
                     value={formik.values.name}
                     onChange={formik.handleChange}
                     />
-                    { isSubmitClicked && <p className="validation-info">{formik.errors.name}</p>}
+                    { isSubmitClicked && 
+                    <p className="validation-info">{formik.errors.name}</p>
+                    }
                 </div>
                 
                 <div className="input-container">
@@ -63,12 +64,18 @@ const TeamForm = () => {
                     value={formik.values.link}
                     onChange={formik.handleChange}
                     />
-                    { isSubmitClicked && <p className="validation-info">{formik.errors.link}</p>}
+                    { isSubmitClicked && 
+                    <p className="validation-info">{formik.errors.link}</p>
+                    }
                 </div>
 
-                {isSubmitClicked && <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>}
+                {isSubmitClicked && 
+                <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>
+                }
                 <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Submit</button>
-                {isAdded && <h2 className="validation-info">Dodano drużynę</h2>}
+                {isAdded && 
+                <h2 className="validation-info">Dodano drużynę</h2>
+                }
             </form>
         </div>
      );

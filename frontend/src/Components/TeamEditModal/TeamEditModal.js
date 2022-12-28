@@ -4,7 +4,7 @@ import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamEditModal.module.scss"
 
-const TeamEditModal = ({setIsModalOpen, team, isModalOpen, id}) => {
+const TeamEditModal = ({setIsModalOpen, team, id}) => {
 
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -25,20 +25,15 @@ const TeamEditModal = ({setIsModalOpen, team, isModalOpen, id}) => {
                     })
                 })
             }
-        }
-        )
+        })
         .catch(err => {
             console.log(err)
-        }
-        )
+        })
         axiosInstance.delete('/teams/' + id)
         .then(res => {
             if (res.status === 200) {
-                
-
                 // get all matches from team and delete them
             }
-           
             setIsDeleted(true);
         })
         .catch(err => {
@@ -72,25 +67,21 @@ const TeamEditModal = ({setIsModalOpen, team, isModalOpen, id}) => {
                     
                 }
                 
-            }
-            )
+            })
             .catch((error) => {
                 console.log(error)
-            }
-            )
-            
+            })
         }
     })
     return ( 
         <div className={styles.overlayStyle}>
-        <div className={styles.teamEditModal}>
-
+            <div className={styles.teamEditModal}>
             <button className={styles.closeModalBtn} onClick={() => setIsModalOpen(false)}>X</button>
-
             <h1 className="modal-title">Edytuj drużynę</h1>
-
             <div className="TeamForm">
+
                 <form onSubmit={formik.handleSubmit}>
+
                     <div className="input-container">
                         <input 
                         type="text"
@@ -123,23 +114,24 @@ const TeamEditModal = ({setIsModalOpen, team, isModalOpen, id}) => {
             <div className={styles.removeBtn}>
                 <img src="https://wbl.klebiedzinski.pl/photos/icons/remove-icon.png" alt="" onClick={() => setDeleteConfirmation(!deleteConfirmation)} />
             </div>
-            { deleteConfirmation && <div className={styles.deleteConfirmation}>
+            { deleteConfirmation && 
+            <div className={styles.deleteConfirmation}>
                 <h2>Czy na pewno chcesz usunąć drużynę?</h2>
                 <h2>WRAZ ZE WSZYSTKIMI ZAWODNIKAMI NALEŻĄCYMI</h2>
                 <div className={styles.deleteConfirmationBtns}>
                     <button className="submit-btn" onClick={() => deleteTeam()}>Tak</button>
                     <button className="clear-inputs-btn" onClick={() => setDeleteConfirmation(!deleteConfirmation)}>Nie</button>
                 </div>
-            </div> }
-            { isDeleted && <div className={styles.deleteConfirmation}>
+            </div> 
+            }
+            { isDeleted && 
+            <div className={styles.deleteConfirmation}>
                 <h2>Drużyna została usunięta</h2>
                 <div className={styles.deleteConfirmationBtns}>
                     <button className="submit-btn" onClick={() => window.location.replace('wbl.klebiedzinski.pl/teams')}>OK</button>
                 </div>
-            </div> }
-        
-
-            
+            </div> 
+            }
         </div>
         </div>
      );

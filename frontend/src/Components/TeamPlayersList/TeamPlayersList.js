@@ -9,15 +9,17 @@ const TeamPlayersList = () => {
 
     return ( 
         <>
-            {isLoading &&  <ClipLoader
-                    loading={isLoading}
-                    size={50}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                    color="fuchsia"
-                />
-                }
-       { players &&<div className={styles.playersList}>
+        {isLoading &&  
+        <ClipLoader
+            loading={isLoading}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+            color="fuchsia"
+        />
+        }
+       {players &&
+       <div className={styles.playersList}>
             <h1 className={styles.roster}></h1>
             <div className={styles.teamPlayers}>
                 {players && players.players.map(player =>{
@@ -29,12 +31,13 @@ const TeamPlayersList = () => {
                         </Link>
                     );
                 })}
-                <Link to={`/teams/${id}/PlayerForm`} className={styles.player}>
-                            <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
-                            <h5>Add Player</h5>
+                <Link to={`/players/PlayerForm`} className={styles.player}>
+                    <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
+                    <h5>Add Player</h5>
                 </Link>
             </div>
-        </div>}
+        </div>
+        }
         </>
      );
 }

@@ -1,4 +1,3 @@
-// require mongoose and team model
 const mongoose = require('mongoose');
 const teamModel = require('../models/teamModel');
 const Schema = mongoose.Schema;

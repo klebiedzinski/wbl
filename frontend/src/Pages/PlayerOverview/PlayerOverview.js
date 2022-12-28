@@ -4,20 +4,20 @@ import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
 import PlayerEditFormModal from "../../Components/PlayerEditFormModal/PlayerEditFormModal";
 import { useState } from "react";
-const PlayerOverview = ({teams}) => {
-    const {player_id} = useParams()
-    console.log(player_id)
+const PlayerOverview = () => {
 
     const {data: player, isLoading, error} = useFetch('/players/' + player_id)
+    const {player_id} = useParams()
     const [isModalOpen, setIsModalOpen] = useState(false);
     return ( 
         <>
-        {isLoading && <ClipLoader
+        {isLoading && 
+        <ClipLoader
                     loading={isLoading}
                     size={50}
                     aria-label="Loading Spinner"
                     data-testid="loader"
-                />}
+        />}
         {player && 
         <>
         <div className={styles.playerOverview}>
@@ -30,9 +30,11 @@ const PlayerOverview = ({teams}) => {
             <h5>Team: {player.player.teamName}</h5>
             <h5>Age: {player.player.yearOfBirth}</h5>
         </div>
-        </>}
-        {isModalOpen && <PlayerEditFormModal setIsModalOpen={setIsModalOpen} player={player.player} isModalOpen={isModalOpen} />}
-
+        </>
+        }
+        {isModalOpen && 
+        <PlayerEditFormModal setIsModalOpen={setIsModalOpen} player={player.player} isModalOpen={isModalOpen} />
+        }
         </>
      );
 }

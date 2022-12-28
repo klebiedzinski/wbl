@@ -16,7 +16,7 @@ const playerSchema = new Schema({
         default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/player.png"
     },
     yearOfBirth: {
-        type: String, // not sure what type to put here
+        type: String, 
         required: true
     },
     

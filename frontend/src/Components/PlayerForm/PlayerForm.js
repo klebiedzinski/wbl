@@ -9,8 +9,10 @@ import * as Yup from 'yup'
 const PlayerForm = () => {
     
     const { data: teams, isLoading, error} = useFetch('/teams')
+
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
+
     const formik = useFormik({
         initialValues: {
             firstName: "",
@@ -55,13 +57,10 @@ const PlayerForm = () => {
                     setIsAdded(true)
                 }
                 
-            }
-            )
+            })
             .catch((error) => {
                 console.log(error)
-            }
-            )
-
+            })
         }
     })
     return ( 
@@ -72,8 +71,10 @@ const PlayerForm = () => {
                     aria-label="Loading Spinner"
                     data-testid="loader"
                 />}
-        {teams && <div className={styles.playerForm}>
+        {teams && 
+        <div className={styles.playerForm}>
             <form onSubmit={formik.handleSubmit}>
+
                 <div className="input-container">
                     <input 
                     type="text"
@@ -85,6 +86,7 @@ const PlayerForm = () => {
                     />
                     { isSubmitClicked && <p className="validation-info">{formik.errors.firstName}</p>}
                 </div>
+
                 <div className="input-container">
                     <input 
                     type="text"
@@ -96,6 +98,7 @@ const PlayerForm = () => {
                     />
                     { isSubmitClicked && <p className="validation-info">{formik.errors.lastName}</p>}
                 </div>
+
                 <div className="input-container">
                     <input 
                     type="text"
@@ -147,10 +150,13 @@ const PlayerForm = () => {
                     { isSubmitClicked && <p className="validation-info">{formik.errors.teamName}</p>}
                 </div>
 
-
-                {isSubmitClicked && <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>}
+                {isSubmitClicked && 
+                <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>
+                }
                 <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Submit</button>
-                {isAdded && <p className="validation-info">Dodano zawodnika</p>}
+                {isAdded && 
+                <p className="validation-info">Dodano zawodnika</p>
+                }
             </form>
         </div>}
         </>

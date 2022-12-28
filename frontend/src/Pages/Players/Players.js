@@ -9,16 +9,18 @@ const TeamPlayersList = () => {
     
     return ( 
         <>
-         
          <h1>Players</h1>
-         {isLoading &&  <ClipLoader
-                    loading={isLoading}
-                    size={50}
-                    aria-label="Loading Spinner"
-                    data-testid="loader"
-                />
-                }
-        {players && <div className={styles.playersList}>
+         {
+         isLoading &&  
+         <ClipLoader
+            loading={isLoading}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+        />
+        }
+        {players && 
+        <div className={styles.playersList}>
             <h1 className={styles.roster}></h1>
             <div className={styles.teamPlayers}>
                 {players && players.players.map(player =>{
@@ -35,7 +37,8 @@ const TeamPlayersList = () => {
                             <h5>Add Player</h5>
                 </Link>
             </div>
-        </div>}
+        </div>
+        }
         </>
      );
 }
