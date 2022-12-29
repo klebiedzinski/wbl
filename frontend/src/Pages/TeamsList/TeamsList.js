@@ -1,20 +1,27 @@
-import { useState } from "react";
 import styles from "./TeamsList.module.scss";
 import { Link } from "react-router-dom";
-import TeamForm from "../../Components/TeamForm/TeamForm";
-import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
+import { useTeamsContext } from "../../hooks/useTeamsContext";
+import  useFetch  from "../../hooks/useFetch";
+import { useEffect } from "react";
 const TeamsList = () => {
 
-    const {data: teams, isLoading, error} = useFetch('/teams')
-    if (teams) {
-        console.log(teams.teams);
-        console.log(isLoading)
-    }
+    const {teams, dispatch} = useTeamsContext();
+    
+    const {data, isLoading, error} = useFetch('/teams')
+    useEffect(() => {
+        if (data) {
+            dispatch({type: 'SET_TEAMS', payload: data.teams})
+        }
+        
+    }, [data])
+
+    
+
     return ( 
         <>
         <h1 className={styles.header}>Teams</h1>
-        {isLoading &&  <ClipLoader
+        {isLoading && !teams &&  <ClipLoader
                     loading={isLoading}
                     size={50}
                     aria-label="Loading Spinner"
@@ -22,7 +29,7 @@ const TeamsList = () => {
                 />
         }
         {teams && <div className={styles.teams}>
-            {teams && teams.teams.map(team => {
+            {teams && teams.map(team => {
                 return(
                     <Link to={`/teams/${team._id}`} key={team._id}>
                     <div className={styles.team} >

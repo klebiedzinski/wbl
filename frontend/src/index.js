@@ -3,16 +3,15 @@ import ReactDOM from 'react-dom/client';
 import './Styles/index.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './app/store';
+import { TeamsContextProvider } from './context/TeamsContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <TeamsContextProvider>
     <BrowserRouter>
       <App />
     </BrowserRouter>
-    </Provider>
+    </TeamsContextProvider>
   </React.StrictMode>
 );
 
