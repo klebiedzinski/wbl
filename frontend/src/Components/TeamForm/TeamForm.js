@@ -32,7 +32,7 @@ const TeamForm = () => {
                 console.log("Dodano drużynę")
                 if (response.data) {
                     setIsAdded(true)
-                    dispatch({type: "ADD_TEAM", payload: response.data})
+                    dispatch({type: "ADD_TEAM", payload: response.data.team})
                 }
                 
             })

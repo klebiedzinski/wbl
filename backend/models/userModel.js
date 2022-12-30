@@ -24,12 +24,13 @@ const userSchema = new Schema({
 })
 
 // static method to signup
-userSchema.statics.signup = async function(email, password, role, emailConfirmed, adminConfirmed) {
-
-    if(!email || !password || !role) {
+userSchema.statics.signup = async function(email, password,role, emailConfirmed, adminConfirmed) {
+    
+    if(!email || !password  ) {
         throw Error('Email, password and role are required');
     }
     if (!validator.isEmail(email)) {
+        console.log("tera se rzuce errorem i nie bedzie dzialac")
         throw Error('Invalid email');
     }
     if (!validator.isStrongPassword(password)) {
@@ -47,11 +48,10 @@ userSchema.statics.signup = async function(email, password, role, emailConfirmed
     const user = await this.create({
         email,
         password: hash,
-        role,
+        role: "role",
         emailConfirmed: false,
         adminConfirmed: false
-
-    });
+    })
 
     return user;
 }

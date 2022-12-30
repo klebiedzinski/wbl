@@ -3,11 +3,17 @@ import { useState } from "react";
 import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamEditModal.module.scss"
+import {useTeamsContext} from "../../hooks/useTeamsContext";
 
-const TeamEditModal = ({setIsModalOpen, team, id}) => {
+const TeamEditModal = ({team, setIsModalOpen,id}) => {
+
+    const {dispatch} = useTeamsContext();
 
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
+    const [isSubmitClicked, setIsSubmitClicked] = useState(false)
+    const [isEdited, setIsEdited] = useState(false)
+
     const deleteTeam = () => {
         // get all players from team and delete them
         axiosInstance.get('/players/team/' + id)
@@ -34,6 +40,7 @@ const TeamEditModal = ({setIsModalOpen, team, id}) => {
             if (res.status === 200) {
                 // get all matches from team and delete them
             }
+            dispatch({type: "DELETE_TEAM", payload: id})
             setIsDeleted(true);
         })
         .catch(err => {
@@ -41,29 +48,29 @@ const TeamEditModal = ({setIsModalOpen, team, id}) => {
         })
     }
 
-    const [isSubmitClicked, setIsSubmitClicked] = useState(false)
-    const [isEdited, setIsEdited] = useState(false)
+
     const formik = useFormik({
         initialValues: {
-            name: team.team.name,
-            link: team.team.logo,
+            name: team.name,
+            link: team.logo,
         },
         validationSchema: Yup.object({
             name: Yup.string()
                 .required("Podaj nazwę drużyny"),
             link: Yup.string()
-                .required("Podaj link do logo, zaczynając od https://wbl.klebiedzinski.pl/photos/")
+                .required("Podaj link do logo, zaczynając od https://wbl.klebiedzinski.pl/photos/teams_pictures")
             
         }),
         onSubmit: (values) => {
             setIsSubmitClicked(false)
-            axiosInstance.patch(`/teams/${team.team._id}`, {
+            axiosInstance.patch(`/teams/${team._id}`, {
                 name: values.name,
                 logo: values.link,
             })
             .then((response) => {
                 if (response.status === 200) {
                     setIsEdited(true)
+                    dispatch({type: "UPDATE_TEAM", payload: {_id: team._id, name: values.name, logo: values.link}})
                     
                 }
                 
@@ -74,6 +81,8 @@ const TeamEditModal = ({setIsModalOpen, team, id}) => {
         }
     })
     return ( 
+        <>
+        {team && 
         <div className={styles.overlayStyle}>
             <div className={styles.teamEditModal}>
             <button className={styles.closeModalBtn} onClick={() => setIsModalOpen(false)}>X</button>
@@ -128,12 +137,14 @@ const TeamEditModal = ({setIsModalOpen, team, id}) => {
             <div className={styles.deleteConfirmation}>
                 <h2>Drużyna została usunięta</h2>
                 <div className={styles.deleteConfirmationBtns}>
-                    <button className="submit-btn" onClick={() => window.location.replace('wbl.klebiedzinski.pl/teams')}>OK</button>
+                    <button className="submit-btn" onClick={() => window.location.replace('urlDodajPotemWTeamEditModal')}>OK</button>
                 </div>
             </div> 
             }
         </div>
         </div>
+        }
+        </>
      );
     }
  

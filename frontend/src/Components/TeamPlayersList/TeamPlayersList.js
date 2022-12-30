@@ -2,13 +2,35 @@ import { Link, useParams } from "react-router-dom"
 import styles from "./TeamPlayersList.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
+import { usePlayersContext } from "../../hooks/usePlayersContext";
+import { useEffect } from "react";
+import { useTeamsContext } from "../../hooks/useTeamsContext";
 const TeamPlayersList = () => {
     const {id} = useParams();
-    const {data: players, isLoading, error} = useFetch('/players/team/' + id)
+
+  // if players are in context use them, if not fetch them
+    const {players: allPlayers, dispatch} = usePlayersContext();
+    console.log(allPlayers)
+    const {teams} = useTeamsContext();
+    const team = teams && teams.find(team => team._id === id);
+    let players = allPlayers && allPlayers.filter(player => player.teamName === team.name);
+
+    const {data, isLoading, error} = useFetch(`/players/team/${id}`)
+
+    useEffect(() => {
+        console.log(players)
+    if(data){
+        console.log("siema")
+        players = data.players;
+    }
+    }, [data])
+            
+    
+
     
     return ( 
         <>
-        {isLoading &&  
+        {isLoading &&  !players &&
         <ClipLoader
         loading={isLoading}
         size={50}
@@ -17,12 +39,12 @@ const TeamPlayersList = () => {
         color="fuchsia"
         />
     }
-        {players && console.log(players)}
-       {players && 
+        
+       {players!==undefined &&
         <div className={styles.playersList}>
             <h1 className={styles.roster}></h1>
             <div className={styles.teamPlayers}>
-                {players && players.players.map(player =>{
+                {players && players.map(player =>{
                     return (
                         <Link to={`/players/${player._id}`} className={styles.player} key={player._id}>
                             <img src={player.picture} alt="" className={styles.playerImg} />

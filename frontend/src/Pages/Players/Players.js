@@ -2,16 +2,28 @@ import { Link, useParams } from "react-router-dom"
 import styles from "./Players.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
+import { usePlayersContext } from "../../hooks/usePlayersContext";
+import { useEffect } from "react";
 
 const TeamPlayersList = () => {
     
-    const {data: players, isLoading, error} = useFetch('/players/')
+
+    const {players, dispatch} = usePlayersContext();
+    
+    const {data, isLoading, error} = useFetch('/players')
+    useEffect(() => {
+        if(data){
+            dispatch({type: 'SET_PLAYERS', payload: data.players})
+        }
+        console.log(players)
+    }, [data])
+
     
     return ( 
         <>
          <h1>Players</h1>
-         {
-         isLoading &&  
+         
+        {isLoading && !players &&
          <ClipLoader
             loading={isLoading}
             size={50}
@@ -23,7 +35,7 @@ const TeamPlayersList = () => {
         <div className={styles.playersList}>
             <h1 className={styles.roster}></h1>
             <div className={styles.teamPlayers}>
-                {players && players.players.map(player =>{
+                {players && players.map(player =>{
                     return (
                         <Link to={`/players/${player._id}`} className={styles.player} key={player._id}>
                             <img src={player.picture} alt="" className={styles.playerImg} />

@@ -5,10 +5,14 @@ import * as Yup from 'yup'
 import styles from "./PlayerEditFormModal.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
+import {usePlayersContext} from "../../hooks/usePlayersContext";
 
 const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
+    const {dispatch} = usePlayersContext()
+
     const { _id: id, firstName, lastName, picture, yearOfBirth, career, teamName } = player;
+
     const { data: teams, isLoading, error} = useFetch('/teams')
 
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -21,6 +25,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
         .then(res => {
             if (res.status === 200) {
                 setIsDeleted(true);
+                dispatch({type: "DELETE_PLAYER", payload: id})
             }
         })
         .catch(err => {
@@ -68,6 +73,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                 .then((response) => {
                     if (response.status === 200) {
                         setIsEdited(true)
+                        dispatch({type: "UPDATE_PLAYER", payload: response.data})
                     }
                 })
                 .catch((error) => {

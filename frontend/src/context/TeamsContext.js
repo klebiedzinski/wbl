@@ -10,20 +10,23 @@ export const teamsReducer = (state, action) => {
             };
         case 'ADD_TEAM':
             return {
-                teams: [...state.teams, action.payload],
+                teams: state.teams ? [...state.teams, action.payload] : null,
             };
         case 'DELETE_TEAM':
             return {
-                teams: state.teams.filter((team) => team.id !== action.payload),
+                teams: state.teams ? state.teams.filter((team) => team.id !== action.payload) : null,
             };
         case 'UPDATE_TEAM':
+            console.log("jestem")
+            console.log("payload",action.payload)
             return {
-                teams: state.teams.map((team) => {
-                    if (team.id === action.payload.id) {
+                teams: state.teams ? state.teams.map((team) => {
+                    if (team._id === action.payload.id) {
+                        console.log("znalazlem, zmieniam", team, "na", action.payload)
                         return action.payload;
                     }
                     return team;
-                }),
+                }) : null,
             };
         default:
             return state;

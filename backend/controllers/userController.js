@@ -26,16 +26,17 @@ const loginUser = async (req, res) => {
 // signup user
 const signupUser = async (req, res) => {
     const { email, password, role, emailConfirmed, adminConfirmed} = req.body;
-
     try {
-        const user = await User.signup(email, password, role, emailConfirmed, adminConfirmed);
+        console.log(email, password, role, emailConfirmed, adminConfirmed)
+        const user = await User.signup(email, password);
 
         const token = createToken(user._id);
 
         res.status(200).json({email, token});
     }
     catch (err) {
-        res.status(400).json({error: err.message});
+        console.log("signupUser: wypierdolio sie, wysylam status 420 i errora", err)
+        res.status(502).json({error: err.message});
     }
 }
 

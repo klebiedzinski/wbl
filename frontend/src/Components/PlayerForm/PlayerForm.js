@@ -5,9 +5,11 @@ import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import styles from "./PlayerForm.module.scss";
 import * as Yup from 'yup'
+import {usePlayersContext} from "../../hooks/usePlayersContext";
 
 const PlayerForm = () => {
     
+    const {dispatch} = usePlayersContext()
     const { data: teams, isLoading, error} = useFetch('/teams')
 
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
@@ -15,10 +17,10 @@ const PlayerForm = () => {
 
     const formik = useFormik({
         initialValues: {
-            firstName: "",
-            lastName: "",
+            firstName: "test",
+            lastName: "test",
             picture: "https://wbl.klebiedzinski.pl/photos/sample_pictures/player.png",
-            yearOfBirth: "",
+            yearOfBirth: "2002",
             career: [],
             teamName: "",
         },
@@ -52,9 +54,10 @@ const PlayerForm = () => {
                 teamName: values.teamName,
             })
             .then((response) => {
-                console.log(response)
+                console.log(response.data.player)
                 if (response.status === 200) {
                     setIsAdded(true)
+                    dispatch({type: "ADD_PLAYER", payload: response.data.player})
                 }
                 
             })
@@ -93,7 +96,7 @@ const PlayerForm = () => {
                     name="lastName"
                     id="lastName"
                     placeholder="lastName"
-                    value={formik.values.name}
+                    value={formik.values.lastName}
                     onChange={formik.handleChange}
                     />
                     { isSubmitClicked && <p className="validation-info">{formik.errors.lastName}</p>}
