@@ -12,7 +12,6 @@ export const useSignup = () => {
     const signup = async (email, password) => {
         setIsLoading(true);
         setError(null);
-        console.log("wysyłam dane do serwera")
         
         const response = axiosInstance.post("/user/signup", {
             email,
@@ -22,7 +21,6 @@ export const useSignup = () => {
             if (response.data) {
 
                 // save user data in local storage
-                console.log("dokladnie to wrzuce", JSON.stringify(response.data))
                 localStorage.setItem("user", JSON.stringify(response.data))
 
                 // save user in context

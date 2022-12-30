@@ -30,7 +30,6 @@ userSchema.statics.signup = async function(email, password,role, emailConfirmed,
         throw Error('Email, password and role are required');
     }
     if (!validator.isEmail(email)) {
-        console.log("tera se rzuce errorem i nie bedzie dzialac")
         throw Error('Invalid email');
     }
     if (!validator.isStrongPassword(password)) {

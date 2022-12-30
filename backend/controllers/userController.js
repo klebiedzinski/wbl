@@ -35,7 +35,6 @@ const signupUser = async (req, res) => {
         res.status(200).json({email, token});
     }
     catch (err) {
-        console.log("signupUser: wypierdolio sie, wysylam status 420 i errora", err)
         res.status(502).json({error: err.message});
     }
 }
