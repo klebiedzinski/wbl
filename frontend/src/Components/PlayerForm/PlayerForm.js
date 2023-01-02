@@ -5,7 +5,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import styles from "./PlayerForm.module.scss";
 import * as Yup from 'yup'
-import {usePlayersContext} from "../../hooks/usePlayersContext";
+import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
 
 const PlayerForm = () => {
     

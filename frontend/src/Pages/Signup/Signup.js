@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from 'yup'
 import styles from "./Signup.module.scss"
-import { useSignup } from "../../hooks/useSignup";
+import { useSignup } from "../../hooks/auth/useSignup";
 const Signup = () => {
     
     const {signup, error, isLoading} = useSignup();

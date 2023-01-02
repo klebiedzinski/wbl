@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { useAuthContext } from "./useAuthContext";
-import axiosInstance from "../config/axios_config";
+import { useAuthContext } from "../contexts/useAuthContext";
+import axiosInstance from "../../config/axios_config";
 
 export const useSignup = () => {
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamEditModal.module.scss"
-import {useTeamsContext} from "../../hooks/useTeamsContext";
+import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
 
 const TeamEditModal = ({team, setIsModalOpen,id}) => {
 

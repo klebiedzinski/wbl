@@ -5,7 +5,7 @@ import * as Yup from 'yup'
 import styles from "./PlayerEditFormModal.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
-import {usePlayersContext} from "../../hooks/usePlayersContext";
+import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
 
 const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 

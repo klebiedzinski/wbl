@@ -1,7 +1,7 @@
 import styles from "./TeamsList.module.scss";
 import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useTeamsContext } from "../../hooks/useTeamsContext";
+import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import  useFetch  from "../../hooks/useFetch";
 import { useEffect } from "react";
 const TeamsList = () => {

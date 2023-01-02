@@ -2,7 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import styles from "./Players.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
-import { usePlayersContext } from "../../hooks/usePlayersContext";
+import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useEffect } from "react";
 
 const TeamPlayersList = () => {

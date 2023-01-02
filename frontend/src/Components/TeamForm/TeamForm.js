@@ -3,7 +3,7 @@ import { useState } from "react";
 import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamForm.module.scss"
-import {useTeamsContext} from "../../hooks/useTeamsContext";
+import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
 const TeamForm = () => {
 
     const {dispatch} = useTeamsContext()
@@ -29,7 +29,6 @@ const TeamForm = () => {
                 logo: values.link,
             })
             .then((response) => {
-                console.log("Dodano drużynę")
                 if (response.data) {
                     setIsAdded(true)
                     dispatch({type: "ADD_TEAM", payload: response.data.team})

@@ -4,7 +4,7 @@ import PlayersList from "../../Components/TeamPlayersList/TeamPlayersList";
 import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
 import TeamEditModal from "../../Components/TeamEditModal/TeamEditModal";
-import { useTeamsContext } from "../../hooks/useTeamsContext";
+import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import ClipLoader from "react-spinners/ClipLoader";
 const TeamOverview = () => {
     const {id} = useParams()

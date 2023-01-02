@@ -13,6 +13,7 @@ import TeamForm from './Components/TeamForm/TeamForm';
 import Players from './Pages/Players/Players';
 import Signin from './Pages/Signin/Signin';
 import Signup from './Pages/Signup/Signup';
+import Standings from './Pages/Standings/Standings';
 function App() {
   
 const [isScoreboardShown, setIsScoreboardShown] = useState(false)
@@ -25,6 +26,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
       <Route path="/" element={ <Home/> }/>
       <Route path="/signin" element={ <Signin/> }/>
       <Route path="/signup" element={<Signup/>}/>
+      <Route path="/standings" element={<Standings/>}/>
       <Route path="/players">
       <Route path='/players/PlayerForm' element={<PlayerForm/>}></Route>
         <Route index element={<Players/>}/>
