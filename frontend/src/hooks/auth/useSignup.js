@@ -5,7 +5,6 @@ import axiosInstance from "../../config/axios_config";
 export const useSignup = () => {
 
     const {dispatch} = useAuthContext();
-
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -29,13 +28,11 @@ export const useSignup = () => {
                 setIsLoading(false);
                 
             }
-        }
-        )
+        })
         .catch((error) => {
             setIsLoading(false);
             setError(error.response.data.error)
-        }
-        )
+        })
 
         
         

@@ -1,5 +1,7 @@
 const express = require('express');
 const { addPlayer, getAllPlayers, getSinglePlayer, deletePlayer, updatePlayer, getPlayersByTeam } = require('../controllers/playerController');
+const requireAuth = require('../middleware/requireAuth');
+
 const router = express.Router();
 
 //get all players
@@ -10,6 +12,9 @@ router.get('/:id', getSinglePlayer);
 
 //get players by team
 router.get('/team/:id', getPlayersByTeam);
+
+
+router.use(requireAuth);
 
 //add player
 router.post('/', addPlayer);

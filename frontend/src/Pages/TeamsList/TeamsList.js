@@ -4,6 +4,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import  useFetch  from "../../hooks/useFetch";
 import { useEffect } from "react";
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 const TeamsList = () => {
 
     const {teams, dispatch} = useTeamsContext();

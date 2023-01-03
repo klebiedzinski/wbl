@@ -11,9 +11,10 @@ import PlayerOverview from './Pages/PlayerOverview/PlayerOverview';
 import ScoreBoard from './Pages/Scoreboard/Scoreboard';
 import TeamForm from './Components/TeamForm/TeamForm';
 import Players from './Pages/Players/Players';
-import Signin from './Pages/Signin/Signin';
+import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
 import Standings from './Pages/Standings/Standings';
+import Profile from './Pages/Profile/Profile';
 function App() {
   
 const [isScoreboardShown, setIsScoreboardShown] = useState(false)
@@ -24,13 +25,14 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     {!isScoreboardShown && <Navbar/>}
     <Routes>
       <Route path="/" element={ <Home/> }/>
-      <Route path="/signin" element={ <Signin/> }/>
+      <Route path="/login" element={ <Login/> }/>
       <Route path="/signup" element={<Signup/>}/>
+      <Route path="/profile" element={<Profile/>}/>
       <Route path="/standings" element={<Standings/>}/>
       <Route path="/players">
-      <Route path='/players/PlayerForm' element={<PlayerForm/>}></Route>
-        <Route index element={<Players/>}/>
-        <Route path=":player_id" element={<PlayerOverview/>}/>
+        <Route path='/players/PlayerForm' element={<PlayerForm/>}></Route>
+          <Route index element={<Players/>}/>
+          <Route path=":player_id" element={<PlayerOverview/>}/>
       </Route> 
       <Route path="/teams"> 
       <Route index element={<TeamsList />}/>

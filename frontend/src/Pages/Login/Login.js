@@ -1,10 +1,12 @@
 import { useFormik } from "formik";
 import { useState } from "react";
+import { useLogin } from "../../hooks/auth/useLogin";
 import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
-import styles from "./Signin.module.scss"
-const Signin = () => {
+import styles from "./Login.module.scss"
+const Login = () => {
     
+    const {login, error, isLoading} = useLogin();
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
 
     const formik = useFormik({
@@ -19,12 +21,12 @@ const Signin = () => {
                 .required("Podaj hasło")
         }),
         onSubmit: (values) => {
+            login(values.email, values.password)
             setIsSubmitClicked(false)
-            console.log(values)
         }
     })
     return ( 
-        <div className={styles.Signin}>
+        <div className={styles.Login}>
 
             <form onSubmit={formik.handleSubmit}>
 
@@ -59,12 +61,12 @@ const Signin = () => {
                 {isSubmitClicked && 
                 <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>
                 }
-                <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Sign in</button>
-                
+                <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} disabled={isLoading} >Login</button>
+                {error && <p className={styles.error}>{error}</p>}
             </form>
             <p className="signup-link">Don't have an account? <a href="/signup">Sign up</a></p>
         </div>
      );
 }
  
-export default Signin;
+export default Login;

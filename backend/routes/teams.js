@@ -1,12 +1,17 @@
 const express = require('express');
-const router = express.Router();
 const { addTeam, getAllTeams, getSingleTeam, deleteTeam, updateTeam } = require('../controllers/teamController');
+const requireAuth = require('../middleware/requireAuth');
+
+const router = express.Router();
 
 //get all teams
 router.get('/', getAllTeams);
 
 //get single team
 router.get('/:id', getSingleTeam);
+
+
+router.use(requireAuth);
 
 //add team
 router.post('/', addTeam);

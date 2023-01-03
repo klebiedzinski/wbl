@@ -12,11 +12,12 @@
   }
 
   .links {
+    display: flex;
     margin-right: 10vw;
     margin-left: auto;
 
-    a {
-      margin-left: 1vw;
+    a, .login, p {
+      // margin-left: 1vw;
       text-decoration: none;
       padding-inline: 6px;
       font-size: 2vw;

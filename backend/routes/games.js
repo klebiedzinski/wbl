@@ -1,4 +1,6 @@
 const express = require('express');
+const requireAuth = require('../middleware/requireAuth');
+
 const router = express.Router();
 
 //get all games
@@ -10,6 +12,9 @@ router.get('/', (req,res) => {
 router.get('/:id', (req,res) => {
     res.json({mssg: "Get single game"});
 });
+
+
+router.use(requireAuth);
 
 //add game
 router.post('/', (req,res) => {

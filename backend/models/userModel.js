@@ -14,31 +14,41 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    role: {
-        type: String, // włodarz, stolik, team_menager, player
+    auth_players: {
+        type: [String], 
+        required: false,
+        default: ["siema", "siema2"]
+    },
+    auth_teams: {
+        type: [String],
+        required: false
+    },
+    stolik: {
+        type: Boolean,
         required: true
-    }, 
+    },
     emailConfirmed: Boolean,
     adminConfirmed: Boolean,
 
 })
 
 // static method to signup
-userSchema.statics.signup = async function(email, password,role, emailConfirmed, adminConfirmed) {
+userSchema.statics.signup = async function(email, password, auth_players, auth_teams, stolik, emailConfirmed, adminConfirmed) {
     
+    console.log("players:",auth_players)
     if(!email || !password  ) {
-        throw Error('Email, password and role are required');
+        throw Error('Email i hasło są wymagane');
     }
     if (!validator.isEmail(email)) {
-        throw Error('Invalid email');
+        throw Error('Niepoprawny email');
     }
     if (!validator.isStrongPassword(password)) {
-        throw Error('Password is not strong enough');
+        throw Error('Hasło jest za słabe');
     }
 
     const exists = await this.findOne({email});
     if (exists) {
-        throw Error('Email already exists');
+        throw Error('Email już w użyciu');
     }
 
     // hash password
@@ -47,7 +57,9 @@ userSchema.statics.signup = async function(email, password,role, emailConfirmed,
     const user = await this.create({
         email,
         password: hash,
-        role: "role",
+        auth_players,
+        auth_teams,
+        stolik: false,
         emailConfirmed: false,
         adminConfirmed: false
     })
