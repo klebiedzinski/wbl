@@ -8,13 +8,16 @@ export const useSignup = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const signup = async (email, password) => {
+    const signup = async (email, password, auth_teams, auth_players, stolik) => {
         setIsLoading(true);
         setError(null);
         
         const response = axiosInstance.post("/user/signup", {
             email,
-            password
+            password,
+            auth_teams,
+            auth_players,
+            stolik
         })
         .then((response) => {
             if (response.data) {
