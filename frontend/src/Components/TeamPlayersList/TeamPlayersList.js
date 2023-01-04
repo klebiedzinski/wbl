@@ -5,12 +5,13 @@ import ClipLoader from "react-spinners/ClipLoader";
 import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useEffect } from "react";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+
 const TeamPlayersList = () => {
     const {id} = useParams();
+    const {user} = useAuthContext();
 
-  // if players are in context use them, if not fetch them
     const {players: allPlayers, dispatch} = usePlayersContext();
-    console.log(allPlayers)
     const {teams} = useTeamsContext();
     const team = teams && teams.find(team => team._id === id);
     let players = allPlayers && allPlayers.filter(player => player.teamName === team.name);
@@ -20,7 +21,6 @@ const TeamPlayersList = () => {
     useEffect(() => {
         console.log(players)
     if(data){
-        console.log("siema")
         players = data.players;
     }
     }, [data])
@@ -30,7 +30,7 @@ const TeamPlayersList = () => {
     
     return ( 
         <>
-        {isLoading &&  !players &&
+        {isLoading && !players &&
         <ClipLoader
         loading={isLoading}
         size={50}
@@ -53,10 +53,12 @@ const TeamPlayersList = () => {
                         </Link>
                     );
                 })}
-                <Link to={`/players/PlayerForm`} className={styles.player}>
-                    <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
-                    <h5>Add Player</h5>
-                </Link>
+               {user && user.admin && 
+                    <Link to={`/players/PlayerForm`} className={styles.player}>
+                        <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
+                        <h5>Add Player</h5>
+                    </Link>
+                }
             </div>
         </div>
         }

@@ -15,6 +15,7 @@ router.get('/team/:id', getPlayersByTeam);
 
 
 //middleware to check role
+router.use(requireAuth);
 
 //add player
 router.post('/', addPlayer);

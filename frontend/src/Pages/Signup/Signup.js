@@ -22,7 +22,8 @@ const Signup = () => {
             password: "",
             auth_players: [],
             auth_teams: [],
-            stolik: false
+            stolik: false,
+            admin: false
         },
         validationSchema: Yup.object({
             email: Yup.string()
@@ -34,13 +35,14 @@ const Signup = () => {
                 .min(1, "Musisz wybrać przynajmniej jednego gracza"),
             auth_teams: Yup.array()
                 .required("Podaj drużyny"),
-            stolik: Yup.boolean()
+            stolik: Yup.boolean(),
+            admin: Yup.boolean()
         }),
 
         onSubmit: async (values) => {
             setIsSubmitClicked(false)
-            
-            await signup(values.email, values.password, values.auth_players, values.auth_teams, values.stolik)
+            console.log(values)
+            await signup(values.email, values.password,values.auth_teams, values.auth_players, values.stolik, values.admin)
             
         }
     })
@@ -137,6 +139,21 @@ const Signup = () => {
                     />
                     { isSubmitClicked && 
                     <p className="validation-info">{formik.errors.stolik}</p>
+                }
+                </div>
+
+                <div className="input-container">
+                    <label>Włodarz?</label>
+                    <input 
+                    type="checkbox"
+                    name="admin"
+                    id="admin"
+                    placeholder="Włodarz?"
+                    value={formik.values.admin}
+                    onChange={formik.handleChange}
+                    />
+                    { isSubmitClicked && 
+                    <p className="validation-info">{formik.errors.admin}</p>
                 }
                 </div>
 

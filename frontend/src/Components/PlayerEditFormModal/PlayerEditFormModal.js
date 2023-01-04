@@ -6,9 +6,10 @@ import styles from "./PlayerEditFormModal.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
 import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
-
+import {useAuthContext} from "../../hooks/contexts/useAuthContext";
 const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
+    const {user} = useAuthContext();
     const {dispatch} = usePlayersContext()
 
     const { _id: id, firstName, lastName, picture, yearOfBirth, career, teamName } = player;
@@ -21,7 +22,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
 
     const deletePlayer = () => {
-        axiosInstance.delete('/players/' + id)
+        axiosInstance.delete('/players/' + id, {headers: {'Authorization': `Bearer ${user.token}`}})
         .then(res => {
             if (res.status === 200) {
                 setIsDeleted(true);
@@ -69,7 +70,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                 yearOfBirth: values.yearOfBirth,
                 career: values.career,
                 teamName: values.teamName,
-                })
+                },{headers: {'Authorization': `Bearer ${user.token}`}})
                 .then((response) => {
                     if (response.status === 200) {
                         setIsEdited(true)

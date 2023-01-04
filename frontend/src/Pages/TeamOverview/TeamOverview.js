@@ -5,10 +5,13 @@ import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
 import TeamEditModal from "../../Components/TeamEditModal/TeamEditModal";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import ClipLoader from "react-spinners/ClipLoader";
 const TeamOverview = () => {
     const {id} = useParams()
-    // look for team in the context, if not found, fetch it from the server
+    const {user} = useAuthContext();
+    console.log(user)
+    const canEdit = user && (user.admin || user.auth_teams.find(team_id => team_id === id))
     const {teams} = useTeamsContext();
     const {data, isLoading} = useFetch(`/teams/${id}`)
 
@@ -48,16 +51,18 @@ const TeamOverview = () => {
                     <div className={styles.teamImage}>
                         Team pic
                     </div>
+                    {canEdit &&
                     <div className={styles.editBtn}>
                         <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" onClick={() => setIsModalOpen(true)}/>
                     </div>
+                    }
 
                 </div>
             </div>
         </div>
         }
 
-        {isModalOpen && 
+        {isModalOpen &&
         <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id}/>
         }
         <PlayersList/>

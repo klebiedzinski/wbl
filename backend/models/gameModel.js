@@ -6,7 +6,7 @@ const gameSchema = new Schema({
     status: {
         type: String,
         required: false,
-        default: "scheduled"
+        default: "scheduled" // scheduled, live, finished
     },
     team1: {
         type: teamModel,
@@ -28,12 +28,13 @@ const gameSchema = new Schema({
     },
     date: {
         type: Date,
-        required: true
+        required: false,
+        // default: new Date()
     },
     location: {
         type: String,
         required: false,
-        default: "TBD"
+        default: "ONZ Arena"
     }
 
 }, { timestamps: true });

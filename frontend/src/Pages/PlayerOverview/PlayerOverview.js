@@ -4,9 +4,12 @@ import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
 import PlayerEditFormModal from "../../Components/PlayerEditFormModal/PlayerEditFormModal";
 import { useState } from "react";
-const PlayerOverview = () => {
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 
+const PlayerOverview = () => {
+    const {user} = useAuthContext();
     const {player_id} = useParams()
+    const canEdit = user && (user.role === 'admin' || user.auth_players.find(playerId => playerId === player_id))
     const {data: player, isLoading, error} = useFetch('/players/' + player_id)
     const [isModalOpen, setIsModalOpen] = useState(false);
     return ( 
@@ -21,9 +24,11 @@ const PlayerOverview = () => {
         {player && 
         <>
         <div className={styles.playerOverview}>
+            {canEdit &&
             <div className={styles.editBtn}>
                 <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" onClick={() => setIsModalOpen(true)}/>
             </div>
+            }
             <img src={player.player.picture} alt="" className={styles.playerImg} />
             <h5>{player.player.firstName}</h5>
             <h5>{player.player.lastName}</h5>

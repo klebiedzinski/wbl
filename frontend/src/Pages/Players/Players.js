@@ -4,10 +4,10 @@ import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
 import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useEffect } from "react";
-
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 const TeamPlayersList = () => {
     
-
+    const {user} = useAuthContext();
     const {players, dispatch} = usePlayersContext();
     
     const {data, isLoading, error} = useFetch('/players')
@@ -44,10 +44,12 @@ const TeamPlayersList = () => {
                         </Link>
                     );
                 })}
-                <Link to={`/players/PlayerForm`} className={styles.player}>
-                            <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
-                            <h5>Add Player</h5>
-                </Link>
+                {user && user.admin && 
+                    <Link to={`/players/PlayerForm`} className={styles.player}>
+                        <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
+                        <h5>Add Player</h5>
+                    </Link>
+                }
             </div>
         </div>
         }

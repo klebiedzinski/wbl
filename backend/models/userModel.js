@@ -27,15 +27,19 @@ const userSchema = new Schema({
         type: Boolean,
         required: true
     },
+    admin: {
+        type: Boolean,
+        required: true
+    },
     emailConfirmed: Boolean,
     adminConfirmed: Boolean,
 
 })
 
 // static method to signup
-userSchema.statics.signup = async function(email, password, auth_players, auth_teams, stolik, emailConfirmed, adminConfirmed) {
+userSchema.statics.signup = async function(email, password, auth_teams, auth_players, stolik, admin) {
     
-    console.log("players:",auth_players)
+    console.log("siema z static",email, password,  auth_players, auth_teams, stolik, admin)
     if(!email || !password  ) {
         throw Error('Email i hasło są wymagane');
     }
@@ -59,7 +63,8 @@ userSchema.statics.signup = async function(email, password, auth_players, auth_t
         password: hash,
         auth_players,
         auth_teams,
-        stolik: false,
+        stolik,
+        admin,
         emailConfirmed: false,
         adminConfirmed: false
     })

@@ -4,9 +4,10 @@ import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamEditModal.module.scss"
 import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
-
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 const TeamEditModal = ({team, setIsModalOpen,id}) => {
 
+    const {user} = useAuthContext();
     const {dispatch} = useTeamsContext();
 
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
@@ -20,7 +21,7 @@ const TeamEditModal = ({team, setIsModalOpen,id}) => {
         .then(res => {
             if (res.status === 200) {
                 res.data.players.forEach(player => {
-                    axiosInstance.delete('/players/' + player._id)
+                    axiosInstance.delete('/players/' + player._id, {headers: {'Authorization': `Bearer ${user.token}`}})
                     .then(res => {
                         if (res.status === 200) {
                             console.log('Player deleted')
@@ -35,7 +36,7 @@ const TeamEditModal = ({team, setIsModalOpen,id}) => {
         .catch(err => {
             console.log(err)
         })
-        axiosInstance.delete('/teams/' + id)
+        axiosInstance.delete('/teams/' + id, {headers: {'Authorization': `Bearer ${user.token}`}})
         .then(res => {
             if (res.status === 200) {
                 // get all matches from team and delete them
@@ -66,7 +67,8 @@ const TeamEditModal = ({team, setIsModalOpen,id}) => {
             axiosInstance.patch(`/teams/${team._id}`, {
                 name: values.name,
                 logo: values.link,
-            })
+            }, {headers: {'Authorization': `Bearer ${user.token}`}}
+                    )
             .then((response) => {
                 if (response.status === 200) {
                     setIsEdited(true)

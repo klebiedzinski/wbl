@@ -25,14 +25,24 @@ const loginUser = async (req, res) => {
 
 // signup user
 const signupUser = async (req, res) => {
-    const { email, password, auth_players, auth_teams ,emailConfirmed, adminConfirmed} = req.body;
+    const { email, 
+        password, 
+        auth_players, 
+        auth_teams,
+        emailConfirmed, 
+        adminConfirmed, 
+        stolik, 
+        admin
+    } = req.body;
+
+
     try {
-        console.log(email, password, emailConfirmed, adminConfirmed, auth_players, auth_teams)
-        const user = await User.signup(email, password, auth_players, auth_teams ,emailConfirmed, adminConfirmed);
+        console.log(email, password,  auth_players, auth_teams, stolik, admin)
+        const user = await User.signup(email, password, auth_teams , auth_players, stolik, admin);
 
         const token = createToken(user._id);
 
-        res.status(200).json({email, token});
+        res.status(200).json({email, token, auth_players, auth_teams, stolik, admin});
     }
     catch (err) {
         res.status(502).json({error: err.message});

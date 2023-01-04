@@ -6,9 +6,10 @@ import useFetch from "../../hooks/useFetch";
 import styles from "./PlayerForm.module.scss";
 import * as Yup from 'yup'
 import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
-
+import {useAuthContext} from "../../hooks/contexts/useAuthContext";
 const PlayerForm = () => {
     
+    const {user} = useAuthContext();
     const {dispatch} = usePlayersContext()
     const { data: teams, isLoading, error} = useFetch('/teams')
 
@@ -45,6 +46,9 @@ const PlayerForm = () => {
 
         onSubmit: (values) => {
             setIsSubmitClicked(false)
+            if (!user){
+                return
+            }
             axiosInstance.post('/players', {
                 firstName: values.firstName,
                 lastName: values.lastName,
@@ -52,7 +56,7 @@ const PlayerForm = () => {
                 yearOfBirth: values.yearOfBirth,
                 career: values.career,
                 teamName: values.teamName,
-            })
+            },{headers: {'Authorization': `Bearer ${user.token}`}})
             .then((response) => {
                 console.log(response.data.player)
                 if (response.status === 200) {

@@ -7,6 +7,8 @@ import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 const TeamsList = () => {
 
+    const {user} = useAuthContext();
+
     const {teams, dispatch} = useTeamsContext();
     
     const {data, isLoading, error} = useFetch('/teams')
@@ -44,7 +46,7 @@ const TeamsList = () => {
                     </Link>
                 );
             })}
-        {teams && 
+        {teams && user && user.admin &&
             <Link to={`/teams/TeamForm`}>
             <div className={styles.team} >
                 <div className={styles.teamName} >

@@ -4,10 +4,13 @@ import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamForm.module.scss"
 import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+
 const TeamForm = () => {
 
     const {dispatch} = useTeamsContext()
-    
+    const {user} = useAuthContext()
+
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
 
@@ -27,7 +30,8 @@ const TeamForm = () => {
             axiosInstance.post('/teams', {
                 name: values.name,
                 logo: values.link,
-            })
+            }, {headers: {'Authorization': `Bearer ${user.token}`}}
+            )
             .then((response) => {
                 if (response.data) {
                     setIsAdded(true)
