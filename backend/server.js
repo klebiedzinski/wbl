@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const teamsRoutes = require('./routes/teams');
 const playersRoutes = require('./routes/players');
 const userRoutes = require('./routes/user');
+const gamesRoutes = require('./routes/games');
 const cors = require('cors');
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/api/teams', teamsRoutes);
 app.use('/api/players', playersRoutes);
 app.use('/api/user', userRoutes);
+app.use('/api/games', gamesRoutes);
 
 
 // connect to db

@@ -32,6 +32,17 @@ const TeamsList = () => {
                 />
         }
         {teams && <div className={styles.teams}>
+        {teams && user && user.admin &&
+            <Link to={`/teams/TeamForm`}>
+            <div className={styles.team} >
+                <div className={styles.teamName} >
+                <h1>Add team</h1>
+                </div>
+                <div className={styles.teamImg}>
+                <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" />
+                </div>
+            </div>
+            </Link>}
             {teams && teams.map(team => {
                 return(
                     <Link to={`/teams/${team._id}`} key={team._id}>
@@ -46,17 +57,6 @@ const TeamsList = () => {
                     </Link>
                 );
             })}
-        {teams && user && user.admin &&
-            <Link to={`/teams/TeamForm`}>
-            <div className={styles.team} >
-                <div className={styles.teamName} >
-                <h1>Add team</h1>
-                </div>
-                <div className={styles.teamImg}>
-                <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" />
-                </div>
-            </div>
-            </Link>}
         </div>}
         </>
      );

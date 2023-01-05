@@ -6,11 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import { TeamsContextProvider } from './context/TeamsContext';
 import { PlayersContextProvider } from './context/PlayersContext';
 import {AuthContextProvider} from './context/AuthContext';
+import { GamesContextProvider } from './context/GamesContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
+      <GamesContextProvider>
       <TeamsContextProvider>
         <PlayersContextProvider>
           <BrowserRouter>
@@ -18,6 +20,7 @@ root.render(
           </BrowserRouter>
         </PlayersContextProvider>
       </TeamsContextProvider>
+      </GamesContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

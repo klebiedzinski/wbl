@@ -8,12 +8,12 @@ const gameSchema = new Schema({
         required: false,
         default: "scheduled" // scheduled, live, finished
     },
-    team1: {
-        type: teamModel,
+    team1_id: {
+        type: String,
         required: true
     },
-    team2: {
-        type: teamModel,
+    team2_id: {
+        type: String,
         required: true
     },
     team1Score: {
@@ -39,4 +39,5 @@ const gameSchema = new Schema({
 
 }, { timestamps: true });
     
+module.exports = mongoose.model('Game', gameSchema);
         

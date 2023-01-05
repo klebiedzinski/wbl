@@ -15,6 +15,8 @@ import Login from './Pages/Login/Login';
 import Signup from './Pages/Signup/Signup';
 import Standings from './Pages/Standings/Standings';
 import Profile from './Pages/Profile/Profile';
+import Games from './Pages/Games/Games';
+import GameOverview from './Pages/GameOverview/GameOverview';
 function App() {
   
 const [isScoreboardShown, setIsScoreboardShown] = useState(false)
@@ -42,6 +44,10 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
           <Route path='PlayersList' element={<PlayersList/>}></Route>
           <Route path=':player_id' element={<PlayerOverview/>}/>
         </Route>
+      </Route>
+      <Route path="/games">
+        <Route index element={<Games/>}/>
+        <Route path=":game_id" element={<GameOverview/>}/>
       </Route>
       <Route path="/scoreboard" element={<ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/>}/>
 

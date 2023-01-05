@@ -10,7 +10,6 @@ import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 const TeamPlayersList = () => {
     const {id} = useParams();
     const {user} = useAuthContext();
-
     const {players: allPlayers, dispatch} = usePlayersContext();
     const {teams} = useTeamsContext();
     const team = teams && teams.find(team => team._id === id);
@@ -44,6 +43,12 @@ const TeamPlayersList = () => {
         <div className={styles.playersList}>
             <h1 className={styles.roster}></h1>
             <div className={styles.teamPlayers}>
+            {user && user.admin && 
+                    <Link to={`/players/PlayerForm`} className={styles.player}>
+                        <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
+                        <h5>Add Player</h5>
+                    </Link>
+                }
                 {players && players.map(player =>{
                     return (
                         <Link to={`/players/${player._id}`} className={styles.player} key={player._id}>
@@ -53,12 +58,6 @@ const TeamPlayersList = () => {
                         </Link>
                     );
                 })}
-               {user && user.admin && 
-                    <Link to={`/players/PlayerForm`} className={styles.player}>
-                        <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
-                        <h5>Add Player</h5>
-                    </Link>
-                }
             </div>
         </div>
         }

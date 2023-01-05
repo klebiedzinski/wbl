@@ -28,7 +28,7 @@ const getSingleTeam = async (req, res) => {
 
 // add team
 const addTeam = async (req, res) => {
-    const {name, logo, wins, loses} = req.body;
+    const {name, logo} = req.body;
 
     // add team to database
     try {
