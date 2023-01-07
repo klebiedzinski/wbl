@@ -18,6 +18,8 @@ const Signup = () => {
 
     const formik = useFormik({
         initialValues: {
+            firstName: "",
+            lastName: "",
             email: "",
             password: "",
             auth_players: [],
@@ -26,6 +28,10 @@ const Signup = () => {
             admin: false
         },
         validationSchema: Yup.object({
+            firstName: Yup.string()
+                .required("Podaj imię"),
+            lastName: Yup.string()
+                .required("Podaj nazwisko"),
             email: Yup.string()
                 .required("Podaj email"),
             password: Yup.string()
@@ -41,8 +47,7 @@ const Signup = () => {
 
         onSubmit: async (values) => {
             setIsSubmitClicked(false)
-            console.log(values)
-            await signup(values.email, values.password,values.auth_teams, values.auth_players, values.stolik, values.admin)
+            await signup(values.firstName, values.lastName, values.email, values.password,values.auth_teams, values.auth_players, values.stolik, values.admin)
             
         }
     })
@@ -55,6 +60,34 @@ const Signup = () => {
             <div className={styles.Signup}>
 
             <form onSubmit={formik.handleSubmit}>
+
+                <div className="input-container">
+                    <input 
+                    type="text"
+                    name="firstName"
+                    id="firstName"
+                    placeholder="firstName"
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    />
+                    { isSubmitClicked && 
+                    <p className="validation-info">{formik.errors.firstName}</p>
+                }
+                </div>
+
+                <div className="input-container">
+                    <input 
+                    type="text"
+                    name="lastName"
+                    id="lastName"
+                    placeholder="lastName"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    />
+                    { isSubmitClicked && 
+                    <p className="validation-info">{formik.errors.lastName}</p>
+                }
+                </div>
 
                 <div className="input-container">
                     <input 
@@ -118,7 +151,7 @@ const Signup = () => {
                                 value={player._id}
                                 onChange={formik.handleChange}
                                 />
-                                {player.firstName + " " + player.lastName}
+                                {player.firstName + " " + player.lastName + " | drużyna - " + (player.teamName)}
                             </li>
                         ))}
                 </ul>

@@ -8,12 +8,13 @@ export const useSignup = () => {
     const [error, setError] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const signup = async (email, password, auth_teams, auth_players, stolik, admin) => {
+    const signup = async (firstName, lastName,email, password, auth_teams, auth_players, stolik, admin) => {
         setIsLoading(true);
         setError(null);
         
-        console.log("SIEMAZUSESIGNUP",email, password, auth_teams, auth_players, stolik, admin)
         const response = axiosInstance.post("/user/signup", {
+            firstName,
+            lastName,
             email,
             password,
             auth_teams,

@@ -5,6 +5,14 @@ const validator = require('validator');
 const {Schema} = mongoose;
 
 const userSchema = new Schema({
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
     email: {
         unique: true,
         type: String,
@@ -37,12 +45,13 @@ const userSchema = new Schema({
 })
 
 // static method to signup
-userSchema.statics.signup = async function(email, password, auth_teams, auth_players, stolik, admin) {
+userSchema.statics.signup = async function(firstName,lastName,email, password, auth_teams, auth_players, stolik, admin) {
     
-    console.log("siema z static",email, password,  auth_players, auth_teams, stolik, admin)
+    console.log(firstName,lastName,email, password, auth_teams, auth_players, stolik, admin)
     if(!email || !password  ) {
         throw Error('Email i hasło są wymagane');
     }
+    console.log(email)
     if (!validator.isEmail(email)) {
         throw Error('Niepoprawny email');
     }
@@ -59,6 +68,8 @@ userSchema.statics.signup = async function(email, password, auth_teams, auth_pla
     const salt = await bcrypt.genSalt(10);
     const hash = await bcrypt.hash(password, salt);
     const user = await this.create({
+        firstName,
+        lastName,
         email,
         password: hash,
         auth_players,
