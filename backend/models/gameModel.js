@@ -31,6 +31,11 @@ const gameSchema = new Schema({
         required: false,
         // default: new Date()
     },
+    time: {
+        type: String,
+        required: false,
+        default: "00:00"
+    },
     location: {
         type: String,
         required: false,

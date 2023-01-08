@@ -46,8 +46,13 @@ a{
     width: 100%;
 }
 .teamsList,.playersList{
+    display: flex;
+    flex-wrap: wrap;
+    *{
+        flex: 1 1 30%;
+    }
     list-style: none;
-    width: 30%;
+    width: 90%;
     margin-bottom: 20px;
     padding: 10px;
     background-color: #fff;

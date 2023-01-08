@@ -6,6 +6,7 @@ import { useGamesContext } from "../../hooks/contexts/useGamesContext";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
+
 const Games = () => {
     
     const {user} = useAuthContext();
@@ -37,27 +38,38 @@ const Games = () => {
         }
         {games && 
         <div className={styles.gamesList}>
-            <h1 className={styles.roster}></h1>
-            <div className={styles.teamgames}>
-            {user && user.admin && 
-                    <Link to={`/games/gameForm`} className={styles.game}>
-                        <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.gameImg} />
-                        <h5>Add game</h5>
-                    </Link>
-                }
                 {games && teams && games.map(game =>{
                     const team1 = teams.find(team => team._id === game.team1_id);
                     const team2 = teams.find(team => team._id === game.team2_id);
                     return (
-                        <Link to={`/games/${game._id}`} className={styles.game} key={game._id}>
-                            <div className={styles.team}>
-                                {team1.name}
-                                {team2.name}
+                        <Link to={`/games/${game._id}`} key={game._id}>
+                            <div className={styles.game}>
+                                <div className={styles.game_leftbar}>
+                                    {game.date.split('T')[0]}
+                                </div>
+                                <div className={styles.game_main}>
+                                    <div className={styles.team}>
+                                        <p>{team1.name}</p>
+                                        <img src={team1.logo} alt={team1.name}/>
+                                    </div>
+                                    <div className={styles.score}>
+                                        <p>{game.team1Score} </p>
+                                        <p> - </p>
+                                        <p>{game.team2Score} </p>
+                                    </div>
+                                    <div className={styles.team}>
+                                        <img src={team2.logo} alt={team2.name}/>
+                                        <p>{team2.name}</p>
+                                    </div>
+                                </div>
+                                <div className={styles.game_rightbar}>
+                                    guziczek
+                                </div>
                             </div>
+                                
                         </Link>
                     );
                 })}
-            </div>
         </div>
         }
         </>

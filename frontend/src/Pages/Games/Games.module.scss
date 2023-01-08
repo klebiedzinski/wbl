@@ -1,0 +1,103 @@
+// media query for desktop
+p{
+    font-size: 1.5rem;
+    font-weight: bolder;
+    color: black;
+}
+@media (min-width: 920px) {
+.gamesList{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 7vw;
+    padding: 3vw;
+    background-color: white;
+    width: 67vw;
+    margin: 0 auto;
+   img{
+        width: 5vw;
+        border-radius: 50%;
+        margin-bottom: 10px;
+
+   }
+  
+    .game{
+        width: 100%;
+        border-bottom: 1px solid green;
+        display: grid;
+        grid-template-columns: 10% 80% 10%;
+       
+        .game_main{
+            display: grid;
+            grid-template-columns: 1fr 15vw 1fr;
+
+            *{
+                display: flex;
+                flex: 1 1 100%;
+                justify-content: center;
+                align-items: center;
+            }
+            .score{
+                display: flex;
+                border: 3px solid green;
+                margin: 10%;
+                p{
+                    margin: 0;
+                    font-size: 2rem;
+                }
+            }
+        }
+    }
+}
+.gamesList > *{
+    flex: 1 1 100%;
+}
+}
+
+//make whole page responsive
+
+@media (max-width: 900px) {
+    .gamesList{
+        background-color: white;
+        display: flex;
+        gap: 1vh;
+
+        flex-direction: column;
+        justify-content: center;
+        img{
+            width: 50%;
+        }
+        .game{
+            max-width: 500px;
+            border-bottom: 1px solid green;
+            display: flex;
+            flex-direction: column;
+            .team{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+               
+            }
+            .team:nth-child(1){
+                display: flex;
+                flex-direction: column-reverse;
+            }
+            .game_main{
+               display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                .score{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 3px solid green;
+                    margin: 10%;
+                    p{
+                        margin: 0;
+                        font-size: 2rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
