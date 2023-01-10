@@ -5,11 +5,12 @@ import ClipLoader from "react-spinners/ClipLoader";
 import PlayerEditFormModal from "../../Components/PlayerEditFormModal/PlayerEditFormModal";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+import { AiFillEdit } from "react-icons/ai";
 
 const PlayerOverview = () => {
     const {user} = useAuthContext();
     const {player_id} = useParams()
-    const canEdit = user && (user.role === 'admin' || user.auth_players.find(playerId => playerId === player_id))
+    const canEdit = user && (user.admin || user.auth_players.find(playerId => playerId === player_id))
     const {data: player, isLoading, error} = useFetch('/players/' + player_id)
     const [isModalOpen, setIsModalOpen] = useState(false);
     return ( 
@@ -25,8 +26,8 @@ const PlayerOverview = () => {
         <>
         <div className={styles.playerOverview}>
             {canEdit &&
-            <div className={styles.editBtn}>
-                <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" onClick={() => setIsModalOpen(true)}/>
+            <div className={styles.editBtn} onClick={() => setIsModalOpen(true)}>
+                <AiFillEdit/>
             </div>
             }
             <img src={player.player.picture} alt="" className={styles.playerImg} />

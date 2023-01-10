@@ -6,15 +6,14 @@ import { Link } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Profile.module.scss";
-import GameForm from "../../Components/GameForm/GameForm";
 const Profile = () => {
     const {user} = useAuthContext();
 
     const {teams: teamsFromContext} = useTeamsContext();
     const {players: playersFromContext} = usePlayersContext();
 
-    const { data: teamsData, isLoading: teamsLoading, error: teamsError} = useFetch('/teams')
-    const { data: playersData, isLoading: playersLoading, error: playersError} = useFetch('/players')
+    const { data: teamsData} = useFetch('/teams')
+    const { data: playersData} = useFetch('/players')
 
     const allTeams = teamsData ? teamsData.teams : teamsFromContext;
     const teams = !user.admin ? 
@@ -56,7 +55,7 @@ const Profile = () => {
                     )}
                     </ul>
                     <h3 className={styles.subHeader}>Zarządzanie graczami:</h3>
-                    <ul className={styles.Players}>
+                    <ul className={styles.playersList}>
                     {players.map(player => {
                         return (
                             <li key={player._id} className={styles.player}>
@@ -73,12 +72,7 @@ const Profile = () => {
                         </div>
         </div>
         
-        {user.admin &&
-        <div className={styles.Profile_right}>
-            <h3>Dodaj mecz:</h3>
-            <GameForm allTeams={allTeams}/>
-        </div> 
-        }
+       
         
         </div>
     }

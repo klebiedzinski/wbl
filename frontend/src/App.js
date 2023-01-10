@@ -25,6 +25,7 @@ import Login from './Pages/Login/Login';
 
 //components
 import Navbar from "./Components/Navbar/Navbar";
+import AdminPanel from './Pages/AdminPanel/AdminPanel';
 
 
 function App() {
@@ -44,6 +45,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/profile" element={user ? <Profile/> : <Home/>}/>
       <Route path="/standings" element={<Standings/>}/>
+      <Route path="/admin" element={ (user && user.admin) ? <AdminPanel/> : <Home/>}/>
       <Route path="/players">
         <Route path='/players/PlayerForm' element={ ( user && user.admin) ? <PlayerForm/> : <Home/>}></Route>
           <Route index element={<Players/>}/>

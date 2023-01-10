@@ -2,6 +2,7 @@
 
 .Profile{
     display: flex;
+    justify-content: center;
 }
 .Profile_left {
   display: flex;
@@ -9,8 +10,7 @@
   align-items: center;
   justify-content: center;
   background-color: #f5f5f5;
-    width: 40%;
-    border-right: 1px solid #ccc;
+    width: 60%;
 }
 
 .subHeader{
@@ -47,6 +47,9 @@ a{
 }
 .teamsList,.playersList{
     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-inline: auto;
     flex-wrap: wrap;
     *{
         flex: 1 1 30%;

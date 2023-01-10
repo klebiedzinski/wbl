@@ -7,10 +7,10 @@ import TeamEditModal from "../../Components/TeamEditModal/TeamEditModal";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import ClipLoader from "react-spinners/ClipLoader";
+import { AiFillEdit } from "react-icons/ai";
 const TeamOverview = () => {
     const {id} = useParams()
     const {user} = useAuthContext();
-    console.log(user)
     const canEdit = user && (user.admin || user.auth_teams.find(team_id => team_id === id))
     const {teams} = useTeamsContext();
     const {data, isLoading} = useFetch(`/teams/${id}`)
@@ -52,8 +52,8 @@ const TeamOverview = () => {
                         Team pic
                     </div>
                     {canEdit &&
-                    <div className={styles.editBtn}>
-                        <img src="https://wbl.klebiedzinski.pl/photos/icons/edit-icon.png" alt="" onClick={() => setIsModalOpen(true)}/>
+                    <div className={styles.editBtn} onClick={() => setIsModalOpen(true)}>
+                        <AiFillEdit/>
                     </div>
                     }
 

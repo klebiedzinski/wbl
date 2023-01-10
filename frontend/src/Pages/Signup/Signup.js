@@ -29,13 +29,24 @@ const Signup = () => {
         },
         validationSchema: Yup.object({
             firstName: Yup.string()
-                .required("Podaj imię"),
+                .required("Podaj imię")
+                .max(10, "Imię nie może być dłuższe niż 10 znaków")
+                .matches(/^[a-zA-Z]+$/, "Imię może zawierać tylko litery"),
+
             lastName: Yup.string()
-                .required("Podaj nazwisko"),
+                            .required("Podaj nazwisko")
+                            .matches(/^[a-zA-Z]+$/, "Nazwisko może zawierać tylko litery"),
+
             email: Yup.string()
-                .required("Podaj email"),
+                            .required("Podaj email")
+                            .email("Nieprawidłowy adres email"),
+
             password: Yup.string()
-                .required("Podaj hasło"),
+                            .required("Podaj hasło")
+                            .min(8, "Hasło musi mieć przynajmniej 8 znaków")
+                            .matches(/(?=.*[A-Z])/, "Hasło musi zawierać co najmniej jedną dużą literę")
+                            .matches(/(?=.*[0-9])/, "Hasło musi zawierać co najmniej jedną cyfrę")
+                            .matches(/(?=.*[!@#\$%\^&])/, "Hasło musi zawierać co najmniej jeden znak specjalny (!, @, #, $, %, ^, &)"),
             auth_players: Yup.array()
                 .required("Podaj graczy")
                 .min(1, "Musisz wybrać przynajmniej jednego gracza"),

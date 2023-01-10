@@ -1,63 +1,47 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import * as Yup from 'yup'
-import styles from "./GameForm.module.scss"
-import {useGamesContext} from "../../hooks/contexts/useGamesContext";
-import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import axiosInstance from "../../config/axios_config";
-const GameForm = ({teams}) => {
+import * as Yup from 'yup'
+import styles from "./GameEditFormModal.module.scss"
+import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {
+    const {user} = useAuthContext();
+    const {dispatch} = useTeamsContext();
 
-    const {dispatch} = useGamesContext()
-    const {user} = useAuthContext()
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
-    const [isAdded, setIsAdded] = useState(false)
-
+    const [isEdited, setIsEdited] = useState(false)
     const formik = useFormik({
         initialValues: {
-            // all values from game model
-            status: "scheduled",
-            team1: "",
-            team2: "",
-            team1Score: 0,
-            team2Score: 0,
-            date: "",
-            location: "ONZ Arena"
+            team1Score: game.team1Score,
+            team2Score: game.team1Score,
+            location: game.location,
+            date: game.date,
+            status: game.status,
         },
         validationSchema: Yup.object({
-            status: Yup.string()
-                .required("Podaj status meczu (scheduled, live, finished)"),
-            team1: Yup.string()
-                .required("Podaj nazwę drużyny 1"),
-            team2: Yup.string()
-                .required("Podaj nazwę drużyny 2"),
             team1Score: Yup.number(),
             team2Score: Yup.number(),
+            location: Yup.string()
+                .required("Podaj lokalizację meczu"),
             date: Yup.string()
                 .required("Podaj datę meczu (format: YYYY-MM-DD)"),
-            location: Yup.string()
-                .required("Podaj lokalizację meczu")
-
+            status: Yup.string()
+            
         }),
         onSubmit: (values) => {
             setIsSubmitClicked(false)
-            const team1_id = teams.find(team => team.name === values.team1)._id
-            const team2_id = teams.find(team => team.name === values.team2)._id
-            console.log(team1_id, team2_id)
-            axiosInstance.post('/games', {
-                status: values.status,
-                team1_id: team1_id,
-                team2_id: team2_id,
+            axiosInstance.patch(`/games/${game._id}`, {
                 team1Score: values.team1Score,
                 team2Score: values.team2Score,
-                date: values.date,
-                location: values.location
+                location: values.location,
+                date: values.date
             }, {headers: {'Authorization': `Bearer ${user.token}`}}
-            )
+                    )
             .then((response) => {
-                if (response.data) {
-                    setIsAdded(true)
-                    console.log(response.data)
-                    // dispatch({type: "ADD_GAME", payload: response.data.Game})
+                if (response.status === 200) {
+                    setIsEdited(true)
+                    dispatch({type: "UPDATE_GAME", payload: {team1Score: values.team1Score, team2Score: values.team2Score, location: values.location, date: values.date}})
                 }
                 
             })
@@ -67,8 +51,17 @@ const GameForm = ({teams}) => {
         }
     })
     return ( 
-        <div className={styles.GameForm}>
-            <form onSubmit={formik.handleSubmit}>
+        <>
+        {game && 
+        <div className={styles.overlayStyle}>
+            <div className={styles.gameEditModal}>
+            <button className={styles.closeModalBtn} onClick={() => setIsModalOpen(false)}>X</button>
+            <h1 className="modal-title">Edytuj mecz </h1>
+            <h1>{team1.name} vs {team2.name}</h1>
+            <div className="GameForm">
+
+                <form onSubmit={formik.handleSubmit}>
+
                 <div className="input-container">
                     <label htmlFor="status">Status</label>
                     <select
@@ -78,7 +71,6 @@ const GameForm = ({teams}) => {
                     onChange={formik.handleChange}
                     >
                         <option value="scheduled">scheduled</option>
-                        <option value="live">live</option>
                         <option value="finished">finished</option>
                     </select>
                     { isSubmitClicked &&
@@ -86,46 +78,11 @@ const GameForm = ({teams}) => {
                     }
                 </div>
                     
-
-                <div className="input-container">
-                    <label htmlFor="team1">Drużyna 1</label>
-                    <select
-                    name="team1"
-                    id="team1"
-                    value={formik.values.team1}
-                    onChange={formik.handleChange}
-                    >
-                        <option value="">Wybierz drużynę 1</option>
-                        {teams.map(team => (
-                            <option key={team._id} value={team.name}>{team.name}</option>
-                        ))}
-                    </select>
-                    { isSubmitClicked && 
-                    <p className="validation-info">{formik.errors.team1}</p>
-                    }
-                </div>
-
-                <div className="input-container">
-                    <label htmlFor="team2">Drużyna 2</label>
-                    <select
-                    name="team2"
-                    id="team2"
-                    value={formik.values.team2}
-                    onChange={formik.handleChange}
-                    >
-                        <option value="">Wybierz drużynę 2</option>
-                        {teams.map(team => (
-                            <option key={team._id} value={team.name}>{team.name}</option>
-                        ))}
-                    </select>
-                    { isSubmitClicked && 
-                    <p className="validation-info">{formik.errors.team2}</p>
-                    }
-                </div>
+                    
                 { formik.values.status === "finished" &&
                 <>
                 <div className="input-container">
-                    <label htmlFor="team1Score">Wynik drużyny 1</label>
+                    <label htmlFor="team1Score">Wynik - {team1.name}</label>
                     <input 
                     type="number"
                     name="team1Score"
@@ -140,7 +97,7 @@ const GameForm = ({teams}) => {
                 </div>
 
                 <div className="input-container">
-                    <label htmlFor="team2Score">Wynik drużyny 2</label>
+                    <label htmlFor="team2Score">Wynik - {team2.name}</label>
                     <input 
                     type="number"
                     name="team2Score"
@@ -186,17 +143,17 @@ const GameForm = ({teams}) => {
                     }
                 </div>
 
-                {isSubmitClicked && 
-                <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>
-                }
-                <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Submit</button>
-                {isAdded && 
-                <h2 className="validation-info">Dodano mecz</h2>
-                }
-            </form>
 
+                    {isSubmitClicked && <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>}
+                    <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Submit</button>
+                    {isEdited && <h2 className="validation-info">Edytowano mecz</h2>}
+                </form>
+            </div>
         </div>
+        </div>
+        }
+        </>
      );
 }
  
-export default GameForm;
+export default GameEditFormModal;

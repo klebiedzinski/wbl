@@ -22,6 +22,7 @@ const Navbar = () => {
                 <Link to="/games">Games</Link>
                 <Link to="/standings">Standings</Link>
                 <Link to="/profile">Hi, {user.firstName}</Link>
+                {user.admin && <Link to="/admin">Panel admina</Link>}
                 <button onClick={handleLogout} className={styles.login}>Log out</button>
             </div>
             }   

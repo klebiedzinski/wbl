@@ -17,12 +17,9 @@ export const teamsReducer = (state, action) => {
                 teams: state.teams ? state.teams.filter((team) => team.id !== action.payload) : null,
             };
         case 'UPDATE_TEAM':
-            console.log("jestem")
-            console.log("payload",action.payload)
             return {
                 teams: state.teams ? state.teams.map((team) => {
                     if (team._id === action.payload.id) {
-                        console.log("znalazlem, zmieniam", team, "na", action.payload)
                         return action.payload;
                     }
                     return team;

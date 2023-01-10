@@ -1,0 +1,26 @@
+.header{
+    text-align: center;
+}
+.main{
+    display: flex;
+    flex-wrap: wrap;
+    & > *{
+        h1{
+            text-align: center;
+        }
+        border: 1px solid black;
+        padding: 10px;
+        flex: 1 1 40%;
+    }
+
+    .users_panel{
+        display: flex;
+        flex-direction: column;
+        & > *{
+            flex: 1 1 40%;
+            border-bottom: 1px solid gray;
+        }
+    }
+
+
+}
