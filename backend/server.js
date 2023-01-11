@@ -1,4 +1,5 @@
 require('dotenv').config();
+const multer = require('multer');
 const express = require('express');
 const mongoose = require('mongoose');
 const teamsRoutes = require('./routes/teams');
@@ -20,6 +21,7 @@ app.use(
 
 //middleware
 app.use(express.json());
+
 
 //routes
 app.use('/api/teams', teamsRoutes);

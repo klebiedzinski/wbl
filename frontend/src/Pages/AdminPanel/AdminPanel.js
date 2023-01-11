@@ -4,6 +4,7 @@ import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useGamesContext } from "../../hooks/contexts/useGamesContext";
+import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 const AdminPanel = () => {
     const {user} = useAuthContext();
@@ -20,6 +21,7 @@ const AdminPanel = () => {
 
     return ( 
         <>
+        {(!teams || !players) && <ClipLoader/>}
         { teams && players &&
         <>
         <div className={styles.header}>

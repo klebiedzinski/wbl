@@ -51,7 +51,6 @@ userSchema.statics.signup = async function(firstName,lastName,email, password, a
     if(!email || !password  ) {
         throw Error('Email i hasło są wymagane');
     }
-    console.log(email)
     if (!validator.isEmail(email)) {
         throw Error('Niepoprawny email');
     }

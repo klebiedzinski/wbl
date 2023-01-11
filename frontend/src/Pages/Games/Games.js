@@ -98,9 +98,9 @@ const Games = () => {
                                     </div>
                                     :
                                     <div className={styles.deleteBtn}>
-                                        <p>Czy na pewno chcesz usunąć mecz?</p> 
-                                        <button onClick={() => handleDelete(game._id)}> Tak </button>
-                                        <button onClick={() => setDeleteConfirmation(false)}> Nie </button>
+                                        <AiFillCloseCircle onClick={() => setDeleteConfirmation(false)}/>
+                                        <p style={{fontSize: "1rem"}}>You sure?</p> 
+                                        <button onClick={() => handleDelete(game._id)}> USUŃ</button>
                                     </div>
                                     }
 

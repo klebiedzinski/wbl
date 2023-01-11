@@ -70,7 +70,10 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                 yearOfBirth: values.yearOfBirth,
                 career: values.career,
                 teamName: values.teamName,
-                },{headers: {'Authorization': `Bearer ${user.token}`}})
+                },{headers: {
+                    'Authorization': `Bearer ${user.token}`,
+                    'Content-Type': 'multipart/form-data'
+                }})
                 .then((response) => {
                     if (response.status === 200) {
                         setIsEdited(true)
@@ -105,7 +108,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                 data-testid="loader"
             />}
             <div className={styles.playerForm}>
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 
                     <div className="input-container">
                         <input 
@@ -145,12 +148,11 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                 
                     <div className="input-container">
                         <input 
-                        type="text"
+                        type="file"
                         name="picture"
                         id="picture"
                         placeholder="picture"
-                        value={formik.values.picture}
-                        onChange={formik.handleChange}
+                        onChange={(e) => formik.setFieldValue("picture", e.target.files[0])}
                         />
                         { isSubmitClicked && <p className="validation-info">{formik.errors.picture}</p>}
                     </div>

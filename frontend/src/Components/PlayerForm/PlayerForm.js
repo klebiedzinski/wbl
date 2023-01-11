@@ -20,7 +20,7 @@ const PlayerForm = () => {
         initialValues: {
             firstName: "test",
             lastName: "test",
-            picture: "https://wbl.klebiedzinski.pl/photos/sample_pictures/player.png",
+            picture: "",
             yearOfBirth: "2002",
             career: [],
             teamName: "",
@@ -29,19 +29,18 @@ const PlayerForm = () => {
         validationSchema: Yup.object({
             firstName: Yup.string()
                 .max(10, "Your name is too long")
-                .required("Please fill in this field"),
+                .required("Uzupełnij to pole"),
             lastName: Yup.string()
-                .max(20, "Your name is too long")
-                .required("Please fill in this field"),
+                .max(20, "Za długie nazwisko (max 20 znaków)")
+                .required("Uzupełnij to pole"),
             picture: Yup.string(),
-
             yearOfBirth: Yup.string()
-                .required("Please fill in this field"),
+                .required("Uzupełnij to pole"),
 
             career: Yup.array(),
 
             teamName: Yup.string()
-                .required("Please fill in this field"),
+                .required("Uzupełnij to pole"),
         }),
 
         onSubmit: (values) => {
@@ -56,7 +55,10 @@ const PlayerForm = () => {
                 yearOfBirth: values.yearOfBirth,
                 career: values.career,
                 teamName: values.teamName,
-            },{headers: {'Authorization': `Bearer ${user.token}`}})
+            },{headers: {
+                'Authorization': `Bearer ${user.token}`,
+                "Content-Type": "multipart/form-data"
+            }})
             .then((response) => {
                 console.log(response.data.player)
                 if (response.status === 200) {
@@ -80,7 +82,7 @@ const PlayerForm = () => {
                 />}
         {teams && 
         <div className={styles.playerForm}>
-            <form onSubmit={formik.handleSubmit}>
+            <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 
                 <div className="input-container">
                     <input 
@@ -119,13 +121,13 @@ const PlayerForm = () => {
                 </div>
                 
                 <div className="input-container">
+                    <label for="picture">Zdjęcie w formacie .png</label>
                     <input 
-                    type="text"
-                    name="picture"
+                    type="file"
                     id="picture"
                     placeholder="picture"
-                    value={formik.values.picture}
-                    onChange={formik.handleChange}
+                    accept="image/png"
+                    onChange={(e) => formik.setFieldValue("picture", e.target.files[0])}
                     />
                     { isSubmitClicked && <p className="validation-info">{formik.errors.picture}</p>}
                 </div>

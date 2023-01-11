@@ -15,20 +15,25 @@ p{
         
     }
     .editBtn{
-        padding: 14px 20px;
-        margin: 8px 0;
+        margin-block: 1vh;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         background-color: #d99917;
     }
     .deleteBtn{
-        padding: 14px 20px;
-        margin: 8px 0;
+        margin-block: 1vh;
         border: none;
         border-radius: 4px;
         cursor: pointer;
         background-color: #e80505;
+        button{
+            height: 100%;
+            background-color: #e80505;
+            color: white;
+            border: 1px solid white;
+            cursor: pointer;
+        }
     }
     button{
         background-color: #cdcac7;

@@ -29,6 +29,7 @@ const Profile = () => {
 
     return ( 
         <>
+        {(!teams || !players) && <ClipLoader/>}
         { teams && players && 
             <div className={styles.Profile}>
             <div className={styles.Profile_left}>

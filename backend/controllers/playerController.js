@@ -46,7 +46,7 @@ const getPlayersByTeam = async (req, res) => {
 
 // add player
 const addPlayer = async (req, res) => {
-    const { firstName, lastName, picture, yearOfBirth, teamName, career } = req.body;
+    const { firstName, lastName, yearOfBirth, teamName, career } = req.body;
 
     // find team by name
     const team = await Team.findOne({name: teamName});
@@ -54,13 +54,15 @@ const addPlayer = async (req, res) => {
     if (!team) {
         return res.status(404).json({error: "Team not found"});
     }
-
     // add document to database
     try {
         const player = await Player.create({
             firstName,
             lastName,
-            picture,
+            picture: 
+                req.file ? 
+                req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename
+                : `https://api.dicebear.com/5.x/micah/svg?seed=${lastName}${firstName}&earringsProbability=0&eyes=eyes,eyesShadow,round&facialHair[]&facialHairProbability=0&hair=fonze,mrClean,dougFunny&hairColor=000000,77311d,ac6651,ffedef,ffeba4,f4d150&mouth=laughing,smile,smirk&shirt=open&shirtColor=000000`,
             yearOfBirth,
             teamName,
             career
@@ -76,16 +78,22 @@ const updatePlayer = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid player ID"});
     }
-
+    console.log(req.body)
     // grab player by id and update
     const player = await Player.findOneAndUpdate({_id: req.params.id}, {
-        ...req.body
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        picture: 
+            req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename,
+        yearOfBirth: req.body.yearOfBirth,
+        teamName: req.body.teamName,
+        career: req.body.career
     })
+    
     // check if player exists
     if (!player) {
         return res.status(404).json({error: "Player not found"});
     }
-
     return res.status(200).json({player});
 }
 
