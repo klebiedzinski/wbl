@@ -5,12 +5,25 @@ import useFetch from '../../hooks/useFetch';
 import { useEffect, useState } from 'react';
 import ClipLoader from 'react-spinners/ClipLoader';
 import sort_basketball_league from './sorting';
+import PleaseFlipYourPhone from '../../Components/PleaseFlipYourPhone/PleaseFlipYourPhone';
 const Standings = () => {
     const {teams: unsortedTeams,dispatch} = useTeamsContext();
     const {data: teamsData, isLoading} = useFetch('/teams');
     const {games, dispatch: gamesDispatch} = useGamesContext();
     const {data: gamesData} = useFetch('/games');
     const [teams, setTeams] = useState(null);
+    const [isLandscape, setIsLandscape] = useState(false);
+
+    useEffect(() => {
+        function handleResize() {
+            setIsLandscape(window.innerHeight < window.innerWidth);
+            // console.log(window.innerHeight, window.innerWidth)
+            console.log(isLandscape)
+        }
+        window.addEventListener('resize', handleResize);
+        handleResize();
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
     useEffect(() => {
         if(teamsData && gamesData){
             dispatch({type: 'SET_TEAMS', payload: teamsData.teams})
@@ -24,7 +37,9 @@ const Standings = () => {
 
     
     return ( 
-        <div className={styles.Standings}>
+    <>
+       {!isLandscape && <PleaseFlipYourPhone/>}
+        {isLandscape && <div className={styles.Standings}>
             <div className={styles.header}>
                 <h1>Standings</h1>
             </div>
@@ -35,6 +50,7 @@ const Standings = () => {
                     <h3>GP</h3>
                     <h3>Won</h3>
                     <h3>Lost</h3>
+                    <h3>Win%</h3>
                     <h3>PTS+</h3>
                     <h3>PTS-</h3>
                     <h3>+/-</h3>
@@ -49,6 +65,7 @@ const Standings = () => {
                                 <h3>{team.games}</h3>
                                 <h3>{team.wins}</h3>
                                 <h3>{team.losses}</h3>
+                                <h3>{(team.wins===0) ? 0 : (team.wins / team.games*100).toFixed(2)}%</h3>
                                 <h3>{team.points_made}</h3>
                                 <h3>{team.points_lost}</h3>
                                 <h3>{team.points_made - team.points_lost}</h3>
@@ -58,6 +75,8 @@ const Standings = () => {
                 </div>
             </div>
         </div>
+}
+    </>
      );
 }
  
