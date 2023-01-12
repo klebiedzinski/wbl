@@ -29,7 +29,7 @@ const gameSchema = new Schema({
     date: {
         type: Date,
         required: false,
-        // default: new Date()
+        default: new Date()
     },
     time: {
         type: String,

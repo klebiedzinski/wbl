@@ -1,5 +1,5 @@
 const express = require('express');
-const { addTeam, getAllTeams, getSingleTeam, deleteTeam, updateTeam } = require('../controllers/teamController');
+const { addTeam, getAllTeams, getSingleTeam, deleteTeam, updateTeam, addWin, addDefeat } = require('../controllers/teamController');
 const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
@@ -21,5 +21,12 @@ router.patch('/:id', updateTeam);
 
 //delete team
 router.delete('/:id', deleteTeam);
+
+// //add win to team
+// router.patch('/:id', addWin);
+
+// //add defeat to team
+// router.patch('/:id', addDefeat);
+
 
 module.exports = router;

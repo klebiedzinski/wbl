@@ -1,5 +1,5 @@
 import { useParams} from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlayersList from "../../Components/TeamPlayersList/TeamPlayersList";
 import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
@@ -12,10 +12,13 @@ const TeamOverview = () => {
     const {id} = useParams()
     const {user} = useAuthContext();
     const canEdit = user && (user.admin || user.auth_teams.find(team_id => team_id === id))
-    const {teams} = useTeamsContext();
-    const {data, isLoading} = useFetch(`/teams/${id}`)
 
-    const team = teams ? teams.find(team => team._id === id) : data ? data.team : null;
+    const {teamsFromContext} = useTeamsContext();
+    const {data: teamFromDB, isLoading} = useFetch(`/teams/${id}`)
+    const team = teamsFromContext ? teamsFromContext.find(team => team._id === id) : teamFromDB ? teamFromDB.team : null;
+   
+   
+
 
 
     
@@ -35,7 +38,7 @@ const TeamOverview = () => {
         />
         }
 
-        {team &&
+        {team && 
         <div className={styles.teamOverview}>
             <div className={styles.teamInfo}>
                 <div className={styles.teamInfoHeader}>
@@ -63,7 +66,7 @@ const TeamOverview = () => {
         }
 
         {isModalOpen &&
-        <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id}/>
+        <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id} />
         }
         <PlayersList/>
         </>

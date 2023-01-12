@@ -5,6 +5,7 @@ import styles from "./GameForm.module.scss"
 import {useGamesContext} from "../../hooks/contexts/useGamesContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import axiosInstance from "../../config/axios_config";
+import {AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle} from "react-icons/ai";
 const GameForm = ({teams}) => {
 
     const {dispatch} = useGamesContext()
@@ -57,7 +58,7 @@ const GameForm = ({teams}) => {
                 if (response.data) {
                     setIsAdded(true)
                     console.log(response.data)
-                    // dispatch({type: "ADD_GAME", payload: response.data.Game})
+                    dispatch({type: "ADD_GAME", payload: response.data.Game})
                 }
                 
             })

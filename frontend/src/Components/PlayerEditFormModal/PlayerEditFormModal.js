@@ -14,7 +14,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
     const { _id: id, firstName, lastName, picture, yearOfBirth, career, teamName } = player;
 
-    const { data: teams, isLoading, error} = useFetch('/teams')
+    const { data: teams, isLoading} = useFetch('/teams')
 
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);

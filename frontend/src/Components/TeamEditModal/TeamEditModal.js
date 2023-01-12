@@ -5,8 +5,10 @@ import * as Yup from 'yup'
 import styles from "./TeamEditModal.module.scss"
 import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
-const TeamEditModal = ({team, setIsModalOpen,id}) => {
+import { useNavigate } from "react-router-dom";
+const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
 
+    const navigate = useNavigate();
     const {user} = useAuthContext();
     const {dispatch} = useTeamsContext();
 
@@ -71,9 +73,12 @@ const TeamEditModal = ({team, setIsModalOpen,id}) => {
                     )
             .then((response) => {
                 if (response.status === 200) {
-                    setIsEdited(true)
                     dispatch({type: "UPDATE_TEAM", payload: {_id: team._id, name: values.name, logo: values.link}})
-                    
+                    setIsEdited(true)
+                    setTimeout(() => {
+                        setIsModalOpen(false)
+                        navigate(`/teams/`)
+                    }, 500)
                 }
                 
             })

@@ -15,10 +15,10 @@ const TeamPlayersList = () => {
     const team = teams && teams.find(team => team._id === id);
     let players = allPlayers && allPlayers.filter(player => player.teamName === team.name);
 
-    const {data, isLoading, error} = useFetch(`/players/team/${id}`)
+    const {data, isLoading} = useFetch(`/players/team/${id}`)
 
     useEffect(() => {
-        console.log(players)
+        // console.log(players)
     if(data){
         players = data.players;
     }
@@ -41,7 +41,7 @@ const TeamPlayersList = () => {
         
        {players!==undefined &&
         <div className={styles.playersList}>
-            <h1 className={styles.roster}></h1>
+            <h1 className={styles.roster}>Skład</h1>
             <div className={styles.teamPlayers}>
             {user && user.admin && 
                     <Link to={`/players/PlayerForm`} className={styles.player}>

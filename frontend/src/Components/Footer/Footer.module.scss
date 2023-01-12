@@ -1,0 +1,19 @@
+footer {
+    border-top: 1px solid #999;
+    text-align: center;
+    font-size: 12px;
+    p {
+        a {
+            display: inline-block;
+            color: #999;
+            text-decoration: none;
+            &:hover {
+                color: #333;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        font-size: 9px;
+    }
+}

@@ -25,11 +25,6 @@ const teamSchema = new Schema({
         required: false,
         default: 0
     },
-    points: {
-        type: Number,
-        required: false,
-        default: 0
-    },
     games: {
         type: Number,
         required: false,

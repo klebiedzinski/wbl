@@ -5,16 +5,19 @@ import * as Yup from 'yup'
 import styles from "./GameEditFormModal.module.scss"
 import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+import { AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {
     const {user} = useAuthContext();
     const {dispatch} = useTeamsContext();
 
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isEdited, setIsEdited] = useState(false)
+    const navigate = useNavigate()
     const formik = useFormik({
         initialValues: {
             team1Score: game.team1Score,
-            team2Score: game.team1Score,
+            team2Score: game.team2Score,
             location: game.location,
             date: game.date,
             status: game.status,
@@ -32,6 +35,7 @@ const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {
         onSubmit: (values) => {
             setIsSubmitClicked(false)
             axiosInstance.patch(`/games/${game._id}`, {
+                status: values.status,
                 team1Score: values.team1Score,
                 team2Score: values.team2Score,
                 location: values.location,
@@ -42,6 +46,10 @@ const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {
                 if (response.status === 200) {
                     setIsEdited(true)
                     dispatch({type: "UPDATE_GAME", payload: {team1Score: values.team1Score, team2Score: values.team2Score, location: values.location, date: values.date}})
+                    setTimeout(() => {
+                        navigate("/games")
+                    }
+                    , 1000)
                 }
                 
             })
@@ -145,7 +153,7 @@ const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {
 
 
                     {isSubmitClicked && <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>}
-                    <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Submit</button>
+                    <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} ><AiOutlineCheck/></button>
                     {isEdited && <h2 className="validation-info">Edytowano mecz</h2>}
                 </form>
             </div>

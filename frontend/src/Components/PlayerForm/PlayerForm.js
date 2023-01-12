@@ -7,11 +7,13 @@ import styles from "./PlayerForm.module.scss";
 import * as Yup from 'yup'
 import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
 import {useAuthContext} from "../../hooks/contexts/useAuthContext";
+import { useNavigate } from "react-router-dom";
 const PlayerForm = () => {
     
+    const navigate = useNavigate()
     const {user} = useAuthContext();
     const {dispatch} = usePlayersContext()
-    const { data: teams, isLoading, error} = useFetch('/teams')
+    const { data: teams, isLoading} = useFetch('/teams')
 
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
@@ -64,6 +66,10 @@ const PlayerForm = () => {
                 if (response.status === 200) {
                     setIsAdded(true)
                     dispatch({type: "ADD_PLAYER", payload: response.data.player})
+                    setTimeout(() => {
+                        navigate('/players')
+                    }, 1000)
+                        
                 }
                 
             })

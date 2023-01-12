@@ -26,6 +26,7 @@ import Login from './Pages/Login/Login';
 //components
 import Navbar from "./Components/Navbar/Navbar";
 import AdminPanel from './Pages/AdminPanel/AdminPanel';
+import Footer from './Components/Footer/Footer';
 
 
 function App() {
@@ -39,6 +40,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     <>
     
     {!isScoreboardShown && <Navbar/>}
+    <main>
     <Routes>
       <Route path="/" element={ <Home/> }/>
       <Route path="/login" element={ <Login/> }/>
@@ -68,6 +70,8 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
 
       <Route path='*' element={<NotFound/>}/>
     </Routes>
+    </main>
+    <Footer/>
     </>
   );
 }

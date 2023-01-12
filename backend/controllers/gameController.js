@@ -1,4 +1,5 @@
 const Game = require('../models/gameModel');
+const Team = require('../models/teamModel');
 const mongoose = require('mongoose');
 
 //get all games
@@ -40,6 +41,40 @@ const addGame = async (req, res) => {
             date,
             location
         });
+        console.log(req.body)
+        if (status==="finished") {
+            const winner = team1Score > team2Score ? team1_id : team2_id;
+            const looser = team1Score < team2Score ? team1_id : team2_id;
+            const winnersPoints = team1Score > team2Score ? team1Score : team2Score;
+            const looserPoints = team1Score < team2Score ? team1Score : team2Score;
+            console.log("winner", winner)
+            console.log("looser", looser)
+            console.log(req.body)
+            //handling winner
+            if (!mongoose.Types.ObjectId.isValid(winner)) {
+                return res.status(404).json({error: "Nie mogłem dodać zwycięstwa, niepoprawne ID drużyny"});
+            }
+            // grab team by id and update wins, games, points_made and points_lost
+            const winningTeam = await Team.findOneAndUpdate({_id: winner},
+                {$inc: {wins: 1, games: 1, points_made: winnersPoints, points_lost: looserPoints}});
+            console.log(winningTeam)
+            if (!winningTeam) {
+                return res.status(404).json({error: "Nie znaleziono drużyny"});
+            }
+            
+            //handling looser
+            if (!mongoose.Types.ObjectId.isValid(looser)) {
+                return res.status(404).json({error: "Nie mogłem dodać przegranej, niepoprawne ID drużyny"});
+            }
+
+            // grab team by id and update losses, games, points_made and points_lost
+            const loosingTeam = await Team.findOneAndUpdate({_id: looser},
+                {$inc: {losses: 1, games: 1, points_made: looserPoints, points_lost: winnersPoints}});
+            if (!loosingTeam) {
+                return res.status(404).json({error: "Nie znaleziono drużyny"});
+            }
+        }
+
         res.status(200).json({game});
     }
     catch (err) {
@@ -54,11 +89,87 @@ const updateGame = async (req, res) => {
     }
 
     // grab game by id and update
-    const game = await Game.findOneAndUpdate({_id: req.params.id},{...req.body});
-    if (!game) {
+    const oldGame = await Game.findOne({_id: req.params.id});
+    
+    const newGame = await Game.findOneAndUpdate({_id: req.params.id},{...req.body});
+    if (!newGame) {
         return res.status(404).json({error: "game not found"});
     }
-    return res.status(200).json({game});
+    // IF YOU CHANGE STATUS FROM FINISHED TO FINISHED
+    if (req.body.status==="finished" && oldGame.status==="finished") {
+        const team1OldScore = oldGame.team1Score;
+        const team2OldScore = oldGame.team2Score;
+        const team1NewScore = req.body.team1Score;
+        const team2NewScore = req.body.team2Score;
+        const winner = team1NewScore > team2NewScore ? newGame.team1_id : newGame.team2_id;
+        const looser = team2NewScore > team1NewScore ? newGame.team1_id : newGame.team2_id;
+        const winnersPoints = team1NewScore > team2NewScore ? team1NewScore : team2NewScore;
+        const looserPoints = team1NewScore < team2NewScore ? team1NewScore : team2NewScore;
+        const oldWinner = team1OldScore > team2OldScore ? oldGame.team1_id : oldGame.team2_id;
+        const oldLooser = team1OldScore < team2OldScore ? oldGame.team1_id : oldGame.team2_id;
+        const oldWinnersPoints = team1OldScore > team2OldScore ? team1OldScore : team2OldScore;
+        const oldLooserPoints = team1OldScore < team2OldScore ? team1OldScore : team2OldScore;
+
+        //REMOVING OLD DATA FROM TEAMS
+        const oldWinningTeam = await Team.findOneAndUpdate({_id: oldWinner},
+            {$inc: {wins: -1, games: -1, points_made: -oldWinnersPoints, points_lost: -oldLooserPoints}});
+        if (!oldWinningTeam) {
+            return res.status(404).json({error: "Nie znaleziono drużyny"});
+        }
+        const oldLoosingTeam = await Team.findOneAndUpdate({_id: oldLooser},
+            {$inc: {losses: -1, games: -1, points_made: -oldLooserPoints, points_lost: -oldWinnersPoints}});
+        if (!oldLoosingTeam) {
+            return res.status(404).json({error: "Nie znaleziono drużyny"});
+        }
+
+        //ADDING NEW DATA TO TEAMS
+        if (!mongoose.Types.ObjectId.isValid(winner)) {
+            return res.status(404).json({error: "Nie mogłem dodać zwycięstwa, niepoprawne ID drużyny"});
+        }
+        // grab team by id and update wins, games, points_made and points_lost
+        const winningTeam = await Team.findOneAndUpdate({_id: winner},
+            {$inc: {wins: 1, games: 1, points_made: winnersPoints, points_lost: looserPoints}});
+        if (!winningTeam) {
+            return res.status(404).json({error: "Nie znaleziono drużyny"});
+        }
+
+        const loosingTeam = await Team.findOneAndUpdate({_id: looser},
+            {$inc: {losses: 1, games: 1, points_made: looserPoints, points_lost: winnersPoints}});
+        if (!loosingTeam) {
+            return res.status(404).json({error: "Nie znaleziono drużyny"});
+        }
+
+
+    }
+    // IF YOU CHANGE STATUS FROM SCHEDULED TO FINISHED
+    if (req.body.status==="finished" && oldGame.status==="scheduled") {
+        const team1NewScore = req.body.team1Score;
+        const team2NewScore = req.body.team2Score;
+        const winner = team1NewScore > team2NewScore ? newGame.team1_id : newGame.team2_id;
+        const looser = team2NewScore > team1NewScore ? newGame.team1_id : newGame.team2_id;
+        const winnersPoints = team1NewScore > team2NewScore ? team1NewScore : team2NewScore;
+        const looserPoints = team1NewScore < team2NewScore ? team1NewScore : team2NewScore;
+
+        if (!mongoose.Types.ObjectId.isValid(winner)) {
+            return res.status(404).json({error: "Nie mogłem dodać zwycięstwa, niepoprawne ID drużyny"});
+        }
+        // grab team by id and update wins, games, points_made and points_lost
+        const winningTeam = await Team.findOneAndUpdate({_id: winner},
+            {$inc: {wins: 1, games: 1, points_made: winnersPoints, points_lost: looserPoints}});
+        if (!winningTeam) {
+            return res.status(404).json({error: "Nie znaleziono drużyny"});
+        }
+
+        const loosingTeam = await Team.findOneAndUpdate({_id: looser},
+            {$inc: {losses: 1, games: 1, points_made: looserPoints, points_lost: winnersPoints}});
+        if (!loosingTeam) {
+            return res.status(404).json({error: "Nie znaleziono drużyny"});
+        }
+
+
+    }
+
+    return res.status(200).json({newGame});
 }
 
 // delete game
@@ -67,12 +178,31 @@ const deleteGame = async (req, res) => {
         return res.status(404).json({error: "Invalid game ID"});
     }
 
-    // grab game by id and delete
-    const game = await Game.findOneAndDelete({_id: req.params.id});
+    // grab game by id 
+    const game = await Game.findOne({_id: req.params.id});
     if (!game) {
         return res.status(404).json({error: "Game not found"});
     }
+    const winner = game.team1Score > game.team2Score ? game.team1_id : game.team2_id;
+    const looser = game.team2Score > game.team1Score ? game.team1_id : game.team2_id;
+    const winnersPoints = game.team1Score > game.team2Score ? game.team1Score : game.team2Score;
+    const looserPoints = game.team1Score < game.team2Score ? game.team1Score : game.team2Score;
+
+    //grab team by id and update wins, games, points_made and points_lost
+    const winningTeam = await Team.findOneAndUpdate({_id: winner},
+        {$inc: {wins: -1, games: -1, points_made: -winnersPoints, points_lost: -looserPoints}});
+    if (!winningTeam) {
+        return res.status(404).json({error: "Nie znaleziono drużyny"});
+    }
+
+    const loosingTeam = await Team.findOneAndUpdate({_id: looser},
+        {$inc: {losses: -1, games: -1, points_made: -looserPoints, points_lost: -winnersPoints}});
+    if (!loosingTeam) {
+        return res.status(404).json({error: "Nie znaleziono drużyny"});
+    }
     
+    // delete game
+    await Game.deleteOne({_id: req.params.id});
     return res.status(200).json({game});
 }
 

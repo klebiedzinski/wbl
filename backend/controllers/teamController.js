@@ -14,12 +14,12 @@ const getAllTeams = async (req, res) => {
 // get single team
 const getSingleTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        return res.status(404).json({error: "Invalid team ID"});
+        return res.status(404).json({error: "Nie mogłem znaleźć drużyny, niepoprawne ID"});
     }
     // find team by id
     const team = await Team.findById(req.params.id);
     if (!team) {
-        return res.status(404).json({error: "Team not found"});
+        return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
     
     return res.status(200).json({team});
@@ -46,13 +46,13 @@ const addTeam = async (req, res) => {
 // update team
 const updateTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        return res.status(404).json({error: "Invalid team ID"});
+        return res.status(404).json({error: "Nie mogłem zaktualizować drużyny, niepoprawne ID"});
     }
 
     // grab team by id and update
     const team = await Team.findOneAndUpdate({_id: req.params.id},{...req.body});
     if (!team) {
-        return res.status(404).json({error: "Team not found"});
+        return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
     return res.status(200).json({team});
 }
@@ -60,17 +60,52 @@ const updateTeam = async (req, res) => {
 // delete team
 const deleteTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-        return res.status(404).json({error: "Invalid team ID"});
+        return res.status(404).json({error: "Nie mogłem usunąć drużyny, niepoprawne ID drużyny"});
     }
 
     // grab team by id and delete
     const team = await Team.findOneAndDelete({_id: req.params.id});
     if (!team) {
-        return res.status(404).json({error: "Team not found"});
+        return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
     
     return res.status(200).json({team});
 }
+
+// // add win to team
+// const addWin = async (req, res) => {
+//     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+//         return res.status(404).json({error: "Nie mogłem dodać zwycięstwa, niepoprawne ID drużyny"});
+//     }
+
+//     // grab team by id and update wins, games, points_made and points_lost
+//     const team = await Team.findOneAndUpdate({_id: req.params.id},
+//         {$inc: {wins: 1, games: 1, points_made: req.params.points_made, points_lost: req.params.points_lost}});
+//     if (!team) {
+//         return res.status(404).json({error: "Nie znaleziono drużyny"});
+//     }
+
+//     return res.status(200).json({team});
+// }
+
+// // add defeat to team
+// const addDefeat = async (req, res) => {
+//     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+//         return res.status(404).json({error: "Nie mogłem dodać porażki, niepoprawne ID drużyny"});
+//     }
+
+//     // grab team by id and update defeats
+//     const team = await Team.findOneAndUpdate({_id: req.params.id},
+//         {$inc: {defeats: 1, games: 1, points_made: req.params.points_made, points_lost: req.params.points_lost}});
+//     if (!team) {
+//         return res.status(404).json({error: "Nie znaleziono drużyny"});
+//     }
+
+//     return res.status(200).json({team});
+// }
+
+
+
 
 module.exports = {
     getAllTeams,
@@ -78,4 +113,6 @@ module.exports = {
     addTeam,
     updateTeam,
     deleteTeam
+    // addWin,
+    // addDefeat
 }

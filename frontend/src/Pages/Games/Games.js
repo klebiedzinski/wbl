@@ -40,9 +40,7 @@ const Games = () => {
     }
 
     const [isModalOpen, setIsModalOpen] = useState(false)
-    const handleEdit = (id) => {
-        // axiosInstance.patch(`/games/${id}`, {status: 'finished'},)
-    }
+  
     
     return ( 
         <>
@@ -65,7 +63,7 @@ const Games = () => {
 
                     return (
                         
-                            <div className={styles.game}>
+                            <div className={styles.game} key={game._id}>
                                 <div className={styles.game_leftbar}>
                                     {game.date.split('T')[0]}
                                 </div>
