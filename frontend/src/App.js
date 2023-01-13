@@ -27,6 +27,7 @@ import Login from './Pages/Login/Login';
 import Navbar from "./Components/Navbar/Navbar";
 import AdminPanel from './Pages/AdminPanel/AdminPanel';
 import Footer from './Components/Footer/Footer';
+import Produkty from './Pages/PRODUKTY/Produkty';
 
 
 function App() {
@@ -42,6 +43,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     {!isScoreboardShown && <Navbar/>}
     <main>
     <Routes>
+      <Route path="/produkty" element={ <Produkty/> }/>
       <Route path="/" element={ <Home/> }/>
       <Route path="/login" element={ <Login/> }/>
       <Route path="/signup" element={<Signup/>}/>
