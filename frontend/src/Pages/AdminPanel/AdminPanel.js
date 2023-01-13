@@ -7,6 +7,8 @@ import { useGamesContext } from "../../hooks/contexts/useGamesContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import Users from "../../Components/Users/Users";
+import { useState } from "react";
+import SignupRequestsModal from "../../Components/SignupRequestsModal/SignupRequestsModal";
 const AdminPanel = () => {
     const {user} = useAuthContext();
 
@@ -19,6 +21,8 @@ const AdminPanel = () => {
 
     const teams = teamsData ? teamsData.teams : teamsFromContext;
     const players = playersData ? playersData.players : playersFromContext;
+
+    const [requestsOpen, setRequestsOpen] = useState(false)
 
     return ( 
         <>
@@ -41,7 +45,7 @@ const AdminPanel = () => {
                 </div>
 
                 <div className={styles.signup_requests}>
-                <h1>Signup requests</h1>
+                <button onClick={() => setRequestsOpen(true)}>Signup Requests</button>
                 </div>
 
             </div>
@@ -52,6 +56,7 @@ const AdminPanel = () => {
                 <h1>Surveys</h1>
             </div>
 
+        {requestsOpen && <SignupRequestsModal setRequestsOpen={setRequestsOpen}/>}
         </div>
         </>
         }

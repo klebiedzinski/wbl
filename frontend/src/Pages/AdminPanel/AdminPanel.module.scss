@@ -4,6 +4,7 @@
 .main{
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
     & > *{
         h1{
             text-align: center;
@@ -11,6 +12,10 @@
         border: 1px solid black;
         padding: 10px;
         flex: 1 1 40%;
+        //media query
+        @media (max-width: 800px){
+            flex: 1 1 100%;
+        }
     }
 
     .users_panel{
