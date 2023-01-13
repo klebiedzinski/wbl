@@ -78,7 +78,6 @@ const updatePlayer = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid player ID"});
     }
-    console.log(req.body)
     // grab player by id and update
     const player = await Player.findOneAndUpdate({_id: req.params.id}, {
         firstName: req.body.firstName,

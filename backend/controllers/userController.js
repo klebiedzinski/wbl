@@ -1,6 +1,6 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
-
+const mongoose = require('mongoose');
 const createToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn: '30d'
@@ -51,8 +51,56 @@ const signupUser = async (req, res) => {
     }
 }
 
+// get all users
+const getAllUsers = async (req, res) => {
+    try {
+        const users = await User.find();
+        res.status(200).json(users);
+    }
+    catch (err) {
+        res.status(400).json({error: err.message});
+    }
+}
+
+// update player
+const updateUser = async (req, res) => {
+    console.log(req.body)
+    console.log(req.params.id)
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({error: "Nieprawidłowe ID"});
+    }
+    // grab user by id and update
+    const user = await User.findOneAndUpdate({_id: req.params.id}, {
+        ...req.body
+    })
+    
+    // check if user exists
+    if (!user) {
+        return res.status(404).json({error: "Użytkownik nie istnieje"});
+    }
+    return res.status(200).json({user});
+}
+
+// delete user
+const deleteUser = async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({error: "Nieprawidłowe ID"});
+    }
+    //grab user by id and delete
+    const user = await User.findByIdAndDelete(req.params.id);
+    if (!user) {
+        return res.status(404).json({error: "Użytkownik nie istnieje"});
+    }
+
+    return res.status(200).json({user});
+}
+
+
 
 module.exports = {
     loginUser,
-    signupUser
+    signupUser,
+    getAllUsers,
+    updateUser,
+    deleteUser
 }

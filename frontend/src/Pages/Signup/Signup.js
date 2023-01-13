@@ -15,6 +15,8 @@ const Signup = () => {
     const {signup, error, isLoading} = useSignup();
 
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
+    const [isSignedup, setIsSignedUp] = useState(false)
+    const [confirmPassword, setConfirmPassword] = useState("")
 
     const formik = useFormik({
         initialValues: {
@@ -46,10 +48,10 @@ const Signup = () => {
                             .min(8, "Hasło musi mieć przynajmniej 8 znaków")
                             .matches(/(?=.*[A-Z])/, "Hasło musi zawierać co najmniej jedną dużą literę")
                             .matches(/(?=.*[0-9])/, "Hasło musi zawierać co najmniej jedną cyfrę")
-                            .matches(/(?=.*[!@#\$%\^&])/, "Hasło musi zawierać co najmniej jeden znak specjalny (!, @, #, $, %, ^, &)"),
+                            .matches(/(?=.*[!@#\$%\^&])/, "Hasło musi zawierać co najmniej jeden znak specjalny (!, @, #, $, %, ^, &)")
+                            .matches(confirmPassword, "Hasła nie są takie same"),
             auth_players: Yup.array()
-                .required("Podaj graczy")
-                .min(1, "Musisz wybrać przynajmniej jednego gracza"),
+                .required("Podaj graczy"),
             auth_teams: Yup.array()
                 .required("Podaj drużyny"),
             stolik: Yup.boolean(),
@@ -57,9 +59,9 @@ const Signup = () => {
         }),
 
         onSubmit: async (values) => {
-            setIsSubmitClicked(false)
+            setIsSubmitClicked(false);
             await signup(values.firstName, values.lastName, values.email, values.password,values.auth_teams, values.auth_players, values.stolik, values.admin)
-            
+            setIsSignedUp(true);
         }
     })
     return ( 
@@ -126,6 +128,18 @@ const Signup = () => {
                     { isSubmitClicked && 
                     <p className="validation-info">{formik.errors.password}</p>
                 }
+                </div>
+
+                <div className="input-container">
+                    <input 
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="confirm password"
+                    value={confirmPassword}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
+                    />
+                    
                 </div>
                 
                 <div className="input-container">
@@ -204,7 +218,7 @@ const Signup = () => {
                 {isSubmitClicked && 
                 <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>
             }
-                <button disabled={isLoading}className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Sign up</button>
+                {isSignedup ? <p>Zarejestrowano, wysłaliśmy Ci maila z potwierdzeniem</p> : <button disabled={isLoading}className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Sign up</button>}
                 {error && <p className={styles.Error}>{error}</p>}
             </form>
 

@@ -1,7 +1,7 @@
 // create custom hook for fetching data using axios and promises
 import axiosInstance from "../config/axios_config";
 import { useState, useEffect } from "react";
-const useFetch = (url) => { 
+const useFetch = (url,token) => { 
     const [data, setData] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -9,7 +9,10 @@ const useFetch = (url) => {
     useEffect(() => {
         setIsLoading(true);
         axiosInstance
-            .get(url)
+            .get(url,{headers: {
+                'Authorization': `Bearer ${token}`,
+                "Content-Type": "multipart/form-data"
+            }})
             .then((res) => {
                 setData(res.data);
                 setError(null);

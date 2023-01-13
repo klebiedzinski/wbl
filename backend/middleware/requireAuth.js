@@ -10,7 +10,7 @@ const requireAuth = async (req, res, next) => {
     const { authorization } = req.headers;
     // console.log(authorization)
     if (!authorization) {
-        return res.status(401).json('This route requires authorization token');
+        return res.status(401).json('Musisz się zalogować');
     }
 
     const token = authorization.split(' ')[1];
@@ -32,7 +32,6 @@ const requireAuth = async (req, res, next) => {
         }
 
     } catch (error) {
-        // console.log(error)
         res.status(401).json('Invalid token');
     }
 

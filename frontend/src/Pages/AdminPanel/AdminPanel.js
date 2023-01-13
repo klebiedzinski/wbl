@@ -6,6 +6,7 @@ import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useGamesContext } from "../../hooks/contexts/useGamesContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
+import Users from "../../Components/Users/Users";
 const AdminPanel = () => {
     const {user} = useAuthContext();
 
@@ -35,7 +36,9 @@ const AdminPanel = () => {
             </div>
 
             <div className={styles.users_panel}>
-                <h1>Użytkownicy</h1>
+                <div className={styles.users}>
+                    <Users/>
+                </div>
 
                 <div className={styles.signup_requests}>
                 <h1>Signup requests</h1>
