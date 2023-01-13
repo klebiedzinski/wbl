@@ -2,9 +2,9 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import * as Yup from 'yup'
 import styles from "./GameForm.module.scss"
-import {useGamesContext} from "../../hooks/contexts/useGamesContext";
-import { useAuthContext } from "../../hooks/contexts/useAuthContext";
-import axiosInstance from "../../config/axios_config";
+import {useGamesContext} from "../../../hooks/contexts/useGamesContext";
+import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
+import axiosInstance from "../../../config/axios_config";
 import {AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle} from "react-icons/ai";
 const GameForm = ({teams}) => {
 
@@ -43,7 +43,6 @@ const GameForm = ({teams}) => {
             setIsSubmitClicked(false)
             const team1_id = teams.find(team => team.name === values.team1)._id
             const team2_id = teams.find(team => team.name === values.team2)._id
-            console.log(team1_id, team2_id)
             axiosInstance.post('/games', {
                 status: values.status,
                 team1_id: team1_id,
@@ -57,8 +56,7 @@ const GameForm = ({teams}) => {
             .then((response) => {
                 if (response.data) {
                     setIsAdded(true)
-                    console.log(response.data)
-                    dispatch({type: "ADD_GAME", payload: response.data.Game})
+                    dispatch({type: "ADD_GAME", payload: response.data.game})
                 }
                 
             })
@@ -79,7 +77,6 @@ const GameForm = ({teams}) => {
                     onChange={formik.handleChange}
                     >
                         <option value="scheduled">scheduled</option>
-                        <option value="live">live</option>
                         <option value="finished">finished</option>
                     </select>
                     { isSubmitClicked &&

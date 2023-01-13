@@ -79,11 +79,15 @@ const updatePlayer = async (req, res) => {
         return res.status(404).json({error: "Invalid player ID"});
     }
     // grab player by id and update
+    console.log(req.file)
+    console.log(req.body)
     const player = await Player.findOneAndUpdate({_id: req.params.id}, {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         picture: 
-            req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename,
+            req.file ?
+            req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename
+            : req.body.picture,
         yearOfBirth: req.body.yearOfBirth,
         teamName: req.body.teamName,
         career: req.body.career

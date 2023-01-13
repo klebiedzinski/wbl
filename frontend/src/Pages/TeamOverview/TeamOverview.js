@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PlayersList from "../../Components/TeamPlayersList/TeamPlayersList";
 import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
-import TeamEditModal from "../../Components/TeamEditModal/TeamEditModal";
+import TeamEditModal from "../../Components/Modals/TeamEditModal/TeamEditModal";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -17,13 +17,6 @@ const TeamOverview = () => {
     const {data: teamFromDB, isLoading} = useFetch(`/teams/${id}`)
     const team = teamsFromContext ? teamsFromContext.find(team => team._id === id) : teamFromDB ? teamFromDB.team : null;
    
-   
-
-
-
-    
-    
-    
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -48,11 +41,8 @@ const TeamOverview = () => {
                     <div className={styles.teamLogo}>
                         <img src={team.logo} alt="" />
                     </div>
-                    <div className={styles.contact}>
-                        <h1>Kontakt</h1>
-                    </div>
                     <div className={styles.teamImage}>
-                        Team pic
+                        <img src={team.teamPicture} alt="" />
                     </div>
                     {canEdit &&
                     <div className={styles.editBtn} onClick={() => setIsModalOpen(true)}>

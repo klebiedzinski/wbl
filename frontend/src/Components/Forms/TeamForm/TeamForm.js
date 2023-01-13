@@ -1,11 +1,11 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import axiosInstance from "../../config/axios_config";
+import axiosInstance from "../../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamForm.module.scss"
-import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
-import { useAuthContext } from "../../hooks/contexts/useAuthContext";
-
+import {useTeamsContext} from "../../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
+import { useNavigate } from "react-router-dom";
 const TeamForm = () => {
 
     const {dispatch} = useTeamsContext()
@@ -13,6 +13,9 @@ const TeamForm = () => {
 
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
+    const [error, setError] = useState(false)
+
+    const navigate = useNavigate()
 
     const formik = useFormik({
         initialValues: {
@@ -36,11 +39,15 @@ const TeamForm = () => {
                 if (response.data) {
                     setIsAdded(true)
                     dispatch({type: "ADD_TEAM", payload: response.data.team})
+                    setTimeout(() => {
+                        navigate("/teams")
+                    }
+                    , 1000)
                 }
                 
             })
             .catch((error) => {
-                console.log(error)
+                setError(error.response.data.error)
             })
         }
     })
@@ -83,6 +90,9 @@ const TeamForm = () => {
                 <button className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Submit</button>
                 {isAdded && 
                 <h2 className="validation-info">Dodano drużynę</h2>
+                }
+                {error &&
+                <h2 className="validation-info">{error}</h2>
                 }
             </form>
         </div>

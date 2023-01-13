@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import styles from "./PlayerOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
-import PlayerEditFormModal from "../../Components/PlayerEditFormModal/PlayerEditFormModal";
+import PlayerEditFormModal from "../../Components/Modals/PlayerEditFormModal/PlayerEditFormModal";
 import { useState } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { AiFillEdit } from "react-icons/ai";

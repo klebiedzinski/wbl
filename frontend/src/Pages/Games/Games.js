@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle } from "react-icons/ai";
-import GameEditFormModal from "../../Components/GameEditFormModal/GameEditFormModal";
+import GameEditFormModal from "../../Components/Modals/GameEditFormModal/GameEditFormModal";
 import axios from "axios";
 import axiosInstance from "../../config/axios_config";
 

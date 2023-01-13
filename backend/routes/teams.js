@@ -1,6 +1,7 @@
 const express = require('express');
 const { addTeam, getAllTeams, getSingleTeam, deleteTeam, updateTeam, addWin, addDefeat } = require('../controllers/teamController');
 const requireAuth = require('../middleware/requireAuth');
+const upload = require('../middleware/multerConfig');
 
 const router = express.Router();
 
@@ -17,7 +18,7 @@ router.use(requireAuth);
 router.post('/', addTeam);
 
 //update team
-router.patch('/:id', updateTeam);
+router.patch('/:id',upload.single("teamPicture"), updateTeam);
 
 //delete team
 router.delete('/:id', deleteTeam);

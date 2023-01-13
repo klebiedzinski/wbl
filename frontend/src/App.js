@@ -8,12 +8,12 @@ import ScoreBoard from './Pages/Scoreboard/Scoreboard';
 import NotFound from './Pages/NotFound';
 
 import TeamsList from "./Pages/TeamsList/TeamsList";
-import TeamForm from './Components/TeamForm/TeamForm';
+import TeamForm from './Components/Forms/TeamForm/TeamForm';
 import TeamOverview from './Pages/TeamOverview/TeamOverview';
 import Players from './Pages/Players/Players';
 import PlayerOverview from './Pages/PlayerOverview/PlayerOverview';
 import PlayersList from './Components/TeamPlayersList/TeamPlayersList';
-import PlayerForm from './Components/PlayerForm/PlayerForm';
+import PlayerForm from './Components/Forms/PlayerForm/PlayerForm';
 import Games from './Pages/Games/Games';
 import GameOverview from './Pages/GameOverview/GameOverview';
 import Standings from './Pages/Standings/Standings';

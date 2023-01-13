@@ -1,5 +1,5 @@
 import styles from "./AdminPanel.module.scss";
-import GameForm from "../../Components/GameForm/GameForm";
+import GameForm from "../../Components/Forms/GameForm/GameForm";
 import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
@@ -8,7 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import Users from "../../Components/Users/Users";
 import { useState } from "react";
-import SignupRequestsModal from "../../Components/SignupRequestsModal/SignupRequestsModal";
+import SignupRequestsModal from "../../Components/Modals/SignupRequestsModal/SignupRequestsModal";
 const AdminPanel = () => {
     const {user} = useAuthContext();
 

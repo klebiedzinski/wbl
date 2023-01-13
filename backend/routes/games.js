@@ -1,11 +1,14 @@
 const express = require('express');
-const { getAllGames, getSingleGame, addGame, updateGame, deleteGame } = require('../controllers/gameController');
+const { getAllGames, getSingleGame, addGame, updateGame, deleteGame, getGamesByTeam } = require('../controllers/gameController');
 const requireAuth = require('../middleware/requireAuth');
 
 const router = express.Router();
 
 //get all games
 router.get('/', getAllGames);
+
+//get all games by team
+router.get('/team/:id', getGamesByTeam);
 
 //get single game
 router.get('/:id', getSingleGame);

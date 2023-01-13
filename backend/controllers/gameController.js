@@ -12,6 +12,23 @@ const getAllGames = async (req, res) => {
     }
 }
 
+// get games by team
+const getGamesByTeam = async (req, res) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
+        return res.status(404).json({error: "Invalid team ID"});
+    }
+
+    // find team by id
+    const team = await Team.findOne({_id: req.params.id});
+    // find games by team name
+    const games = await Game.find({$or: [{team1_id: team._id}, {team2_id: team._id}]});
+    if (!games) {
+        return res.status(404).json({error: "Games not found"});
+    }
+
+    return res.status(200).json({games});
+}
+
 // get single game
 const getSingleGame = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -211,6 +228,7 @@ module.exports = {
     getSingleGame,
     addGame,
     updateGame,
-    deleteGame
+    deleteGame,
+    getGamesByTeam
 }
 

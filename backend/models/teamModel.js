@@ -15,6 +15,11 @@ const teamSchema = new Schema({
         default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/wbl.png"
 
     },
+    teamPicture: {
+        type: String,
+        required: false,
+        default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/wbl.png"
+    },
     wins: {
         type: Number,
         required: false,

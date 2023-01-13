@@ -1,4 +1,6 @@
 const Team = require('../models/teamModel');
+const Player = require('../models/playerModel');
+const Game = require('../models/gameModel');
 const mongoose = require('mongoose');
 
 //get all teams
@@ -30,6 +32,12 @@ const getSingleTeam = async (req, res) => {
 const addTeam = async (req, res) => {
     const {name, logo} = req.body;
 
+    // check if team exists
+    const teamExists = await Team.findOne({name});
+    console.log(teamExists)
+    if (teamExists) {
+        return res.status(400).json({error: "Drużyna o takiej nazwie już istnieje"});
+    }
     // add team to database
     try {
         const team = await Team.create({
@@ -48,12 +56,17 @@ const updateTeam = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Nie mogłem zaktualizować drużyny, niepoprawne ID"});
     }
-
-    // grab team by id and update
-    const team = await Team.findOneAndUpdate({_id: req.params.id},{...req.body});
+    const team = await Team.findOneAndUpdate({_id: req.params.id},{
+        name: req.body.name,
+        logo: req.body.logo,
+        teamPicture: 
+            req.file ? req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename 
+                : "https://wbl.klebiedzinski.pl/photos/sample_pictures/wbl.png"
+    });
     if (!team) {
         return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
+    // console.log(team)
     return res.status(200).json({team});
 }
 
@@ -68,41 +81,18 @@ const deleteTeam = async (req, res) => {
     if (!team) {
         return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
+
+    // delete all games with this team
+    const games = await Game.deleteMany({$or: [{team1_id: req.params.id}, {team2_id: req.params.id}]});
+    
+    // delete all players playing for this team
+    const players = await Player.deleteMany({teamName: team.name});
+
     
     return res.status(200).json({team});
 }
 
-// // add win to team
-// const addWin = async (req, res) => {
-//     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-//         return res.status(404).json({error: "Nie mogłem dodać zwycięstwa, niepoprawne ID drużyny"});
-//     }
 
-//     // grab team by id and update wins, games, points_made and points_lost
-//     const team = await Team.findOneAndUpdate({_id: req.params.id},
-//         {$inc: {wins: 1, games: 1, points_made: req.params.points_made, points_lost: req.params.points_lost}});
-//     if (!team) {
-//         return res.status(404).json({error: "Nie znaleziono drużyny"});
-//     }
-
-//     return res.status(200).json({team});
-// }
-
-// // add defeat to team
-// const addDefeat = async (req, res) => {
-//     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
-//         return res.status(404).json({error: "Nie mogłem dodać porażki, niepoprawne ID drużyny"});
-//     }
-
-//     // grab team by id and update defeats
-//     const team = await Team.findOneAndUpdate({_id: req.params.id},
-//         {$inc: {defeats: 1, games: 1, points_made: req.params.points_made, points_lost: req.params.points_lost}});
-//     if (!team) {
-//         return res.status(404).json({error: "Nie znaleziono drużyny"});
-//     }
-
-//     return res.status(200).json({team});
-// }
 
 
 

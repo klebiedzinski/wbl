@@ -1,16 +1,19 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import axiosInstance from "../../config/axios_config";
+import axiosInstance from "../../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./PlayerEditFormModal.module.scss"
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
-import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
-import {useAuthContext} from "../../hooks/contexts/useAuthContext";
+import {usePlayersContext} from "../../../hooks/contexts/usePlayersContext";
+import {useAuthContext} from "../../../hooks/contexts/useAuthContext";
+import { useNavigate } from "react-router-dom";
 const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
     const {user} = useAuthContext();
     const {dispatch} = usePlayersContext()
+
+    const navigate = useNavigate()
 
     const { _id: id, firstName, lastName, picture, yearOfBirth, career, teamName } = player;
 
@@ -27,6 +30,10 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
             if (res.status === 200) {
                 setIsDeleted(true);
                 dispatch({type: "DELETE_PLAYER", payload: id})
+                setTimeout(() => {
+                    navigate("/players")
+                }
+                , 1000)
             }
         })
         .catch(err => {
@@ -78,6 +85,10 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                     if (response.status === 200) {
                         setIsEdited(true)
                         dispatch({type: "UPDATE_PLAYER", payload: response.data})
+                        setTimeout(() => {
+                            navigate("/players")
+                        }
+                        , 1000)
                     }
                 })
                 .catch((error) => {
@@ -152,6 +163,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                         name="picture"
                         id="picture"
                         placeholder="picture"
+                        accept="image/png"
                         onChange={(e) => formik.setFieldValue("picture", e.target.files[0])}
                         />
                         { isSubmitClicked && <p className="validation-info">{formik.errors.picture}</p>}
@@ -203,9 +215,6 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
             { isDeleted && 
             <div className={styles.deleteConfirmation}>
                 <h2>Zawodnik został usunięty</h2>
-                <div className={styles.deleteConfirmationBtns}>
-                    <button className="submit-btn" onClick={() => window.location.replace('/')}>OK</button>
-                </div>
             </div> }
         </div>
         </div>

@@ -1,10 +1,10 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import axiosInstance from "../../config/axios_config";
+import axiosInstance from "../../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./GameEditFormModal.module.scss"
-import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
-import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+import {useTeamsContext} from "../../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
 import { AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {

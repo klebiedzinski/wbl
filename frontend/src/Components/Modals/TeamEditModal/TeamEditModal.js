@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import axiosInstance from "../../config/axios_config";
+import axiosInstance from "../../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./TeamEditModal.module.scss"
-import {useTeamsContext} from "../../hooks/contexts/useTeamsContext";
-import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+import {useTeamsContext} from "../../../hooks/contexts/useTeamsContext";
+import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
 import { useNavigate } from "react-router-dom";
-const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
+const TeamEditModal = ({team, setIsModalOpen,id}) => {
 
     const navigate = useNavigate();
     const {user} = useAuthContext();
@@ -18,33 +18,16 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
     const [isEdited, setIsEdited] = useState(false)
 
     const deleteTeam = () => {
-        // get all players from team and delete them
-        axiosInstance.get('/players/team/' + id)
-        .then(res => {
-            if (res.status === 200) {
-                res.data.players.forEach(player => {
-                    axiosInstance.delete('/players/' + player._id, {headers: {'Authorization': `Bearer ${user.token}`}})
-                    .then(res => {
-                        if (res.status === 200) {
-                            console.log('Player deleted')
-                        }
-                    })
-                    .catch(err => {
-                        console.log(err)
-                    })
-                })
-            }
-        })
-        .catch(err => {
-            console.log(err)
-        })
         axiosInstance.delete('/teams/' + id, {headers: {'Authorization': `Bearer ${user.token}`}})
         .then(res => {
             if (res.status === 200) {
-                // get all matches from team and delete them
+                dispatch({type: "DELETE_TEAM", payload: id})
+                setIsDeleted(true);
+                setTimeout(() => {
+                    window.location.replace("/teams")
+                }
+                , 1000)
             }
-            dispatch({type: "DELETE_TEAM", payload: id})
-            setIsDeleted(true);
         })
         .catch(err => {
             console.log(err);
@@ -56,20 +39,25 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
         initialValues: {
             name: team.name,
             link: team.logo,
+            teamPicture: team.teamPicture
         },
         validationSchema: Yup.object({
             name: Yup.string()
                 .required("Podaj nazwę drużyny"),
             link: Yup.string()
-                .required("Podaj link do logo, zaczynając od https://wbl.klebiedzinski.pl/photos/teams_pictures")
-            
+                .required("Podaj link do logo, zaczynając od https://wbl.klebiedzinski.pl/photos/teams_pictures"),
+            teamPicture: Yup.string()
         }),
         onSubmit: (values) => {
             setIsSubmitClicked(false)
             axiosInstance.patch(`/teams/${team._id}`, {
                 name: values.name,
                 logo: values.link,
-            }, {headers: {'Authorization': `Bearer ${user.token}`}}
+                teamPicture: values.teamPicture
+            }, {headers: {
+                'Authorization': `Bearer ${user.token}`,
+                "Content-Type": "multipart/form-data"
+            }}
                     )
             .then((response) => {
                 if (response.status === 200) {
@@ -77,8 +65,8 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
                     setIsEdited(true)
                     setTimeout(() => {
                         setIsModalOpen(false)
-                        navigate(`/teams/`)
-                    }, 500)
+                        // refresh page
+                    }, 1000)
                 }
                 
             })
@@ -96,9 +84,10 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
             <h1 className="modal-title">Edytuj drużynę</h1>
             <div className="TeamForm">
 
-                <form onSubmit={formik.handleSubmit}>
+                <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 
                     <div className="input-container">
+                        <label htmlFor="name">Nazwa drużyny</label>
                         <input 
                         type="text"
                         name="name"
@@ -111,6 +100,7 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
                     </div>
                     
                     <div className="input-container">
+                    <label htmlFor="logo">Podaj link do loga</label>
                         <input 
                         type="text"
                         name="link"
@@ -120,6 +110,19 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
                         onChange={formik.handleChange}
                         />
                         { isSubmitClicked && <p className="validation-info">{formik.errors.link}</p>}
+                    </div>
+
+                    <div className="input-container">
+                        <label htmlFor="teamPicture">Zmień zdjęcie drużyny</label>
+                        <input 
+                        type="file"
+                        name="teamPicture"
+                        id="teamPicture"
+                        accept="image/png"
+                        placeholder="teamPicture"
+                        onChange={(e) => formik.setFieldValue("teamPicture", e.target.files[0])}
+                        />
+                        { isSubmitClicked && <p className="validation-info">{formik.errors.teamPicture}</p>}
                     </div>
 
                     {isSubmitClicked && <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>}
@@ -133,7 +136,7 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
             { deleteConfirmation && 
             <div className={styles.deleteConfirmation}>
                 <h2>Czy na pewno chcesz usunąć drużynę?</h2>
-                <h2>WRAZ ZE WSZYSTKIMI ZAWODNIKAMI NALEŻĄCYMI</h2>
+                <h2>Wraz z nią usuną się wszyscy zawodnicy jak i mecze tej drużyny, cała tabela sie zmieni</h2>
                 <div className={styles.deleteConfirmationBtns}>
                     <button className="submit-btn" onClick={() => deleteTeam()}>Tak</button>
                     <button className="clear-inputs-btn" onClick={() => setDeleteConfirmation(!deleteConfirmation)}>Nie</button>
@@ -143,9 +146,6 @@ const TeamEditModal = ({team, setIsModalOpen,id, setUpdateTeamState}) => {
             { isDeleted && 
             <div className={styles.deleteConfirmation}>
                 <h2>Drużyna została usunięta</h2>
-                <div className={styles.deleteConfirmationBtns}>
-                    <button className="submit-btn" onClick={() => window.location.replace('urlDodajPotemWTeamEditModal')}>OK</button>
-                </div>
             </div> 
             }
         </div>

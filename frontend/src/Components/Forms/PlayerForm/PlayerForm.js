@@ -1,12 +1,12 @@
 import { useFormik } from "formik";
 import { useState } from "react";
-import axiosInstance from "../../config/axios_config";
+import axiosInstance from "../../../config/axios_config";
 import ClipLoader from "react-spinners/ClipLoader";
-import useFetch from "../../hooks/useFetch";
+import useFetch from "../../../hooks/useFetch";
 import styles from "./PlayerForm.module.scss";
 import * as Yup from 'yup'
-import {usePlayersContext} from "../../hooks/contexts/usePlayersContext";
-import {useAuthContext} from "../../hooks/contexts/useAuthContext";
+import {usePlayersContext} from "../../../hooks/contexts/usePlayersContext";
+import {useAuthContext} from "../../../hooks/contexts/useAuthContext";
 import { useNavigate } from "react-router-dom";
 const PlayerForm = () => {
     
@@ -62,7 +62,6 @@ const PlayerForm = () => {
                 "Content-Type": "multipart/form-data"
             }})
             .then((response) => {
-                console.log(response.data.player)
                 if (response.status === 200) {
                     setIsAdded(true)
                     dispatch({type: "ADD_PLAYER", payload: response.data.player})
