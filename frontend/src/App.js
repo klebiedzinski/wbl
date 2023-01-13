@@ -38,7 +38,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
 
   return (
     <>
-    
+    <div className="App">
     {!isScoreboardShown && <Navbar/>}
     <main>
     <Routes>
@@ -72,6 +72,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     </Routes>
     </main>
     <Footer/>
+    </div>
     </>
   );
 }

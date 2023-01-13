@@ -9,24 +9,24 @@
     padding: 20px;
     box-sizing: border-box;
    
-}
-.Error{
-    color: red;
-    font-size: 3ch;
-    margin: 5px;
-    border: 1px solid red;
-}
-
-.listItems{
-    list-style: none;
-}
-
-input[type="checkbox"]{
-    width: 50px;
-    height: 20px;
-}
-
-p{
-    font-size: 2ch;
-    margin: 5px;
+    .Error{
+        color: red;
+        font-size: 3ch;
+        margin: 5px;
+        border: 1px solid red;
+    }
+    
+    .listItems{
+        list-style: none;
+    }
+    
+    input[type="checkbox"]{
+        width: 50px;
+        height: 20px;
+    }
+    
+    p{
+        font-size: 2ch;
+        margin: 5px;
+    }
 }

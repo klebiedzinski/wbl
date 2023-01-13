@@ -6,16 +6,12 @@
   font-family: "Quicksand";
   color: #333;
 }
-body{
-  padding-top: 150px;
-  background-color: whitesmoke;
-}
-@media screen and (max-width: 900px) {
-  body{
 
-    padding-top: 170px;
-  }
+main{
+  padding: 2vw;
 }
+
+
 
 .header{
     color: #070606;

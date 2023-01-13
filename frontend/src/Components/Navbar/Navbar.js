@@ -2,20 +2,51 @@ import styles from "./Navbar.module.scss";
 import { Link } from "react-router-dom";
 import { useLogout } from "../../hooks/auth/useLogout";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+import { useState } from "react";
+import {NavbarData} from "./NavbarData";
+//icons
+import {GiHamburgerMenu} from "react-icons/gi"; //open menu
+import {AiFillCloseCircle} from "react-icons/ai"; //close menu
 const Navbar = () => {
 
     const {user} = useAuthContext();
     const {logout} = useLogout();
-
+    const [sidebar, setSidebar] = useState(false);
     const handleLogout = () => {
         logout();
     }
     return ( 
-        <nav className={styles.navbar}>
-            <Link to="/">
-                <img src={"/wbl.jpg"} alt="" />
+        <div className="navbar">
+        <div className={styles.navbar}>
+            <Link to='#' className={styles.menuBars}>
+                <GiHamburgerMenu onClick={() => setSidebar(!sidebar)}/>
             </Link>
-            {user &&
+
+            <nav className={sidebar ? styles.navMenuActive : styles.navMenu}>
+                <ul className={styles.navMenuItems} onClick={() => setSidebar(!sidebar)}>
+                    <li className={styles.navbarToggle}>
+                        <Link to='#' className={styles.menuBars}>
+                            <AiFillCloseCircle onClick={() => setSidebar(!sidebar)}/>
+                        </Link>
+                    </li>
+                    {NavbarData.map((item, index) => {
+                        return (
+                            <li key={index} className={styles.navLi}>
+                            <Link to={item.path} >
+                                {item.icon}
+                                <span >{item.title}</span>
+                            </Link>
+                            </li>
+                        );
+                    })}
+                </ul>
+        </nav>
+                    
+
+                    
+
+
+            {/* {user &&
             <div className={styles.links}>
                 <Link to="/teams">Teams</Link>
                 <Link to="/players">Players</Link>
@@ -34,9 +65,10 @@ const Navbar = () => {
                 <Link to="/standings">Standings</Link>
                 <Link to="/login" className={styles.login}>Login</Link> 
             </div>
-            }
+            } */}
             
-        </nav>
+        </div>
+        </div>
      );
 }
  
