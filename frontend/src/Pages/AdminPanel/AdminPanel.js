@@ -30,7 +30,7 @@ const AdminPanel = () => {
         { teams && players &&
         <>
         <div className={styles.header}>
-            <h1>AdminPanel</h1>
+            <h1>Panel</h1>
         </div>
 
         <div className={styles.main}> 

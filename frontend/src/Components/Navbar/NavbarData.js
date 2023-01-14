@@ -8,6 +8,7 @@ import {HiOutlineTable} from "react-icons/hi"; //standings
 import {GrUserAdmin} from "react-icons/gr"; //admin
 import {BiLogInCircle} from "react-icons/bi"; //login
 import {AiOutlineHome} from "react-icons/ai"; //home
+
 export const NavbarData = [
   {
     title: 'Home',

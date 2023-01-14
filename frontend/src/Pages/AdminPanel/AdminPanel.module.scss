@@ -1,7 +1,11 @@
+@import '../../Styles/variables.scss';
 .header{
     text-align: center;
 }
 .main{
+    border: 2px solid $green;
+    background-color: white;
+    border-radius: 20px;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
@@ -9,8 +13,9 @@
         h1{
             text-align: center;
         }
-        border: 1px solid black;
         padding: 10px;
+        border: 2px solid $green;
+        border-radius: 20px;
         flex: 1 1 40%;
         //media query
         @media (max-width: 800px){
@@ -23,7 +28,9 @@
         flex-direction: column;
         & > *{
             flex: 1 1 40%;
-            border-bottom: 1px solid gray;
+            margin-block: 5px;
+            border: 2px solid $green;
+            border-radius: 20px;
         }
     }
 

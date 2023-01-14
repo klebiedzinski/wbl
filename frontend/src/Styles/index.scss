@@ -1,15 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+@import './variables.scss';
 /* base styles */
+
+
 * {
   margin: 0;
   font-family: "Quicksand";
-  color: #333;
+  color: rgb(0, 0, 0);
 }
 
 main{
   padding: 2vw;
+  background-color: $main ;
 }
+
+
 
 
 
@@ -38,10 +44,7 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
-}
+
 // remove all styling from select
 select {
   -webkit-appearance: none;

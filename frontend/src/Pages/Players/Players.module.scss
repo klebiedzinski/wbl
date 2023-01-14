@@ -1,32 +1,47 @@
 
+      .header{
+        font-size: 7ch;
+        margin-block: 5vh;
+      } 
     .teamPlayers{
+      padding: 3%;
         a{
           text-decoration: none;
-          transition: all 500ms ease; 
-    
+          transition: 400ms; 
           &:hover{
-            transform: skew(-1deg);      
-    
+            background-color: red;
+            transform: scale(1.08); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */      
           }
         }
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
        .player{
-        flex-basis: 30%;
+        margin-block: 1%;
+         flex-basis: 23%;
         @media only screen and (max-width: 900px) {
-          flex-basis: 40%;
+          flex-basis: 48%;
         }
         @media only screen and (max-width: 700px) {
-          flex-basis: 80%;
+          flex-basis: 100%;
           margin-inline: auto;
         }
-        display: flex;
-        flex-direction: column;
+        background-color: white;
+        border-radius: 20px;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
         align-items: center;
-        margin-block: 1vh;
-         img{
-           width: 40%;
+        h5{
+          font-size: 2ch;
+        }
+        h5:nth-child(2){
+          font-size: 2.5ch;
+        }
+         .teamImg{
+            width: 70px;
+         }
+         .playerImg{
+            width: 100px;
          }
     
        }

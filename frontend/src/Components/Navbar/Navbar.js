@@ -22,6 +22,17 @@ const Navbar = () => {
                 <GiHamburgerMenu onClick={() => setSidebar(!sidebar)}/>
             </Link>
 
+            {user &&
+            <Link to={'/profile'} className={styles.greeting}>
+                Cześć, {user.firstName}
+            </Link>
+            }
+            <div className={styles.logo}>
+                <Link to="/">
+                    <img src="wbl.jpg" />
+                </Link>
+            </div>
+
             <nav className={sidebar ? styles.navMenuActive : styles.navMenu}>
                 <ul className={styles.navMenuItems} onClick={() => setSidebar(!sidebar)}>
                     <li className={styles.navbarToggle}>
@@ -30,6 +41,21 @@ const Navbar = () => {
                         </Link>
                     </li>
                     {NavbarData.map((item, index) => {
+                        const isUser = user ? true : false;
+                        const isAdmin = user && user.admin ? true : false;
+                        if(item.title==="Admin" && !isAdmin) return null;
+                        if(item.title==="Login" && isUser) return null;
+                        if(item.title==="Logout" && !isUser) return null;
+                        if(item.title==="Logout" && isUser){
+                            return (
+                                <li key={index} className={styles.navLi}>
+                                <a  onClick={handleLogout}>
+                                    {item.icon}
+                                    <span >{item.title}</span>
+                                </a>
+                                </li>
+                            );
+                        }
                         return (
                             <li key={index} className={styles.navLi}>
                             <Link to={item.path} >

@@ -1,7 +1,7 @@
 const express = require('express');
 const requireAuth = require('../middleware/requireAuth');
 
-const { signupUser, loginUser, getAllUsers, deleteUser, updateUser } = require('../controllers/userController');
+const { signupUser, loginUser, getAllUsers, deleteUser, updateUser, getUserByEmail } = require('../controllers/userController');
 
 const router = express.Router();
 
@@ -16,6 +16,8 @@ router.use(requireAuth);
 // get all users
 router.get('/', getAllUsers);
 
+// get user by email
+router.get('/:email', getUserByEmail);
 // delete user
 router.delete('/:id', deleteUser);
 

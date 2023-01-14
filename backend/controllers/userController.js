@@ -16,7 +16,9 @@ const loginUser = async (req, res) => {
 
         const token = createToken(user._id);
 
-        res.status(200).json({email, token});
+        const {firstName, lastName, emailConfirmed, adminConfirmed, auth_players, auth_teams, stolik, admin} = user;
+
+        res.status(200).json({email, token, firstName, lastName, emailConfirmed, adminConfirmed, auth_players, auth_teams, stolik, admin});
     }
     catch (err) {
         res.status(400).json({error: err.message});
@@ -62,6 +64,17 @@ const getAllUsers = async (req, res) => {
     }
 }
 
+// get user by email
+const getUserByEmail = async (req, res) => {
+    try {
+        const user = await User.findOne({email: req.params.email});
+        res.status(200).json(user);
+    }
+    
+    catch (err) {
+        res.status(400).json({error: err.message});
+    }
+}
 // update player
 const updateUser = async (req, res) => {
     console.log(req.body)
@@ -102,5 +115,6 @@ module.exports = {
     signupUser,
     getAllUsers,
     updateUser,
-    deleteUser
+    deleteUser,
+    getUserByEmail
 }

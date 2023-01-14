@@ -1,19 +1,23 @@
 @import '../../Styles/variables';
 footer {
-    background-color: $dark2;
-    border-top: 1px solid #999;
+    height: 8vh;
+    background-color: $green;
+    // border-top: 1px solid #999;
     text-align: center;
-    font-size: 12px;
+    font-size: 2ch;
     p {
+        color: white;
         a {
             display: inline-block;
-            color: #999;
+            color: white;
             text-decoration: none;
             &:hover {
-                color: #333;
+                transition: 400ms;
+                color: $red;
             }
         }
     }
+    
 
     @media (max-width: 768px) {
         font-size: 9px;
