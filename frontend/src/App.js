@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useAuthContext } from './hooks/contexts/useAuthContext';
 
 //pages
-import Home from "./Pages/Home";
+import Home from "./Pages/Home/Home";
 import ScoreBoard from './Pages/Scoreboard/Scoreboard';
 import NotFound from './Pages/NotFound';
 

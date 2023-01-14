@@ -8,6 +8,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import {usePlayersContext} from "../../../hooks/contexts/usePlayersContext";
 import {useAuthContext} from "../../../hooks/contexts/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import isUploadSupported from "../../../config/uploadSupported";
 const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
     const {user} = useAuthContext();
@@ -71,12 +72,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
         onSubmit: (values) => {
             setIsSubmitClicked(false)
             axiosInstance.patch('/players/' + id, {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                picture: values.picture,
-                yearOfBirth: values.yearOfBirth,
-                career: values.career,
-                teamName: values.teamName,
+                ...values,
                 },{headers: {
                     'Authorization': `Bearer ${user.token}`,
                     'Content-Type': 'multipart/form-data'

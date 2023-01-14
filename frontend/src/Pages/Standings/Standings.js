@@ -40,13 +40,11 @@ const Standings = () => {
     <>
        {!isLandscape && <PleaseFlipYourPhone/>}
         {isLandscape && <div className={styles.Standings}>
-            <div className={styles.header}>
-                <h1>Standings</h1>
-            </div>
+                <h1 className={styles.header}>Standings</h1>
             <div className={styles.table}>
                 <div className={styles.tableHeader}>
-                    <h3>Position</h3>
-                    <h3>Team</h3>
+                    <h3>Pozycja</h3>
+                    <h3>Drużyna</h3>
                     <h3>GP</h3>
                     <h3>Won</h3>
                     <h3>Lost</h3>
@@ -60,15 +58,34 @@ const Standings = () => {
                     {teams && teams.map((team, index) => {
                         return (
                             <div className={styles.tableRow} key={team._id}>
-                                <h3>{index+1}</h3>
-                                <h3>{team.name}</h3>
-                                <h3>{team.games}</h3>
-                                <h3>{team.wins}</h3>
-                                <h3>{team.losses}</h3>
-                                <h3>{(team.wins===0) ? 0 : (team.wins / team.games*100).toFixed(2)}%</h3>
-                                <h3>{team.points_made}</h3>
-                                <h3>{team.points_lost}</h3>
-                                <h3>{team.points_made - team.points_lost}</h3>
+                                <div className={styles.tableElement}>
+                                    <h3>{index+1}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <img src={team.logo} alt={team.name} className={styles.teamImg}/>
+                                    <h3>{team.name}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{team.games}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{team.wins}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{team.losses}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{(team.wins===0) ? 0 : (team.wins / team.games*100).toFixed(2)}%</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{team.points_made}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{team.points_lost}</h3>
+                                </div>
+                                <div className={styles.tableElement}>
+                                    <h3>{team.points_made - team.points_lost}</h3>
+                                </div>
                             </div>
                         );
                     })}

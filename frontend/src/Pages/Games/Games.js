@@ -44,7 +44,7 @@ const Games = () => {
     
     return ( 
         <>
-         <h1>Games </h1>
+         <h1 className={styles.header}>Games </h1>
         
         {isLoading && (!games || !teams) &&
          <ClipLoader
@@ -65,22 +65,21 @@ const Games = () => {
                         
                             <div className={styles.game} key={game._id}>
                                 <div className={styles.game_leftbar}>
-                                    {game.date.split('T')[0]}
+                                    <p>{game.date.split('T')[0]}</p>
+                                    <p>{game.location}</p>
                                 </div>
                                 <div className={styles.game_main}>
-                                    <div className={styles.team}>
+                                    <div className={styles.team1}>
                                         <p>{team1.name}</p>
-                                        <img src={team1.logo} alt={team1.name}/>
+                                        <img className={styles.teamImg} src={team1.logo} alt={team1.name}/>
                                     </div>
                                     <div className={styles.score}>
-                                        
                                         <p>{game.team1Score}</p>
                                         <p>:</p>
                                         <p>{game.team2Score}</p>
-                                        
                                     </div>
-                                    <div className={styles.team}>
-                                        <img src={team2.logo} alt={team2.name}/>
+                                    <div className={styles.team2}>
+                                        <img className={styles.teamImg} src={team2.logo} alt={team2.name}/>
                                         <p>{team2.name}</p>
                                     </div>
                                 </div>

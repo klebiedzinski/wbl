@@ -6,6 +6,7 @@ import styles from "./TeamEditModal.module.scss"
 import {useTeamsContext} from "../../../hooks/contexts/useTeamsContext";
 import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
 import { useNavigate } from "react-router-dom";
+import isUploadSupported from "../../../config/uploadSupported";
 const TeamEditModal = ({team, setIsModalOpen,id}) => {
 
     const navigate = useNavigate();
@@ -49,6 +50,7 @@ const TeamEditModal = ({team, setIsModalOpen,id}) => {
             teamPicture: Yup.string()
         }),
         onSubmit: (values) => {
+            !isUploadSupported() ? (<>Siema</>) :
             setIsSubmitClicked(false)
             axiosInstance.patch(`/teams/${team._id}`, {
                 name: values.name,

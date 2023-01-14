@@ -44,6 +44,7 @@ const Navbar = () => {
                         const isUser = user ? true : false;
                         const isAdmin = user && user.admin ? true : false;
                         if(item.title==="Admin" && !isAdmin) return null;
+                        if(item.title==="Profile" && !user) return null;
                         if(item.title==="Login" && isUser) return null;
                         if(item.title==="Logout" && !isUser) return null;
                         if(item.title==="Logout" && isUser){

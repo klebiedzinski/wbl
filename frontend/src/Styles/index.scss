@@ -20,15 +20,8 @@ main{
 
 
 .header{
-    color: #070606;
-    font-family: arial, sans-serif;
-    font-size: 8ch;
-    font-weight: bold;
-    margin-left: 5%;
-    margin-bottom: 1px;
-    @media only screen and (max-width: 900px) {
-      text-align: center;
-    }
+  font-size: 7ch;
+  margin-block: 5vh;
 }
 
 
