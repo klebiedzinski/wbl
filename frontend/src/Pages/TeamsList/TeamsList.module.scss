@@ -13,13 +13,21 @@
       flex-basis: 22%;
       text-decoration: none;
       margin: 1%;
-      @media only screen and (max-width: 900px) {
-        flex-basis: 90%;
+      @media screen and (max-width: 1100px) {
+        flex-basis: 40%;
         margin-inline: auto;
       }
+      @media only screen and (max-width: 900px) {
+        flex-basis: 100%;
+        margin-inline: auto;
+      }
+        
+      
 
     }
     .team{
+
+      width: 20vw;
       transition: 400ms; 
       &:hover{
         background-color: red;
@@ -30,7 +38,6 @@
         display: grid;
         grid-template-columns: 1fr 3fr;
         align-items: center;
-        justify-content: space-around;
         background-color: $mid;
         h1{
           font-size: 2ch;
@@ -50,6 +57,7 @@
             text-align: center;
             img{
                 width: 100px;
+                height: 100px;
                 padding: 1vw;
                 &:hover{
                     cursor: pointer;

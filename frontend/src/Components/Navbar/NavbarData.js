@@ -46,11 +46,6 @@ export const NavbarData = [
     icon: <GrUserAdmin/>
   },
   {
-    title: 'Login',
-    path: '/login',
-    icon: <BiLogInCircle/>
-  },
-  {
     title: 'Logout',
     path: '/logout',
     icon: <BiLogOutCircle/>

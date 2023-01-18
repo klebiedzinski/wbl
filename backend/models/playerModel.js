@@ -25,7 +25,7 @@ const playerSchema = new Schema({
         required: false
     },
     
-    teamName: {
+    team_id: {
         type: String,
         required: false
     },

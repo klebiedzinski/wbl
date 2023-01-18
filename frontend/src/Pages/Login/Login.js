@@ -1,11 +1,9 @@
 import { useFormik } from "formik";
 import { useState } from "react";
 import { useLogin } from "../../hooks/auth/useLogin";
-import axiosInstance from "../../config/axios_config";
 import * as Yup from 'yup'
 import styles from "./Login.module.scss"
 const Login = () => {
-    
     const {login, error, isLoading} = useLogin();
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
 
@@ -23,6 +21,7 @@ const Login = () => {
         onSubmit: (values) => {
             login(values.email, values.password)
             setIsSubmitClicked(false)
+
         }
     })
     return ( 
@@ -31,6 +30,7 @@ const Login = () => {
             <form onSubmit={formik.handleSubmit}>
 
                 <div className="input-container">
+                    <label htmlFor="email">Email</label>
                     <input 
                     type="text"
                     name="email"
@@ -43,8 +43,10 @@ const Login = () => {
                     <p className="validation-info">{formik.errors.email}</p>
                     }
                 </div>
+
                 
                 <div className="input-container">
+                    <label htmlFor="password">Hasło</label>
                     <input 
                     type="password"
                     name="password"

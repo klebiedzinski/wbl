@@ -57,6 +57,7 @@ const TeamForm = () => {
             <form onSubmit={formik.handleSubmit}>
 
                 <div className="input-container">
+                    <label htmlFor="name">Nazwa drużyny</label>
                     <input 
                     type="text"
                     name="name"
@@ -71,6 +72,7 @@ const TeamForm = () => {
                 </div>
                 
                 <div className="input-container">
+                    <label htmlFor="link">Link do logo</label>
                     <input 
                     type="text"
                     name="link"

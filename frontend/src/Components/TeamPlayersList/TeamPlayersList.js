@@ -13,18 +13,11 @@ const TeamPlayersList = () => {
     const {players: allPlayers, dispatch} = usePlayersContext();
     const {teams} = useTeamsContext();
     const team = teams && teams.find(team => team._id === id);
-    let players = allPlayers && allPlayers.filter(player => player.teamName === team.name);
+    const {data: playersData, isLoading} = useFetch(`/players/team/${id}`)
+    const playersFromContext = allPlayers && allPlayers.filter(player => player.team_id === team._id);
+    const players = playersData ? playersData.players : playersFromContext;
 
-    const {data, isLoading} = useFetch(`/players/team/${id}`)
 
-    useEffect(() => {
-        // console.log(players)
-    if(data){
-        players = data.players;
-    }
-    }, [data])
-            
-    
 
     
     return ( 
@@ -39,7 +32,7 @@ const TeamPlayersList = () => {
         />
     }
         
-       {players!==undefined &&
+       {players && 
         <div className={styles.playersList}>
             <h1 className={styles.roster}>Skład</h1>
             <div className={styles.teamPlayers}>

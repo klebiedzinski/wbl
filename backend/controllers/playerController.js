@@ -36,7 +36,7 @@ const getPlayersByTeam = async (req, res) => {
     // find team by id
     const team = await Team.findOne({_id: req.params.id});
     // find players by team name
-    const players = await Player.find({teamName: team.name});
+    const players = await Player.find({team_id: team._id});
     if (!players) {
         return res.status(404).json({error: "Players not found"});
     }
@@ -46,10 +46,10 @@ const getPlayersByTeam = async (req, res) => {
 
 // add player
 const addPlayer = async (req, res) => {
-    const { firstName, lastName, yearOfBirth, teamName, career } = req.body;
+    const { firstName, lastName, yearOfBirth, team_id, career } = req.body;
 
     // find team by name
-    const team = await Team.findOne({name: teamName});
+    const team = await Team.findOne({_id: team_id});
     // check if team exists
     if (!team) {
         return res.status(404).json({error: "Team not found"});
@@ -64,7 +64,7 @@ const addPlayer = async (req, res) => {
                 req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename
                 : `https://api.dicebear.com/5.x/micah/svg?seed=${lastName}${firstName}&earringsProbability=0&eyes=eyes,eyesShadow,round&facialHair[]&facialHairProbability=0&hair=fonze,mrClean,dougFunny&hairColor=000000,77311d,ac6651,ffedef,ffeba4,f4d150&mouth=laughing,smile,smirk&shirt=open&shirtColor=000000`,
             yearOfBirth,
-            teamName,
+            team_id,
             career
         });
         res.status(200).json({player});
@@ -89,7 +89,7 @@ const updatePlayer = async (req, res) => {
             req.protocol + '://' + "wbl.klebiedzinski.pl/photos" + '/uploads/' + req.file.filename
             : req.body.picture,
         yearOfBirth: req.body.yearOfBirth,
-        teamName: req.body.teamName,
+        team_id: req.body.team_id,
         career: req.body.career
     })
     

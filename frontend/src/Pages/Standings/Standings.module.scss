@@ -1,3 +1,4 @@
+@import '../../Styles/variables.scss';
 .header{
     font-size: 7ch;
     margin-block: 5vh;
@@ -46,13 +47,29 @@
                 .teamImg{
                     margin-inline: auto;
                     grid-column: 1;
-                    width: 50px;
+                    width: 70px;
+                    height: 70px;
+                    border-radius: 50%;
                 }
                 h3{
                     grid-column: 2;
                 }
             }
+            .tableElement:nth-child(4){
+                h3{
+                    color: green;
+                }
+            }
+            .tableElement:nth-child(5){
+                h3{
+                    color: $red;
+                }
+            }
 
+        }
+        //grab 8th row
+        .tableRow:nth-child(8){
+            border-bottom: 1px dotted $green;
         }
     }
 }

@@ -41,15 +41,19 @@ const TeamPlayersList = () => {
             <div className={styles.teamPlayers}>
             {user && user.admin && 
                     <Link to={`/players/PlayerForm`} className={styles.player}>
-                        <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
+                        <div className={styles.playerImg}>
+                            <img src={"https://wbl.klebiedzinski.pl/photos/icons/plus-icon.png"} alt="" className={styles.playerImg} />
+                        </div>
                         <h5>Add Player</h5>
                     </Link>
                 }
                 {players && teams && players.map(player =>{
-                    const team = teams.find(team => team.name === player.teamName)
+                    const team = teams.find(team => team._id === player.team_id)
                     return (
                         <Link to={`/players/${player._id}`} className={styles.player} key={player._id}>
-                            <img src={player.picture} alt="" className={styles.playerImg} />
+                            <div className={styles.playerImg}>
+                            <img src={player.picture} alt=""  />
+                            </div>
                             <div>
                                 <h5>{player.firstName}</h5>
                                 <h5>{player.lastName}</h5>

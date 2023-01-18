@@ -65,7 +65,7 @@ const Games = () => {
                         
                             <div className={styles.game} key={game._id}>
                                 <div className={styles.game_leftbar}>
-                                    <p>{game.date.split('T')[0]}</p>
+                                    <p>{game.date.split('T')[0]} - {game.date.split('T')[1].slice(0,5)}</p>
                                     <p>{game.location}</p>
                                 </div>
                                 <div className={styles.game_main}>

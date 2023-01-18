@@ -66,7 +66,6 @@ const updateTeam = async (req, res) => {
     if (!team) {
         return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
-    // console.log(team)
     return res.status(200).json({team});
 }
 
@@ -86,16 +85,11 @@ const deleteTeam = async (req, res) => {
     const games = await Game.deleteMany({$or: [{team1_id: req.params.id}, {team2_id: req.params.id}]});
     
     // delete all players playing for this team
-    const players = await Player.deleteMany({teamName: team.name});
+    const players = await Player.deleteMany({team_id: team._id});
 
     
     return res.status(200).json({team});
 }
-
-
-
-
-
 
 module.exports = {
     getAllTeams,
@@ -103,6 +97,8 @@ module.exports = {
     addTeam,
     updateTeam,
     deleteTeam
-    // addWin,
-    // addDefeat
 }
+
+
+
+

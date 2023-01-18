@@ -75,6 +75,7 @@ const Signup = () => {
             <form onSubmit={formik.handleSubmit}>
 
                 <div className="input-container">
+                    <label htmlFor="firstName">Imię</label>
                     <input 
                     type="text"
                     name="firstName"
@@ -89,6 +90,7 @@ const Signup = () => {
                 </div>
 
                 <div className="input-container">
+                    <label htmlFor="lastName">Nazwisko</label>
                     <input 
                     type="text"
                     name="lastName"
@@ -103,6 +105,7 @@ const Signup = () => {
                 </div>
 
                 <div className="input-container">
+                    <label htmlFor="email">Email</label>
                     <input 
                     type="text"
                     name="email"
@@ -117,6 +120,7 @@ const Signup = () => {
                 </div>
                 
                 <div className="input-container">
+                    <label htmlFor="password">Hasło</label>
                     <input 
                     type="password"
                     name="password"
@@ -131,6 +135,7 @@ const Signup = () => {
                 </div>
 
                 <div className="input-container">
+                    <label htmlFor="password">Potwierdź hasło</label>
                     <input 
                     type="password"
                     name="password"
@@ -176,7 +181,7 @@ const Signup = () => {
                                 value={player._id}
                                 onChange={formik.handleChange}
                                 />
-                                {player.firstName + " " + player.lastName + " | drużyna - " + (player.teamName)}
+                                {player.firstName + " " + player.lastName}
                             </li>
                         ))}
                 </ul>

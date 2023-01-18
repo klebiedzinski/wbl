@@ -33,7 +33,7 @@ const PlayerOverview = () => {
             <img src={player.player.picture} alt="" className={styles.playerImg} />
             <h5>{player.player.firstName}</h5>
             <h5>{player.player.lastName}</h5>
-            <h5>Team: {player.player.teamName}</h5>
+            <h5>Team: {player.player.team_id}</h5>
             <h5>Age: {player.player.yearOfBirth}</h5>
         </div>
         </>

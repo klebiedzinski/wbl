@@ -8,7 +8,6 @@ import ClipLoader from "react-spinners/ClipLoader";
 import {usePlayersContext} from "../../../hooks/contexts/usePlayersContext";
 import {useAuthContext} from "../../../hooks/contexts/useAuthContext";
 import { useNavigate } from "react-router-dom";
-import isUploadSupported from "../../../config/uploadSupported";
 const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
     const {user} = useAuthContext();
@@ -16,9 +15,10 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
     const navigate = useNavigate()
 
-    const { _id: id, firstName, lastName, picture, yearOfBirth, career, teamName } = player;
+    const { _id: id, firstName, lastName, picture, yearOfBirth, career, team_id } = player;
 
-    const { data: teams, isLoading} = useFetch('/teams')
+    const { data: teamsData, isLoading} = useFetch('/teams')
+    const teams = teamsData ? teamsData.teams : null
 
     const [deleteConfirmation, setDeleteConfirmation] = useState(false);
     const [isDeleted, setIsDeleted] = useState(false);
@@ -42,7 +42,6 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
         })
     }
 
-
     const formik = useFormik({
         initialValues: {
             firstName: firstName,
@@ -50,7 +49,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
             picture: picture,
             yearOfBirth: yearOfBirth,
             career: career,
-            teamName: teamName,
+            teamName: teams ? teams.find(team => team._id === team_id).name : null,
         },
 
         validationSchema: Yup.object({
@@ -66,13 +65,18 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
 
             career: Yup.array(),
 
-            teamName: Yup.string()
-                .required("Please fill in this field"),
         }),
         onSubmit: (values) => {
             setIsSubmitClicked(false)
+            //get team id
+            const team_id = values.teamName ? teams.find(team => team.name === values.teamName)._id : teams.find(team => team._id === player.team_id)._id
             axiosInstance.patch('/players/' + id, {
-                ...values,
+                firstName: values.firstName,
+                lastName: values.lastName,
+                picture: values.picture,
+                yearOfBirth: values.yearOfBirth,
+                career: values.career,
+                team_id: team_id
                 },{headers: {
                     'Authorization': `Bearer ${user.token}`,
                     'Content-Type': 'multipart/form-data'
@@ -118,6 +122,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                 <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 
                     <div className="input-container">
+                        <label htmlFor="firstName">Imię</label>
                         <input 
                         type="text"
                         name="firstName"
@@ -130,6 +135,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                     </div>
 
                     <div className="input-container">
+                        <label htmlFor="lastName">Nazwisko</label>
                         <input 
                         type="text"
                         name="lastName"
@@ -142,6 +148,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                     </div>
 
                     <div className="input-container">
+                        <label htmlFor="yearOfBirth">Rok urodzenia</label>
                         <input 
                         type="text"
                         name="yearOfBirth"
@@ -154,6 +161,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                     </div>
                 
                     <div className="input-container">
+                        <label htmlFor="picture">Zdjęcie</label>
                         <input 
                         type="file"
                         name="picture"
@@ -165,7 +173,8 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                         { isSubmitClicked && <p className="validation-info">{formik.errors.picture}</p>}
                     </div>
 
-                    <div className="input-container">
+                    {/* <div className="input-container">
+                        <label htmlFor="career">Kariera</label>
                         <input
                         type="text"
                         name="career"
@@ -175,9 +184,10 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                         onChange={formik.handleChange}
                         />
                         { isSubmitClicked && <p className="validation-info">{formik.errors.career}</p>}
-                    </div>
+                    </div> */}
 
                     <div className="input-container">
+                        <label htmlFor="teamName">Drużyna</label>
                         <select
                         name="teamName"
                         id="teamName"
@@ -185,7 +195,7 @@ const PlayerEditFormModal = ({setIsModalOpen, player}) => {
                         onChange={formik.handleChange}
                         >
                             <option value="">Select team</option>
-                            {teams.teams.map(team => (
+                            {teams.map(team => (
                                 <option key={team._id} value={team.name}>{team.name}</option>
                             ))}
                         </select>

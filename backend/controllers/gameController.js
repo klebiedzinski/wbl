@@ -200,6 +200,8 @@ const deleteGame = async (req, res) => {
     if (!game) {
         return res.status(404).json({error: "Game not found"});
     }
+    // if game is finished
+    if (game.status === "finished") {
     const winner = game.team1Score > game.team2Score ? game.team1_id : game.team2_id;
     const looser = game.team2Score > game.team1Score ? game.team1_id : game.team2_id;
     const winnersPoints = game.team1Score > game.team2Score ? game.team1Score : game.team2Score;
@@ -217,7 +219,7 @@ const deleteGame = async (req, res) => {
     if (!loosingTeam) {
         return res.status(404).json({error: "Nie znaleziono drużyny"});
     }
-    
+    }
     // delete game
     await Game.deleteOne({_id: req.params.id});
     return res.status(200).json({game});

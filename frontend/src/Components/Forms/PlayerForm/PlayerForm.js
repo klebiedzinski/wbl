@@ -13,7 +13,8 @@ const PlayerForm = () => {
     const navigate = useNavigate()
     const {user} = useAuthContext();
     const {dispatch} = usePlayersContext()
-    const { data: teams, isLoading} = useFetch('/teams')
+    const { data: teamsData, isLoading} = useFetch('/teams')
+    const teams = teamsData ? teamsData.teams : null
 
     const [isSubmitClicked, setIsSubmitClicked] = useState(false)
     const [isAdded, setIsAdded] = useState(false)
@@ -50,13 +51,15 @@ const PlayerForm = () => {
             if (!user){
                 return
             }
+            // get team id
+            const team_id = teams.find(team => team.name === values.teamName)._id
             axiosInstance.post('/players', {
                 firstName: values.firstName,
                 lastName: values.lastName,
                 picture: values.picture,
                 yearOfBirth: values.yearOfBirth,
                 career: values.career,
-                teamName: values.teamName,
+                team_id: team_id,
             },{headers: {
                 'Authorization': `Bearer ${user.token}`,
                 "Content-Type": "multipart/form-data"
@@ -90,6 +93,7 @@ const PlayerForm = () => {
             <form onSubmit={formik.handleSubmit} encType="multipart/form-data">
 
                 <div className="input-container">
+                    <label for="firstName">Imię</label>
                     <input 
                     type="text"
                     name="firstName"
@@ -102,6 +106,7 @@ const PlayerForm = () => {
                 </div>
 
                 <div className="input-container">
+                    <label for="lastName">Nazwisko</label>
                     <input 
                     type="text"
                     name="lastName"
@@ -114,6 +119,7 @@ const PlayerForm = () => {
                 </div>
 
                 <div className="input-container">
+                    <label for="yearOfBirth">Rok urodzenia</label>
                     <input 
                     type="text"
                     name="yearOfBirth"
@@ -137,7 +143,7 @@ const PlayerForm = () => {
                     { isSubmitClicked && <p className="validation-info">{formik.errors.picture}</p>}
                 </div>
 
-                <div className="input-container">
+                {/* <div className="input-container">
                     <input
                     type="text"
                     name="career"
@@ -147,9 +153,10 @@ const PlayerForm = () => {
                     onChange={formik.handleChange}
                     />
                     { isSubmitClicked && <p className="validation-info">{formik.errors.career}</p>}
-                </div>
+                </div> */}
 
                 <div className="input-container">
+                    <label for="teamName">Drużyna</label>
                     <select
                     name="teamName"
                     id="teamName"
@@ -157,7 +164,7 @@ const PlayerForm = () => {
                     onChange={formik.handleChange}
                     >
                         <option value="">Select team</option>
-                        {teams.teams.map(team => (
+                        {teams.map(team => (
                             <option key={team._id} value={team.name}>{team.name}</option>
                         ))}
                     </select>

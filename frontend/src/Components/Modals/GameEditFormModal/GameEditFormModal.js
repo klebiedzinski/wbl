@@ -124,7 +124,7 @@ const GameEditFormModal = ({game, setIsModalOpen, team1,team2}) => {
                 <div className="input-container">
                     <label htmlFor="date">Data</label>
                     <input 
-                    type="date"
+                    type="datetime-local"
                     name="date"
                     id="date"
                     placeholder="date"

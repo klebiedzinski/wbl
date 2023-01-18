@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useAuthContext } from "../contexts/useAuthContext";
 import axiosInstance from "../../config/axios_config";
-
+import { useNavigate } from "react-router-dom";
 export const useLogin = () => {
-
+    const navigate = useNavigate()
     const {dispatch} = useAuthContext();
 
     const [error, setError] = useState(null);
@@ -28,7 +28,7 @@ export const useLogin = () => {
                 dispatch({type: "LOGIN", payload: response.data})
 
                 setIsLoading(false);
-                
+                navigate("/profile")
             }
         })
         .catch((error) => {

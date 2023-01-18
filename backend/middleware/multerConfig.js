@@ -2,6 +2,10 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
+      //if production
+      // ??????
+      
+      //if development
       cb(null, '../../photos/uploads/');
     },
     filename: (req, file, cb) => {

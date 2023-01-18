@@ -4,6 +4,7 @@ import { useLogout } from "../../hooks/auth/useLogout";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useState } from "react";
 import {NavbarData} from "./NavbarData";
+import {BiLogInCircle} from "react-icons/bi";
 //icons
 import {GiHamburgerMenu} from "react-icons/gi"; //open menu
 import {AiFillCloseCircle} from "react-icons/ai"; //close menu
@@ -22,16 +23,22 @@ const Navbar = () => {
                 <GiHamburgerMenu onClick={() => setSidebar(!sidebar)}/>
             </Link>
 
-            {user &&
-            <Link to={'/profile'} className={styles.greeting}>
-                Cześć, {user.firstName}
-            </Link>
-            }
             <div className={styles.logo}>
                 <Link to="/">
                     <img src="wbl.jpg" />
                 </Link>
             </div>
+            {user &&
+            <Link to={'/profile'} className={styles.greeting}>
+                Cześć, {user.firstName}
+            </Link>
+            }
+            {!user &&
+            <Link to={'/login'} className={styles.greeting}>
+                <BiLogInCircle/>
+                Zaloguj się
+            </Link>
+            }
 
             <nav className={sidebar ? styles.navMenuActive : styles.navMenu}>
                 <ul className={styles.navMenuItems} onClick={() => setSidebar(!sidebar)}>

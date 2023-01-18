@@ -45,21 +45,27 @@
                 
                
                 .teamImg{
-                    width: 100%;
+                    width: 70px;
+                    height: 70px;
+                    margin-inline: auto;
+                    img{
+                        margin: 0;
+                    }
                 }
             }
             .team1{
                 //start from the right
                 grid-template-columns: 2fr 1fr;
                 p{
-                    text-align: end;
+                    text-align: center;
                 }
+                
             }
             .team2{
                 //start from the left
                 grid-template-columns: 1fr 2fr;
                 p{
-                    text-align: start;
+                    text-align: center;
                 }
             }
             .score{

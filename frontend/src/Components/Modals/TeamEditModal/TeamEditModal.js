@@ -50,7 +50,6 @@ const TeamEditModal = ({team, setIsModalOpen,id}) => {
             teamPicture: Yup.string()
         }),
         onSubmit: (values) => {
-            !isUploadSupported() ? (<>Siema</>) :
             setIsSubmitClicked(false)
             axiosInstance.patch(`/teams/${team._id}`, {
                 name: values.name,
