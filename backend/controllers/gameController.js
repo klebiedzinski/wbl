@@ -8,9 +8,34 @@ const getAllGames = async (req, res) => {
         const games = await Game.find({}).sort({date: 1})
         res.status(200).json({games});
     } catch (err) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({error: err.message});
     }
 }
+
+//get 10 last games
+const getLastGames = async (req, res) => {
+    try {
+        
+        const count = await Game.countDocuments();
+        const games = await Game.find({}).sort({date: -1, _id: 1}).limit(10)
+        res.status(200).json({games, count});
+    } catch (err) {
+        res.status(400).json({error: err.message});
+    }
+}
+
+//load 10 more games
+const loadMoreGames = async (req, res) => {
+    try {
+        const games = await Game.find({}).sort({date: -1, _id: 1}).skip(req.params.skip).limit(10)
+        res.status(200).json({games});
+    } catch (err) {
+        res.status(400).json({error: err.message});
+    }
+}
+
+
+
 
 // get games by team
 const getGamesByTeam = async (req, res) => {
@@ -58,15 +83,11 @@ const addGame = async (req, res) => {
             date,
             location
         });
-        console.log(req.body)
         if (status==="finished") {
             const winner = team1Score > team2Score ? team1_id : team2_id;
             const looser = team1Score < team2Score ? team1_id : team2_id;
             const winnersPoints = team1Score > team2Score ? team1Score : team2Score;
             const looserPoints = team1Score < team2Score ? team1Score : team2Score;
-            console.log("winner", winner)
-            console.log("looser", looser)
-            console.log(req.body)
             //handling winner
             if (!mongoose.Types.ObjectId.isValid(winner)) {
                 return res.status(404).json({error: "Nie mogłem dodać zwycięstwa, niepoprawne ID drużyny"});
@@ -74,7 +95,6 @@ const addGame = async (req, res) => {
             // grab team by id and update wins, games, points_made and points_lost
             const winningTeam = await Team.findOneAndUpdate({_id: winner},
                 {$inc: {wins: 1, games: 1, points_made: winnersPoints, points_lost: looserPoints}});
-            console.log(winningTeam)
             if (!winningTeam) {
                 return res.status(404).json({error: "Nie znaleziono drużyny"});
             }
@@ -231,6 +251,9 @@ module.exports = {
     addGame,
     updateGame,
     deleteGame,
-    getGamesByTeam
+    getGamesByTeam,
+    getLastGames,
+    loadMoreGames
+    
 }
 

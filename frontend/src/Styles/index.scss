@@ -17,7 +17,22 @@ main{
 
 
 
-
+.loadmore{
+  margin-inline: auto;
+  background-color: $green;
+  color: white;
+  border: none;
+  width: 50vw;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  &:hover{
+      background-color: $red;
+  }
+}
 
 .header{
   font-size: 7ch;

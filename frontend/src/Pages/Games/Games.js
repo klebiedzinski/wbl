@@ -8,7 +8,6 @@ import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle } from "react-icons/ai";
 import GameEditFormModal from "../../Components/Modals/GameEditFormModal/GameEditFormModal";
-import axios from "axios";
 import axiosInstance from "../../config/axios_config";
 
 const Games = () => {
@@ -19,11 +18,29 @@ const Games = () => {
     const teams = teamsData ? teamsData.teams : teamsFromContext;
 
     const {games: gamesFromContext, dispatch} = useGamesContext();
-    const {data, isLoading, error} = useFetch('/games')
+    const {data, isLoading, error} = useFetch('/games/last')
+
+    const [count, setCount] = useState(0);
+    
     const games = gamesFromContext ? gamesFromContext : data ? data.games : null;
+
+    const handleLoadMore = () => {
+        axiosInstance.get(`/games/loadmore/${games.length}`)
+        .then(res => {
+            res.data.games.map(game => {
+                dispatch({type: 'ADD_GAME', payload: game})
+            }
+            )
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
     useEffect(() => {
         if(data){
             dispatch({type: 'SET_GAMES', payload: data.games})
+            setCount(data.count)
+            
         }
     }, [data])
 
@@ -110,12 +127,17 @@ const Games = () => {
                                 {isModalOpen &&
                                     <GameEditFormModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} game={game} team1={team1} team2={team2}/>
                                 }
+                                
+                                
+
                             </div>
                             
                                 
                         
                     );
                 })}
+                {count !== games.length && <button className="loadmore" onClick={()=> handleLoadMore()}>Więcej</button>}
+                {console.log(count, games.length)}
         </div>
         }
         </>
