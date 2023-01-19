@@ -5,7 +5,9 @@ const Home = () => {
 
     return ( 
         <div className={styles.home}>
-            <h1 className={styles.header}>Home page</h1>
+            <h1 className={styles.header}>
+            <span>W</span>łocławska <span>B</span>asket <span>L</span>iga
+            </h1>
             
         </div>
      );

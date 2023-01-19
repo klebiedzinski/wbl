@@ -8,7 +8,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import Users from "../../Components/Users/Users";
 import { useState } from "react";
-import SignupRequestsModal from "../../Components/Modals/SignupRequestsModal/SignupRequestsModal";
+import SignupRequestsModal from "../../Components/Modals/UserDetailsModal/UserDetailsModal";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUsers, selectVerifiedUsers, selectIsLoading, selectUnverifiedUsers } from "../../features/users/usersSlice";
 const AdminPanel = () => {
     const {user} = useAuthContext();
 
@@ -17,12 +19,11 @@ const AdminPanel = () => {
 
     const { data: teamsData} = useFetch('/teams')
     const { data: playersData} = useFetch('/players')
-    
 
     const teams = teamsData ? teamsData.teams : teamsFromContext;
     const players = playersData ? playersData.players : playersFromContext;
 
-    const [requestsOpen, setRequestsOpen] = useState(false)
+   
 
     return ( 
         <>
@@ -44,9 +45,7 @@ const AdminPanel = () => {
                     <Users/>
                 </div>
 
-                <div className={styles.signup_requests}>
-                <button onClick={() => setRequestsOpen(true)}>Signup Requests</button>
-                </div>
+              
 
             </div>
 
@@ -56,7 +55,6 @@ const AdminPanel = () => {
                 <h1>Surveys</h1>
             </div>
 
-        {requestsOpen && <SignupRequestsModal setRequestsOpen={setRequestsOpen}/>}
         </div>
         </>
         }

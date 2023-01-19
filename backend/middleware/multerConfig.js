@@ -6,7 +6,7 @@ const storage = multer.diskStorage({
       // ??????
       
       //if development
-      cb(null, '../../photos/uploads/');
+      cb(null, '/photos');
     },
     filename: (req, file, cb) => {
         //naming conventions (player or team)

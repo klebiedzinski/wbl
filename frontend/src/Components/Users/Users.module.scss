@@ -1,0 +1,20 @@
+.users_table{
+    width: 100%;
+    border-collapse: collapse;
+    .users_row{
+        border: 1px solid black;
+        border-collapse: collapse;
+        text-align: center;
+        .btn{
+            border: 1px solid black;
+            border-radius: 5px;
+            padding: 5px;
+            margin: 5px;
+            cursor: pointer;
+            &:hover{
+                background-color: #f2f2f2;
+            }
+        }
+    }
+   
+}

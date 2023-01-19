@@ -75,17 +75,15 @@ const getUserByEmail = async (req, res) => {
         res.status(400).json({error: err.message});
     }
 }
-// update player
+// update user
 const updateUser = async (req, res) => {
-    console.log(req.body)
-    console.log(req.params.id)
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Nieprawidłowe ID"});
     }
     // grab user by id and update
     const user = await User.findOneAndUpdate({_id: req.params.id}, {
         ...req.body
-    })
+    }, {new: true})
     
     // check if user exists
     if (!user) {

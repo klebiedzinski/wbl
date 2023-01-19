@@ -24,6 +24,8 @@
     }
 
     .users_panel{
+        max-height: 90vh;
+        overflow: scroll;
         display: flex;
         flex-direction: column;
         & > *{

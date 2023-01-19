@@ -7,10 +7,12 @@ import { TeamsContextProvider } from './context/TeamsContext';
 import { PlayersContextProvider } from './context/PlayersContext';
 import {AuthContextProvider} from './context/AuthContext';
 import { GamesContextProvider } from './context/GamesContext';
-
+import { Provider } from 'react-redux';
+import store from './app/store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+    <Provider store={store}>
     <AuthContextProvider>
       <GamesContextProvider>
       <TeamsContextProvider>
@@ -22,6 +24,7 @@ root.render(
       </TeamsContextProvider>
       </GamesContextProvider>
     </AuthContextProvider>
+    </Provider>
   </React.StrictMode>
 );
 
