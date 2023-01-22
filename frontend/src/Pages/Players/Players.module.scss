@@ -1,9 +1,12 @@
-
+.playersList{
+  min-height: 40vh;
+}
       .header{
         font-size: 7ch;
         margin-block: 5vh;
       } 
     .teamPlayers{
+     
       padding: 3%;
       gap: 0 30px;
         a{

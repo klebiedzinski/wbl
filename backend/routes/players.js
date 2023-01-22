@@ -1,5 +1,5 @@
 const express = require('express');
-const { addPlayer, getAllPlayers, getSinglePlayer, deletePlayer, updatePlayer, getPlayersByTeam } = require('../controllers/playerController');
+const { addPlayer,searchPlayers, getAllPlayers, getSinglePlayer, deletePlayer, updatePlayer, getPlayersByTeam, queryPlayers } = require('../controllers/playerController');
 const requireAuth = require('../middleware/requireAuth');
 const upload = require('../middleware/multerConfig');
 const router = express.Router();
@@ -7,13 +7,21 @@ const router = express.Router();
 
 
 //get all players
+// router.get('/', getAllPlayers);
+
 router.get('/', getAllPlayers);
+
+// query players with pagination
+router.get('/query', queryPlayers);
 
 //get single player
 router.get('/:id', getSinglePlayer);
 
 //get players by team
 router.get('/team/:id', getPlayersByTeam);
+
+//search players
+router.get('/search/:search', searchPlayers);
 
 
 //middleware to check role

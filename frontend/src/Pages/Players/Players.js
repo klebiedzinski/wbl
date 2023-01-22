@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router-dom"
+import axiosInstance from "../../config/axios_config";
 import styles from "./Players.module.scss"
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -6,11 +7,12 @@ import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useEffect } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
+import { useState } from "react";
 const TeamPlayersList = () => {
     
     const {user} = useAuthContext();
     const {players, dispatch} = usePlayersContext();
-    const {data, isLoading, error} = useFetch('/players')
+    const {data, isLoading, error} = useFetch('/players/query/?page=1&limit=12&search=')
     const {data: teamData, isLoading: teamIsLoading, error: teamError} = useFetch(`/teams/`)
     const {teams, dispatch: teamDispatch} = useTeamsContext();
     useEffect(() => {
@@ -20,6 +22,41 @@ const TeamPlayersList = () => {
         }
     }, [data,teamData])
 
+    const [search, setSearch] = useState("")
+    const [page , setPage] = useState(1)
+    const [limit, setLimit] = useState(12)
+    const handleSearch = () => {
+        dispatch({type: 'SET_PLAYERS', payload: []})
+        axiosInstance.get(`/players/query/?page=1&limit=12&search=${search}`)
+        .then(res => {
+            dispatch({type: 'SET_PLAYERS', payload: res.data.players})
+        }
+        )
+        .catch(err => console.log(err))
+        
+    }
+
+
+    const [previousSearch, setPreviousSearch] = useState("")
+ 
+    useEffect(() => {
+        
+        if(previousSearch !== search){
+            console.log("search", search)
+            console.log("previousSearch", previousSearch)
+            setPage(1)
+        }
+        
+        dispatch({type: 'SET_PLAYERS', payload: []})
+        axiosInstance.get(`/players/query/?page=${page}&limit=${limit}&search=${search}`)
+        .then(res => {
+            dispatch({type: 'SET_PLAYERS', payload: res.data.players})
+        }
+        )
+        .catch(err => console.log(err))
+        setPreviousSearch(search);
+
+    }, [search, page, limit])
 
 
     
@@ -27,7 +64,17 @@ const TeamPlayersList = () => {
         <>
          <h1 className={styles.header}>Zawodnicy</h1>
          
-        {isLoading && !players && !teams &&
+
+        {error && <div>{error}</div>}
+        <div className={styles.toolsBar}>
+            <input type="text" placeholder="Search" className={styles.searchInput} value={search} onChange={(e) => setSearch(e.target.value)}/>
+            <button className={styles.searchBtn} onClick={() => handleSearch(search)}>Search</button>
+            <div className={styles.pagination}>
+                <button className={styles.paginationBtn} onClick={page === 1 ? null : () => setPage(page - 1)}>Prev</button>
+                <button className={styles.paginationBtn} onClick={() => setPage(page + 1)}>Next</button>
+            </div>
+        </div>
+        {(isLoading || teamIsLoading) &&
          <ClipLoader
             loading={isLoading}
             size={50}
@@ -63,7 +110,10 @@ const TeamPlayersList = () => {
                     );
                 })}
             </div>
+
+
         </div>
+        
         }
         </>
      );

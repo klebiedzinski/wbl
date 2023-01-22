@@ -12,8 +12,44 @@ const getAllPlayers = async (req, res) => {
     }
 }
 
+// search players
+const searchPlayers = async (req, res) => {
+    const { search } = req.params;
+    try {
+    const players = await Player.find({
+      $or: [
+        { firstName: { $regex: search, $options: 'i' } },
+        { lastName: { $regex: search, $options: 'i' } },
+      ]
+    }).sort({lastName: 1});
+    res.status(200).json({players});
+    } catch (err) {
+        res.status(400).json({error: error.message});
+    }
+}
+
+// query players with pagination
+const queryPlayers = async (req, res) => {
+    const { search, page, limit } = req.query;
+    try {
+    const players = await Player.find({
+        $or: [
+            { firstName: { $regex: search, $options: 'i' } },
+            { lastName: { $regex: search, $options: 'i' } },
+        ]
+    }).sort({lastName: 1}).skip((page - 1) * limit).limit(limit);
+    res.status(200).json({players});
+    } catch (err) {
+        res.status(400).json({error: err.message});
+    }
+}
+
+
+
+
 // get single player
 const getSinglePlayer = async (req, res) => {
+    console.log("siema get single player")
     if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
         return res.status(404).json({error: "Invalid player ID"});
     }
@@ -120,5 +156,7 @@ module.exports = {
     getSinglePlayer,
     deletePlayer,
     updatePlayer,
-    getPlayersByTeam
+    getPlayersByTeam,
+    searchPlayers,
+    queryPlayers
 }
