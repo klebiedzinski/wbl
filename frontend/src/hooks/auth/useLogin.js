@@ -24,7 +24,6 @@ export const useLogin = () => {
                 localStorage.setItem("user", JSON.stringify(response.data))
 
                 // save user in context
-                console.log(response.data)
                 dispatch({type: "LOGIN", payload: response.data})
 
                 setIsLoading(false);

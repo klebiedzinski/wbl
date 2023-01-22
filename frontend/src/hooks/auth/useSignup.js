@@ -26,10 +26,10 @@ export const useSignup = () => {
             if (response.data) {
 
                 // save user data in local storage
-                localStorage.setItem("user", JSON.stringify(response.data))
+                // localStorage.setItem("user", JSON.stringify(response.data))
 
                 // save user in context
-                dispatch({type: "LOGIN", payload: response.data})
+                // dispatch({type: "LOGIN", payload: response.data})
 
                 setIsLoading(false);
                 

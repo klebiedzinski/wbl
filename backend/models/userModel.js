@@ -47,7 +47,6 @@ const userSchema = new Schema({
 // static method to signup
 userSchema.statics.signup = async function(firstName,lastName,email, password, auth_teams, auth_players, stolik, admin) {
     
-    console.log(firstName,lastName,email, password, auth_teams, auth_players, stolik, admin)
     if(!email || !password  ) {
         throw Error('Email i hasło są wymagane');
     }
@@ -90,10 +89,17 @@ userSchema.statics.login = async function(email, password) {
 
     if (user) {
         const auth = await bcrypt.compare(password, user.password);
-        if (auth) {
+        if (auth && user.emailConfirmed && user.adminConfirmed) {
             return user;
         }
-        throw Error('Incorrect password');
+        if (auth && user.emailConfirmed && !user.adminConfirmed) {
+            throw Error('Konto nie zostało potwierdzone przez administratora');
+        }
+        if (auth && !user.emailConfirmed) {
+            throw Error('Nie potwierdzono adresu email');
+        }
+        
+        throw Error('Niepoprawne hasło');
     }
     throw Error('Incorrect email');
 }

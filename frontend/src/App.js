@@ -6,7 +6,6 @@ import { useAuthContext } from './hooks/contexts/useAuthContext';
 import Home from "./Pages/Home/Home";
 import ScoreBoard from './Pages/Scoreboard/Scoreboard';
 import NotFound from './Pages/NotFound';
-
 import TeamsList from "./Pages/TeamsList/TeamsList";
 import TeamForm from './Components/Forms/TeamForm/TeamForm';
 import TeamOverview from './Pages/TeamOverview/TeamOverview';
@@ -43,8 +42,8 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
     <main>
     <Routes>
       <Route path="/" element={ <Home/> }/>
-      <Route path="/login" element={ <Login/> }/>
-      <Route path="/signup" element={<Signup/>}/>
+      <Route path="/login" element={ !user ? <Login/> : <Home/> }/>
+      <Route path="/signup" element={!user ? <Signup/> : <Home/>}/>
       <Route path="/profile" element={user ? <Profile/> : <Home/>}/>
       <Route path="/standings" element={<Standings/>}/>
       <Route path="/admin" element={ (user && user.admin) ? <AdminPanel/> : <Home/>}/>
@@ -67,7 +66,6 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
         <Route path=":game_id" element={<GameOverview/>}/>
       </Route>
       <Route path="/scoreboard" element={ (user && (user.stolik || user.admin)) ? <ScoreBoard setIsScoreboardShown={setIsScoreboardShown}/> : <Home/>}/>
-
       <Route path='*' element={<NotFound/>}/>
     </Routes>
     </main>

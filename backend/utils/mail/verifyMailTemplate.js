@@ -11,10 +11,10 @@ const createMessage = (id) => {
     
     <body>
         <div>
-            <h1>Welcome to WBL</h1>
-            <p>In order to verify your account please click the button submitted bellow</p>
-            <a target="_blank" href="http://localhost:3001/verify/${id}">
-                <button>VERIFY ME</button>
+            <h1>Witaj w serwisie WBL</h1>
+            <p>W celu weryfikacji twojego konta kliknij poniższy przycisk:</p>
+            <a target="_blank" href="https://wbl.klebiedzinski.pl/api/user/verifyUser/${id}">
+                <button>ZWERYFIKUJ</button>
             </a>
             
         </div>

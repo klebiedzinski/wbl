@@ -128,7 +128,7 @@ const updateGame = async (req, res) => {
     // grab game by id and update
     const oldGame = await Game.findOne({_id: req.params.id});
     
-    const newGame = await Game.findOneAndUpdate({_id: req.params.id},{...req.body});
+    const newGame = await Game.findOneAndUpdate({_id: req.params.id},{...req.body}, {new: true});
     if (!newGame) {
         return res.status(404).json({error: "game not found"});
     }

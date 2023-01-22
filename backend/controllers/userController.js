@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
+const emailSender = require('../utils/mail/emailSender');
 const createToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {
         expiresIn: '30d'
@@ -44,12 +45,29 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(firstName, lastName,email, password, auth_teams , auth_players, stolik, admin);
 
-        const token = createToken(user._id);
-
-        res.status(200).json({firstName,email, token, auth_players, auth_teams, stolik, admin});
+        // console.log(email)
+        await emailSender.signupMail(email, user._id.toString());
+        res.status(200).json({...user});
     }
     catch (err) {
         res.status(502).json({error: err.message});
+    }
+}
+
+// verify user
+const verifyUser = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const user = await User.findById(id);
+        if (!user) {
+            return res.status(404).json({error: "Nie znaleziono użytkownika"});
+        }
+        user.emailConfirmed = true;
+        await user.save();
+        res.status(200).json({message: "Użytkownik zweryfikowany"});
+    }
+    catch (err) {
+        res.status(400).json({error: err.message});
     }
 }
 
@@ -111,6 +129,7 @@ const deleteUser = async (req, res) => {
 module.exports = {
     loginUser,
     signupUser,
+    verifyUser,
     getAllUsers,
     updateUser,
     deleteUser,

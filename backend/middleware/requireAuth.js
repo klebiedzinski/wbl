@@ -8,7 +8,6 @@ const requireAuth = async (req, res, next) => {
     const elementId = url[url.length - 1];
 
     const { authorization } = req.headers;
-    // console.log(authorization)
     if (!authorization) {
         return res.status(401).json('Musisz się zalogować');
     }

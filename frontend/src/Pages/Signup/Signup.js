@@ -223,7 +223,7 @@ const Signup = () => {
                 {isSubmitClicked && 
                 <button className="clear-inputs-btn" type="button" onClick={() => {formik.handleReset(); setIsSubmitClicked(false)}}>Clear</button>
             }
-                {isSignedup ? <p>Zarejestrowano, wysłaliśmy Ci maila z potwierdzeniem</p> : <button disabled={isLoading}className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Sign up</button>}
+                {isSignedup ? <p>Zarejestrowano, teraz admin musi potwierdzić twoje role :)</p> : <button disabled={isLoading}className="submit-btn" type="submit"onClick={() => setIsSubmitClicked(true)} >Sign up</button>}
                 {error && <p className={styles.Error}>{error}</p>}
             </form>
 
