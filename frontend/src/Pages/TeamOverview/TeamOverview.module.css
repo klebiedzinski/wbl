@@ -1,0 +1,71 @@
+.teamOverview {
+  margin-top: 1vh;
+  width: 80vw;
+  padding: 20px;
+  margin-inline: auto;
+  background-color: white;
+}
+.teamOverview a {
+  margin: 1%;
+}
+.teamOverview .teamInfo .teamInfoHeader {
+  border-bottom: 2px solid whitesmoke;
+}
+.teamOverview .teamInfo .teamInfoHeader h1 {
+  text-align: center;
+  padding-bottom: 1vw;
+}
+.teamOverview .teamInfo .teamInfoContainer {
+  padding-top: 1vw;
+  display: flex;
+  justify-content: space-around;
+}
+@media only screen and (max-width: 900px) {
+  .teamOverview .teamInfo .teamInfoContainer {
+    flex-wrap: wrap;
+  }
+  .teamOverview .teamInfo .teamInfoContainer .teamLogo, .teamOverview .teamInfo .teamInfoContainer .contact, .teamOverview .teamInfo .teamInfoContainer .teamImage {
+    flex-basis: 90%;
+  }
+}
+.teamOverview .teamInfo .teamInfoContainer .teamLogo {
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content;
+}
+.teamOverview .teamInfo .teamInfoContainer .teamLogo img {
+  width: 20vw;
+}
+@media only screen and (max-width: 700px) {
+  .teamOverview .teamInfo .teamInfoContainer .teamLogo img {
+    width: 40vw;
+  }
+}
+.teamOverview .teamInfo .teamInfoContainer .teamImage {
+  border: 1px solid whitesmoke;
+  margin: auto;
+  text-align: center;
+}
+.teamOverview .teamInfo .teamInfoContainer .teamImage img {
+  width: 20vw;
+}
+@media only screen and (max-width: 700px) {
+  .teamOverview .teamInfo .teamInfoContainer .teamImage img {
+    width: 40vw;
+  }
+}
+.teamOverview .roster {
+  text-align: center;
+  padding: 1vw;
+  margin-top: 5vh;
+}
+
+.editBtn {
+  margin: 1vw;
+}
+.editBtn img {
+  width: 5vw;
+}
+.editBtn img:hover {
+  background-color: red;
+}/*# sourceMappingURL=TeamOverview.module.css.map */

@@ -1,6 +1,34 @@
 @import '../../Styles/variables';
 footer {
-    height: 8vh;
+
+    .weather{
+        min-width: 40vw;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    .weatherContainer{
+
+        p{
+            margin: 0;
+            font-size: 2.5ch;
+        }
+        height: 100%;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        img{
+            width: 40px;
+            height: 40px;
+        }
+    }      
+    }
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 10vh;
     background-color: $green;
     // border-top: 1px solid #999;
     text-align: center;

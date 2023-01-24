@@ -11,7 +11,7 @@ import TeamForm from './Components/Forms/TeamForm/TeamForm';
 import TeamOverview from './Pages/TeamOverview/TeamOverview';
 import Players from './Pages/Players/Players';
 import PlayerOverview from './Pages/PlayerOverview/PlayerOverview';
-import PlayersList from './Components/TeamPlayersList/TeamPlayersList';
+import PlayersList from './Pages/TeamOverview/TeamPlayersList/TeamPlayersList';
 import PlayerForm from './Components/Forms/PlayerForm/PlayerForm';
 import Games from './Pages/Games/Games';
 import GameOverview from './Pages/GameOverview/GameOverview';
@@ -38,7 +38,7 @@ const [isScoreboardShown, setIsScoreboardShown] = useState(false)
   return (
     <>
     <div className="App">
-    {!isScoreboardShown && <Navbar/>}
+    <Navbar/>
     <main>
     <Routes>
       <Route path="/" element={ <Home/> }/>

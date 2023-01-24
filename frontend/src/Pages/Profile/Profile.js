@@ -32,11 +32,12 @@ const Profile = () => {
         {(!teams || !players) && <ClipLoader/>}
         { teams && players && 
             <div className={styles.Profile}>
-            <div className={styles.Profile_left}>
             <h3>Twoje dane:</h3>
             <p>Email: {user.email}</p>
+            <p>Imię: {user.firstName}</p>
+            <p>Nazwisko: {user.lastName}</p>
+
             
-                <div>
                 <h2 className={styles.subHeader}>Uprawnienia:</h2>
                 
                 <h3>Zarządzanie drużyną:</h3>
@@ -71,11 +72,9 @@ const Profile = () => {
                         })}
                         </ul>
                         </div>
-        </div>
         
        
         
-        </div>
     }
     </>
         

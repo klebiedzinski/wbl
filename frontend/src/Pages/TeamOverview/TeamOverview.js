@@ -1,6 +1,6 @@
 import { useParams} from "react-router-dom";
 import { useEffect, useState } from "react";
-import PlayersList from "../../Components/TeamPlayersList/TeamPlayersList";
+import TeamPlayersList from "./TeamPlayersList/TeamPlayersList";
 import styles from "./TeamOverview.module.scss"
 import useFetch from "../../hooks/useFetch";
 import TeamEditModal from "../../Components/Modals/TeamEditModal/TeamEditModal";
@@ -58,7 +58,7 @@ const TeamOverview = () => {
         {isModalOpen &&
         <TeamEditModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} team={team} id={id} />
         }
-        <PlayersList/>
+        <TeamPlayersList/>
         </>
      );
 }

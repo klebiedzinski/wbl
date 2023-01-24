@@ -1,0 +1,19 @@
+.playerOverview {
+  margin-top: 10vh;
+  display: grid;
+  justify-content: center;
+}
+
+.editBtn {
+  margin: 1vw;
+  border-radius: 5px;
+  padding: 1vw;
+  border: none;
+  background-color: white;
+}
+.editBtn:hover {
+  background-color: red;
+}
+.editBtn img {
+  width: 2vw;
+}/*# sourceMappingURL=PlayerOverview.module.css.map */

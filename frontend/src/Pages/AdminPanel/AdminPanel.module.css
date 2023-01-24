@@ -1,0 +1,38 @@
+.header {
+  text-align: center;
+}
+
+.main {
+  border: 2px solid #173114;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.main > * {
+  padding: 10px;
+  border: 2px solid #173114;
+  border-radius: 20px;
+  flex: 1 1 40%;
+}
+.main > * h1 {
+  text-align: center;
+}
+@media (max-width: 800px) {
+  .main > * {
+    flex: 1 1 100%;
+  }
+}
+.main .users_panel {
+  max-height: 90vh;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column;
+}
+.main .users_panel > * {
+  flex: 1 1 40%;
+  margin-block: 5px;
+  border: 2px solid #173114;
+  border-radius: 20px;
+}/*# sourceMappingURL=AdminPanel.module.css.map */

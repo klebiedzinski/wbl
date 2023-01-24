@@ -9,58 +9,31 @@ import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { AiFillEdit, AiFillDelete, AiOutlineCheck, AiFillCloseCircle } from "react-icons/ai";
 import GameEditFormModal from "../../Components/Modals/GameEditFormModal/GameEditFormModal";
 import axiosInstance from "../../config/axios_config";
-
+import Game from "./Game";
+import GamesFiltersBar from "./GamesFiltersBar/GamesFiltersBar";
 const Games = () => {
     
     const {user} = useAuthContext();
     const {teams: teamsFromContext} = useTeamsContext();
     const {data: teamsData} = useFetch('/teams')
     const teams = teamsData ? teamsData.teams : teamsFromContext;
-
     const {games: gamesFromContext, dispatch} = useGamesContext();
-    const {data, isLoading, error} = useFetch('/games/last')
-
-    const [count, setCount] = useState(0);
+    const {data, isLoading, error} = useFetch(`/games/filter/?page=1&limit=5&from=2000-10-10&to=3000-10-10&status=wszystkie`)
     
     const games = gamesFromContext ? gamesFromContext : data ? data.games : null;
-
-    const handleLoadMore = () => {
-        axiosInstance.get(`/games/loadmore/${games.length}`)
-        .then(res => {
-            res.data.games.map(game => {
-                dispatch({type: 'ADD_GAME', payload: game})
-            }
-            )
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
+    
+    
     useEffect(() => {
         if(data){
             dispatch({type: 'SET_GAMES', payload: data.games})
-            setCount(data.count)
-            
         }
     }, [data])
 
-    const [deleteConfirmation, setDeleteConfirmation] = useState(false)
-    const handleDelete = (id) => {
-        axiosInstance.delete(`/games/${id}`,{headers: {'Authorization': `Bearer ${user.token}`}})
-        .then(res => {
-            dispatch({type: 'DELETE_GAME', payload: id})
-            setDeleteConfirmation(false)
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-
-    const [isModalOpen, setIsModalOpen] = useState(false)
   
     
     return ( 
         <>
+        {isLoading && console.log("laduje se dane znowu")}
          <h1 className={styles.header}>Games </h1>
         
         {isLoading && (!games || !teams) &&
@@ -71,6 +44,9 @@ const Games = () => {
             data-testid="loader"
         />
         }
+        
+        <GamesFiltersBar/>
+        
         {games && 
         <div className={styles.gamesList}>
             
@@ -79,65 +55,9 @@ const Games = () => {
                     const team2 = teams.find(team => team._id === game.team2_id);
 
                     return (
-                        
-                            <div className={styles.game} key={game._id}>
-                                <div className={styles.game_leftbar}>
-                                    <p>{game.date.split('T')[0]} - {game.date.split('T')[1].slice(0,5)}</p>
-                                    <p>{game.location}</p>
-                                </div>
-                                <div className={styles.game_main}>
-                                    <div className={styles.team1}>
-                                        <p>{team1.name}</p>
-                                        <img className={styles.teamImg} src={team1.logo} alt={team1.name}/>
-                                    </div>
-                                    <div className={styles.score}>
-                                        <p>{game.team1Score}</p>
-                                        <p>:</p>
-                                        <p>{game.team2Score}</p>
-                                    </div>
-                                    <div className={styles.team2}>
-                                        <img className={styles.teamImg} src={team2.logo} alt={team2.name}/>
-                                        <p>{team2.name}</p>
-                                    </div>
-                                </div>
-                                <div className={styles.game_rightbar}>
-                                {user && user.admin &&
-                                <>
-                                    <div className={styles.editBtn} onClick={() => setIsModalOpen(true)}>
-                                        <AiFillEdit/> 
-                                    </div>
-                                   { !deleteConfirmation ? 
-                                    <div className={styles.deleteBtn} onClick={() => setDeleteConfirmation(true)}>
-                                        <AiFillDelete/> 
-                                    </div>
-                                    :
-                                    <div className={styles.deleteBtn}>
-                                        <AiFillCloseCircle onClick={() => setDeleteConfirmation(false)}/>
-                                        <p style={{fontSize: "1rem"}}>You sure?</p> 
-                                        <button onClick={() => handleDelete(game._id)}> USUŃ</button>
-                                    </div>
-                                    }
-
-                                </>
-                                }
-                                    <button className={styles.details}>
-                                        <Link to={`/games/${game._id}`} key={game._id}>Więcej</Link>
-                                    </button>
-                                </div>
-                                {isModalOpen &&
-                                    <GameEditFormModal setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} game={game} team1={team1} team2={team2}/>
-                                }
-                                
-                                
-
-                            </div>
-                            
-                                
-                        
+                        <Game team1={team1} team2={team2} game={game} user={user} key={game._id}/>
                     );
                 })}
-                {count !== games.length && <button className="loadmore" onClick={()=> handleLoadMore()}>Więcej</button>}
-                {console.log(count, games.length)}
         </div>
         }
         </>

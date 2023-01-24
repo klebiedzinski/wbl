@@ -1,61 +1,61 @@
-// provide some styling to the component
 
 .Profile{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.Profile_left {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #f5f5f5;
-    width: 60%;
-}
-
-.subHeader{
-    font-family: 'Roboto', sans-serif;
-    font-weight: 400;
-    margin: 0;
-    padding: 0;
-    text-align: center;
-}
-
-
-
-.playerImg, .logo{
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    margin-bottom: 10px;
-}
-
-
-.Players{
-    list-style: none;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    width: 100%;
-}
-.teamsList,.playersList{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-inline: auto;
-    flex-wrap: wrap;
-    *{
-        flex: 1 1 30%;
+    border: 2px solid white;
+    border-radius: 40px;
+    li{
+        list-style: none;
     }
-    list-style: none;
-    width: 90%;
-    margin-bottom: 20px;
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    margin: 5vh 20vw;
+    padding: 2vw 5vw;
+    img{
+        width: 100px;
+        height: 100px;
+        object-fit: cover;
+        border-radius: 50%;
+    }
+    h2{
+        font-size: 4ch;
+        background-color: white;
+    }
+    h3{
+        font-size: 3ch;
+    }
+    .teamsList{
+        padding: 3vw;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 1vw;
+        .team{
+            a{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+            }
+            .teamName{
+                color: #fff;
+            }
+        }
+    }
+    .playersList{
+        padding: 3vw;
+        display: flex;
+        flex-wrap: wrap;
+        //scroll
+        overflow-y: scroll;
+        height: 40vh;
+        gap: 1vw;
+        .player{
+            a{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-decoration: none;
+            }
+        }
+    }
 }
-
-

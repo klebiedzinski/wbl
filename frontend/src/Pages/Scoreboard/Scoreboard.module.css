@@ -1,0 +1,59 @@
+.ScoreBoard .clockButtons {
+  display: flex;
+  justify-content: space-around;
+}
+.ScoreBoard .clockButtons button {
+  width: 10vw;
+  height: 10vh;
+  font-size: 2vw;
+}
+.ScoreBoard .time {
+  width: 8ch;
+}
+.ScoreBoard .header {
+  display: flex;
+  justify-content: space-between;
+}
+.ScoreBoard .header .edit {
+  margin-block: 7vh;
+  margin-inline: 2vw;
+}
+.ScoreBoard .content {
+  display: flex;
+  justify-content: space-between;
+  padding: 5%;
+}
+.ScoreBoard .content p {
+  margin: 0;
+  font-size: xx-large;
+}
+.ScoreBoard .content .team {
+  flex-basis: 40%;
+  display: flex;
+  justify-content: space-between;
+}
+.ScoreBoard .content .team .teamLeftbar {
+  display: flex;
+  flex-direction: column;
+}
+.ScoreBoard .content .team .teamLeftbar button:last-of-type {
+  background-color: red;
+}
+.ScoreBoard .content .team .teamRightbar .teamName {
+  font-size: xx-large;
+}
+.ScoreBoard .content .team .teamRightbar .teamScore {
+  text-align: center;
+  font-size: 400%;
+}
+.ScoreBoard .content .team button {
+  width: 7vw;
+  height: 7vh;
+  margin: 7%;
+  border-radius: 45%;
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+}/*# sourceMappingURL=Scoreboard.module.css.map */

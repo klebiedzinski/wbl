@@ -24,7 +24,7 @@ const searchPlayers = async (req, res) => {
     }).sort({lastName: 1});
     res.status(200).json({players});
     } catch (err) {
-        res.status(400).json({error: error.message});
+        res.status(400).json({error: err.message});
     }
 }
 

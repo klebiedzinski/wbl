@@ -1,3 +1,4 @@
+const randomString = require('randomstring');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -13,7 +14,7 @@ const playerSchema = new Schema({
     picture: {
         type: String,
         required: false,
-        default: "https://wbl.klebiedzinski.pl/photos/sample_pictures/player.png"
+        default: `https://api.dicebear.com/5.x/micah/svg?seed=Tinkerbell&earringsProbability=0&eyes=eyes,eyesShadow,round&facialHair[]&facialHairProbability=0&hair=mrClean,dougFunny&hairColor=000000,77311d,ac6651,ffedef,ffeba4,f4d150&mouth=laughing,smile,smirk&shirt=open&shirtColor=000000`,
     },
     yearOfBirth: {
         type: String, 

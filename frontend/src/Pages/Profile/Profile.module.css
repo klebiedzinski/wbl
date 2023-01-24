@@ -1,0 +1,56 @@
+.Profile {
+  border: 2px solid white;
+  border-radius: 40px;
+  margin: 5vh 20vw;
+  padding: 2vw 5vw;
+}
+.Profile li {
+  list-style: none;
+}
+.Profile img {
+  width: 100px;
+  height: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 50%;
+}
+.Profile h2 {
+  font-size: 4ch;
+  background-color: white;
+}
+.Profile h3 {
+  font-size: 3ch;
+}
+.Profile .teamsList {
+  padding: 3vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1vw;
+}
+.Profile .teamsList .team a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+.Profile .teamsList .team .teamName {
+  color: #fff;
+}
+.Profile .playersList {
+  padding: 3vw;
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 40vh;
+  gap: 1vw;
+}
+.Profile .playersList .player a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}/*# sourceMappingURL=Profile.module.css.map */

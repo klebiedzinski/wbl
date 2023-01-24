@@ -35,6 +35,33 @@ const loadMoreGames = async (req, res) => {
 }
 
 
+// filter games by status and date range (from-to) with pagination
+const filterGames = async (req, res) => {
+    const { status: statusCheck, from, to, page, limit } = req.query;
+    const fromFormat = new Date(from);
+    const toFormat = new Date(to);
+    const status = statusCheck === "wszystkie" ? {$in: ["scheduled", "live", "finished"]} : statusCheck;
+    try {
+        const games = await Game.find({
+            $or: [
+                { date: { $gte: fromFormat, $lte: toFormat } },
+                {
+                    $expr: {
+                        $eq: [
+                            { $dateToString: { format: "%Y-%m-%d", date: "$date" } },
+                            { $dateToString: { format: "%Y-%m-%d", date: fromFormat } }
+                        ]
+                    }
+                }
+            ]
+        }).find({status: status}).sort({date: 1}).skip((page - 1) * limit).limit(limit);
+        res.status(200).json({games});
+    } catch (err) {
+        res.status(400).json({error: err.message});
+    }
+    
+}
+
 
 
 // get games by team
@@ -253,7 +280,7 @@ module.exports = {
     deleteGame,
     getGamesByTeam,
     getLastGames,
-    loadMoreGames
-    
+    loadMoreGames,
+    filterGames
 }
 

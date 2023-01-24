@@ -1,10 +1,102 @@
+@import "../../Styles/variables.scss";
 .header{
     font-size: 7ch;
     margin-block: 5vh;
   }
+.GamesFiltersBar{
+    min-height: 10vh;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    .filtersBar{
+        grid-column-start: 3;
+        display: flex;
+        justify-content: flex-end;
+    }
+    .filters{
+        display: none;
+    }
+    .filtersActive{
+        .filterContainer{
+
+        
+        border: 3px solid $green;
+        border-radius: 20px;
+        grid-column-start: 2;
+        display: flex;
+        justify-content: space-around;
+        .dateRange {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+        
+            .dateContainer {
+                
+                input{
+                    width: 150px;
+                    
+                    
+                    height: 30px;
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    padding: 5px;
+                }
+                @media (max-width: 768px){
+                   
+                    input{
+                        width: 20px;
+                    }
+                }
+                
+              }
+        }
+        .statusChecks{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-around;
+            label{
+                margin: 1vw;
+            }
+            input{
+                margin: 0;
+                padding: 0;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+        .filterButtons{
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            button{
+                margin: 1vw;
+                width: 100px;
+                height: 30px;
+                border: 1px solid black;
+                border-radius: 5px;
+                background-color: white;
+                cursor: pointer;
+                &:hover{
+                    background-color: #e0e0e0;
+                }
+            }
+        }
+    }
+    .pagination{
+        grid-column-start: 1;
+        // display: flex;
+        // justify-content: flex-end;
+    }
+}
+  
  
   .teamImg{
     width: 100px;
+    border-radius: 50%;
+    padding: 5px;
   }
 .gamesList{
     min-height: 70vh;
@@ -16,6 +108,7 @@
     flex-wrap: wrap;
     gap: 10px;
     .game{
+        width: 90vw;
         flex: 1 1 100%;
         display: grid;
         grid-template-columns: 1fr 4fr 1fr;
@@ -54,6 +147,15 @@
                 }
             }
             .team1{
+                @media (max-width: 768px){
+                    display: flex;
+                    flex-direction: column-reverse;
+                    align-items: center;
+                    justify-content: center;
+                    p{
+                        text-align: center;
+                    }
+                }
                 //start from the right
                 grid-template-columns: 2fr 1fr;
                 p{
@@ -62,6 +164,15 @@
                 
             }
             .team2{
+                @media (max-width: 768px){
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    p{
+                        text-align: center;
+                    }
+                }
                 //start from the left
                 grid-template-columns: 1fr 2fr;
                 p{

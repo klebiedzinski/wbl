@@ -1,0 +1,26 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.home h1 {
+  font-size: 8ch;
+  font-weight: 100;
+  color: #173114;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-align: center;
+  transition: transform 0.5s ease-in-out;
+}
+@media (max-width: 768px) {
+  .home h1 {
+    font-size: 4ch;
+  }
+}
+.home h1:hover {
+  transform: scale(1.1);
+}
+.home h1 span {
+  color: #e83131;
+  font-weight: 500;
+}/*# sourceMappingURL=Home.module.css.map */

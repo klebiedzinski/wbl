@@ -1,0 +1,106 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap");
+* {
+  margin: 0;
+  font-family: "Quicksand";
+  color: rgb(0, 0, 0);
+}
+
+main {
+  margin-top: 100px;
+  padding: 2vw;
+  background-color: #F2F2F2;
+}
+
+.loadmore {
+  margin-inline: auto;
+  background-color: #173114;
+  color: white;
+  border: none;
+  width: 50vw;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.loadmore:hover {
+  background-color: #e83131;
+}
+
+.header {
+  font-size: 7ch;
+  margin-block: 5vh;
+}
+
+h2 {
+  background-color: gray;
+  text-align: center;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'><path fill='%23bdc3c7' d='M7.41 7.83L12 12.42l4.59-4.59L18 9.25l-6 6-6-6z'/></svg>") no-repeat right 0.75rem center;
+  background-size: 1rem auto;
+  padding-right: 3rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.editBtn {
+  max-height: 10%;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #d99917;
+}
+
+.deleteBtn {
+  max-height: 10%;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #e80505;
+}
+
+input, select {
+  margin: 1vw;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1vw;
+  width: 30vw;
+}
+
+.submit-btn {
+  background-color: #2ECC71;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.submit-btn:hover {
+  background-color: #27AE60;
+}/*# sourceMappingURL=index.css.map */

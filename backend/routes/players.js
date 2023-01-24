@@ -27,6 +27,7 @@ router.get('/search/:search', searchPlayers);
 //middleware to check role
 router.use(requireAuth);
 
+
 //add player
 router.post('/', upload.single('picture'), addPlayer);
 

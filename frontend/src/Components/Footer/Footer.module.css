@@ -1,0 +1,23 @@
+footer {
+  height: 8vh;
+  background-color: #173114;
+  text-align: center;
+  font-size: 2ch;
+}
+footer p {
+  color: white;
+}
+footer p a {
+  display: inline-block;
+  color: white;
+  text-decoration: none;
+}
+footer p a:hover {
+  transition: 400ms;
+  color: #e83131;
+}
+@media (max-width: 768px) {
+  footer {
+    font-size: 9px;
+  }
+}/*# sourceMappingURL=Footer.module.css.map */

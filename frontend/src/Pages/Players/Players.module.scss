@@ -19,11 +19,10 @@
         }
         display: flex;
         flex-wrap: wrap;
-        justify-content: space-between;
        .player{
         // width: 25vw;
         margin-block: 1%;
-         flex: 1 1 23%;
+         flex: 0 1 23%;
         @media only screen and (max-width: 900px) {
           flex-basis: 49%;
         }
