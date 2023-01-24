@@ -1,61 +1,66 @@
-
-.Profile{
-    border: 2px solid white;
-    border-radius: 40px;
-    li{
-        list-style: none;
-    }
-    margin: 5vh 20vw;
+.Profile {
+  border: 2px solid white;
+  border-radius: 40px;
+  li {
+    list-style: none;
+  }
+  margin: 5vh 20vw;
+  padding: 2vw 5vw;
+  @media (max-width: 800px) {
+    margin: 5vh 5vw;
     padding: 2vw 5vw;
-    img{
-        width: 100px;
-        height: 100px;
-        object-fit: cover;
-        border-radius: 50%;
-    }
-    h2{
-        font-size: 4ch;
-        background-color: white;
-    }
-    h3{
-        font-size: 3ch;
-    }
-    .teamsList{
-        padding: 3vw;
+  }
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  h2 {
+    font-size: 4ch;
+    background-color: white;
+  }
+  h3 {
+    font-size: 3ch;
+  }
+  .teamsList {
+    padding: 3vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1vw;
+    .team {
+      a {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 1vw;
-        .team{
-            a{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-            }
-            .teamName{
-                color: #fff;
-            }
-        }
+        text-decoration: none;
+      }
+      .teamName {
+        color: #fff;
+      }
     }
-    .playersList{
-        padding: 3vw;
+  }
+  .playersList {
+    padding: 3vw;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    //scroll
+    overflow-y: scroll;
+    height: 40vh;
+    gap: 1vw;
+    .player {
+      a {
         display: flex;
-        flex-wrap: wrap;
-        //scroll
-        overflow-y: scroll;
-        height: 40vh;
-        gap: 1vw;
-        .player{
-            a{
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                text-decoration: none;
-            }
-        }
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+      }
     }
+  }
 }

@@ -1,4 +1,4 @@
-import axiosInstance from "../../../config/axios_config";
+import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "../Footer.module.scss"
 const Weather = () => {
@@ -8,13 +8,13 @@ const Weather = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        axiosInstance.get('http://api.weatherapi.com/v1/current.json?key=4b75c4281ecf4b3c8c314457232401&q=Wloclawek&aqi=no')
+        console.log(window._env_.WEATHER_API_KEY)
+        axios.get(`http://api.weatherapi.com/v1/current.json?key=4b75c4281ecf4b3c8c314457232401&q=Wloclawek&aqi=no`)
         .then(res => {
             const {text, icon} = res.data.current.condition;
             const {temp_c} = res.data.current;
             const {name, localtime} = res.data.location;
             setWeather({text, icon, temp_c, name, localtime});
-            console.log(text, icon)
             setLoading(false);
         })
         .catch(err => {
@@ -24,7 +24,8 @@ const Weather = () => {
     }, [])
     
     return ( 
-        weather && <div className={styles.weather}>
+        <>
+        {weather && <div className={styles.weather}>
             <div className={styles.weatherContainer}>
                 <p className={styles.temp}>{weather.temp_c} &#8451;</p>
                 <div className={styles.right}>
@@ -32,7 +33,9 @@ const Weather = () => {
                 <p className={styles.text}>{weather.text}</p>
                 </div>
             </div>
-        </div>
+        </div>}
+        {/* {error && console.log(error)} */}
+        </>
 
 
      );

@@ -1,4 +1,4 @@
-@import '../../Styles/variables.scss';
+@import "../../Styles/variables.scss";
 .navbar {
   background-color: $mid;
   height: 100px;
@@ -8,11 +8,10 @@
   //make it stick on top
   position: fixed;
   top: 0;
-  width: 100%;
+  width: 100vw;
   z-index: 100;
 
-  
-  .greeting{
+  .greeting {
     margin-inline: 2rem;
     font-size: 1.2rem;
     color: $green;
@@ -21,12 +20,12 @@
     border: 2px solid $green;
     border-radius: 5px;
     transition: 400ms;
-    &:hover{
+    &:hover {
       background-color: $green;
       color: $main;
     }
   }
-  .logo img{
+  .logo img {
     width: 80px;
   }
 }
@@ -46,10 +45,9 @@
   transition: 850ms;
   width: 250px;
   left: -100%;
-  
 }
 
-.navMenuActive { 
+.navMenuActive {
   border-right: 2px solid black;
   background-color: $mid;
   display: flex;
@@ -60,22 +58,20 @@
   width: 250px;
   height: 100vh;
   left: 0;
-
 }
 
-
-.navLi{
+.navLi {
   list-style: none;
   width: 70%;
   margin-block: 20px;
   border-radius: 5px;
-  *{
+  * {
     color: $green;
     font-weight: 600;
   }
   &:hover {
     background-color: $red;
-    *{
+    * {
       color: $main;
       transition: 400ms;
     }
@@ -83,16 +79,13 @@
   a {
     text-decoration: none;
     font-size: 18px;
-    
+
     display: flex;
     align-items: center;
     padding: 5px 16px;
     border-radius: 4px;
-   
   }
 }
-
-
 
 .navMenuItems {
   width: 100%;
@@ -110,6 +103,5 @@
 }
 
 span {
-  
   margin-left: 16px;
 }

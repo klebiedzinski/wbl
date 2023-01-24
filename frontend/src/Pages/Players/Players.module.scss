@@ -1,60 +1,59 @@
-.playersList{
+.playersList {
   min-height: 40vh;
 }
-      .header{
-        font-size: 7ch;
-        margin-block: 5vh;
-      } 
-    .teamPlayers{
-     
-      padding: 3%;
-      gap: 0 30px;
-        a{
-          text-decoration: none;
-          transition: 400ms; 
-          &:hover{
-            background-color: red;
-            transform: scale(1.08); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */      
-          }
-        }
-        display: flex;
-        flex-wrap: wrap;
-       .player{
-        // width: 25vw;
-        margin-block: 1%;
-         flex: 0 1 23%;
-        @media only screen and (max-width: 900px) {
-          flex-basis: 49%;
-        }
-        @media only screen and (max-width: 700px) {
-          flex-basis: 100%;
-          margin-inline: auto;
-        }
-        background-color: white;
-        border-radius: 20px;
-        display: grid;
-        grid-template-columns: 1fr 3fr 1fr;
-        align-items: center;
-        h5{
-          font-size: 1.5ch;
-          //max width of the text
-          max-width: 100px;
-        }
-        h5:nth-child(2){
-          font-size: 2ch;
-        }
-         .teamImg{
-            width: 70px;
-            height: 70px;
-         }
-         .playerImg{
-            img{
-              padding: 1vw 1vw 0 1vw;
-              width: 100px;
-              height: 100px;
-            }
-            
-         }
-    
-       }
+.header {
+  font-size: 7ch;
+  margin-block: 5vh;
+}
+.teamPlayers {
+  padding: 3%;
+  gap: 0 30px;
+  a {
+    text-decoration: none;
+    transition: 400ms;
+    &:hover {
+      background-color: red;
+      transform: scale(
+        1.08
+      ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+  }
+  display: flex;
+  flex-wrap: wrap;
+  .player {
+    // width: 25vw;
+    margin-block: 1%;
+    flex: 0 1 23%;
+    @media only screen and (max-width: 900px) {
+      flex-basis: 49%;
+    }
+    @media only screen and (max-width: 700px) {
+      flex-basis: 100%;
+      margin-inline: auto;
+    }
+    background-color: white;
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    align-items: center;
+    h5 {
+      font-size: 1.5ch;
+      //max width of the text
+      max-width: 100px;
+    }
+    h5:nth-child(2) {
+      font-size: 2ch;
+    }
+    .teamImg {
+      width: 70px;
+      height: 70px;
+    }
+    .playerImg {
+      img {
+        padding: 1vw 1vw 0 1vw;
+        width: 100px;
+        height: 100px;
       }
+    }
+  }
+}

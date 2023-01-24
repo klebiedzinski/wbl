@@ -45,7 +45,6 @@ const signupUser = async (req, res) => {
     try {
         const user = await User.signup(firstName, lastName,email, password, auth_teams , auth_players, stolik, admin);
 
-        // console.log(email)
         await emailSender.signupMail(email, user._id.toString());
         res.status(200).json({...user});
     }

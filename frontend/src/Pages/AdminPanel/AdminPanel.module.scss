@@ -1,40 +1,37 @@
-@import '../../Styles/variables.scss';
-.header{
-    text-align: center;
+@import "../../Styles/variables.scss";
+.header {
+  text-align: center;
 }
-.main{
+.main {
+  border: 2px solid $green;
+  background-color: white;
+  border-radius: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  & > * {
+    h1 {
+      text-align: center;
+    }
+    padding: 10px;
     border: 2px solid $green;
-    background-color: white;
     border-radius: 20px;
+    flex: 1 1 40%;
+    @media (max-width: 800px) {
+      flex: 1 1 100%;
+    }
+  }
+
+  .users_panel {
+    max-height: 90vh;
+    overflow: scroll;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    & > *{
-        h1{
-            text-align: center;
-        }
-        padding: 10px;
-        border: 2px solid $green;
-        border-radius: 20px;
-        flex: 1 1 40%;
-        //media query
-        @media (max-width: 800px){
-            flex: 1 1 100%;
-        }
+    flex-direction: column;
+    & > * {
+      flex: 1 1 40%;
+      margin-block: 5px;
+      border: 2px solid $green;
+      border-radius: 20px;
     }
-
-    .users_panel{
-        max-height: 90vh;
-        overflow: scroll;
-        display: flex;
-        flex-direction: column;
-        & > *{
-            flex: 1 1 40%;
-            margin-block: 5px;
-            border: 2px solid $green;
-            border-radius: 20px;
-        }
-    }
-
-
+  }
 }

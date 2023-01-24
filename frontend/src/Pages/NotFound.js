@@ -1,7 +1,12 @@
+import GoBack from "../Components/GoBack/GoBack";
+
 const NotFound = () => {
-    return ( 
-        <h1>Not found</h1>
-     );
-}
- 
+  return (
+    <>
+      <GoBack />
+      <h1>Not found</h1>
+    </>
+  );
+};
+
 export default NotFound;

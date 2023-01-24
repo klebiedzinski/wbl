@@ -1,33 +1,30 @@
+.teamPlayers {
+  a {
+    text-decoration: none;
+    transition: all 500ms ease;
 
-    .teamPlayers{
-        a{
-          text-decoration: none;
-          transition: all 500ms ease; 
-    
-          &:hover{
-            transform: skew(-1deg);      
-    
-          }
-        }
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-       .player{
-        flex-basis: 30%;
-        @media only screen and (max-width: 900px) {
-          flex-basis: 40%;
-        }
-        @media only screen and (max-width: 700px) {
-          flex-basis: 80%;
-          margin-inline: auto;
-        }
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-block: 1vh;
-         img{
-           width: 40%;
-         }
-    
-       }
-      }
+    &:hover {
+      transform: skew(-1deg);
+    }
+  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  .player {
+    flex-basis: 30%;
+    @media only screen and (max-width: 900px) {
+      flex-basis: 40%;
+    }
+    @media only screen and (max-width: 700px) {
+      flex-basis: 80%;
+      margin-inline: auto;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-block: 1vh;
+    img {
+      width: 40%;
+    }
+  }
+}

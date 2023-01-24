@@ -6,17 +6,18 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 20px;
   max-height: 90vh;
+  margin-inline: auto;
 
-  form{
+  form {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 20px;
-    input[type=text], select, textarea{
+    input[type="text"],
+    select,
+    textarea {
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
@@ -24,9 +25,9 @@
       border: 1px solid #ccc;
       border-radius: 4px;
     }
-   
-    button{
-      background-color: #4CAF50;
+
+    button {
+      background-color: #4caf50;
       color: white;
       padding: 14px 20px;
       margin: 8px 0;
@@ -46,8 +47,4 @@
   justify-content: center;
   width: 60%;
   padding: 20px;
-
 }
-
-
-

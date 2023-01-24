@@ -77,6 +77,7 @@ userSchema.statics.signup = async function(firstName,lastName,email, password, a
         emailConfirmed: false,
         adminConfirmed: false
     })
+    
 
     return user;
 }

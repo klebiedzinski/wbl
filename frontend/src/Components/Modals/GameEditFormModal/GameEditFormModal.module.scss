@@ -1,28 +1,28 @@
-.gameEditModal{
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 1px solid black;
-    border-radius: 5px;
-    padding: 1vw;
-    z-index: 1000;
-    width: 70vw;
-    height: 90vh;
+.gameEditModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 1vw;
+  z-index: 1000;
+  width: 70vw;
+  height: 90vh;
 }
-.overlayStyle{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,.5);
-    z-index: 1000;
+.overlayStyle {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
 }
-.removeBtn{
+.removeBtn {
   position: absolute;
   top: 0;
   right: 5vw;
@@ -31,31 +31,28 @@
   padding: 1vw;
   border: none;
   background-color: white;
-  &:hover{
+  &:hover {
     background-color: red;
   }
-  
-    img{
-      &:hover{
-        background-color: red;
-      }
-      width: 2vw;
-    }
-  
 
-  }
-
-
-  .closeModalBtn{
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin: 1vw;
-    border-radius: 5px;
-    padding: 1vw;
-    border: none;
-    background-color: white;
-    &:hover{
+  img {
+    &:hover {
       background-color: red;
     }
+    width: 2vw;
   }
+}
+
+.closeModalBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 1vw;
+  border-radius: 5px;
+  padding: 1vw;
+  border: none;
+  background-color: white;
+  &:hover {
+    background-color: red;
+  }
+}

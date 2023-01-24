@@ -1,22 +1,19 @@
 .playerOverview {
-    margin-top: 10vh;
-    display: grid;
-    justify-content: center;
-  }
+  margin-top: 10vh;
+  display: grid;
+  justify-content: center;
+}
 
-
-// edit button 
-.editBtn{
- 
+.editBtn {
   margin: 1vw;
   border-radius: 5px;
   padding: 1vw;
   border: none;
   background-color: white;
-  &:hover{
+  &:hover {
     background-color: red;
   }
-  img{
+  img {
     width: 2vw;
   }
 }

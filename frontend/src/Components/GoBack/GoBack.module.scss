@@ -1,0 +1,17 @@
+.goBack {
+  display: flex;
+  align-items: center;
+
+  svg {
+    fill: currentColor;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+  }
+
+  &:hover {
+    svg {
+      transform: scale(1.2);
+    }
+  }
+}

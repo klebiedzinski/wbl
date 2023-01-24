@@ -1,9 +1,11 @@
+import GoBack from "../../Components/GoBack/GoBack";
 const GameOverview = () => {
-    return ( 
-        <div>
-            GameOverview
-        </div>
-     );
-}
- 
+  return (
+    <div>
+      <GoBack />
+      GameOverview
+    </div>
+  );
+};
+
 export default GameOverview;

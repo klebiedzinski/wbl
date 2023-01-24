@@ -1,20 +1,36 @@
-.users_table{
-    width: 100%;
-    border-collapse: collapse;
-    .users_row{
-        border: 1px solid black;
-        border-collapse: collapse;
-        text-align: center;
-        .btn{
-            border: 1px solid black;
-            border-radius: 5px;
-            padding: 5px;
-            margin: 5px;
-            cursor: pointer;
-            &:hover{
-                background-color: #f2f2f2;
-            }
-        }
+@import "../../Styles/variables.scss";
+.users_table {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-collapse: collapse;
+  margin-block: 3vh;
+  .users_row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 3px dotted $green;
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+    * {
+      flex: 1 1 30%;
     }
-   
+    .btn {
+      padding: 10px;
+      border: none;
+      background-color: $green;
+      color: #fff;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        background-color: $red;
+      }
+    }
+  }
 }

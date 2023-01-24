@@ -1,32 +1,27 @@
-@import '../../Styles/variables.scss';
+@import "../../Styles/variables.scss";
 
-.home{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 
-    h1 {
-        font-size: 8ch;
-        @media (max-width: 768px) {
-            font-size: 4ch;
-        }
-        font-weight: 100;
-        color: $green;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        text-align: center;
-        transition: transform 0.5s ease-in-out;
-        &:hover {
-          transform: scale(1.1);
-        }
-        span {
-            color: $red;
-            font-weight: 500;
-          
-        }
-      }
+  h1 {
+    font-size: 8ch;
+    @media (max-width: 768px) {
+      font-size: 4ch;
+    }
+    font-weight: 100;
+    color: $green;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    transition: transform 0.5s ease-in-out;
+    &:hover {
+      transform: scale(1.1);
+    }
+    span {
+      color: $red;
+      font-weight: 500;
+    }
+  }
 }
-
-  
-  
-  
