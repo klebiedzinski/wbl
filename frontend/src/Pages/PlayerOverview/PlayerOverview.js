@@ -3,10 +3,12 @@ import styles from "./PlayerOverview.module.scss";
 import useFetch from "../../hooks/useFetch";
 import ClipLoader from "react-spinners/ClipLoader";
 import PlayerEditFormModal from "../../Components/Modals/PlayerEditFormModal/PlayerEditFormModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "../../hooks/contexts/useAuthContext";
+import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { AiFillEdit } from "react-icons/ai";
 import GoBack from "../../Components/GoBack/GoBack";
+import axiosInstance from "../../config/axios_config";
 
 const PlayerOverview = () => {
   const { user } = useAuthContext();
@@ -16,6 +18,21 @@ const PlayerOverview = () => {
     (user.admin ||
       user.auth_players.find((playerId) => playerId === player_id));
   const { data: player, isLoading, error } = useFetch("/players/" + player_id);
+
+  const [team, setTeam] = useState({});
+
+  useEffect(() => {
+    if (player) {
+      axiosInstance
+        .get(`/teams/${player.player.team_id}`)
+        .then((res) => {
+          setTeam(res.data.team);
+          console.log(team);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [player]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
     <>
@@ -46,8 +63,8 @@ const PlayerOverview = () => {
             />
             <h5>{player.player.firstName}</h5>
             <h5>{player.player.lastName}</h5>
-            <h5>Team: {player.player.team_id}</h5>
-            <h5>Age: {player.player.yearOfBirth}</h5>
+            <h5>Drużyna: {team.name}</h5>
+            <h5>Wiek: {player.player.yearOfBirth}</h5>
           </div>
         </>
       )}

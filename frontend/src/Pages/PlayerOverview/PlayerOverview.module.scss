@@ -2,9 +2,16 @@
   margin-top: 10vh;
   display: grid;
   justify-content: center;
+  img {
+    width: 20vw;
+    height: 20vw;
+  }
 }
 
 .editBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 1vw;
   border-radius: 5px;
   padding: 1vw;

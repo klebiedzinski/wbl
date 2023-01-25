@@ -58,7 +58,7 @@ const PlayerEditFormModal = ({ setIsModalOpen, player }) => {
       picture: picture,
       yearOfBirth: yearOfBirth,
       career: career,
-      teamName: teams ? teams.find((team) => team._id === team_id).name : null,
+      teamName: "",
     },
 
     validationSchema: Yup.object({

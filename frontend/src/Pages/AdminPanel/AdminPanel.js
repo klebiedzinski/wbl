@@ -6,6 +6,8 @@ import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import Users from "../../Components/Users/Users";
 import GoBack from "../../Components/GoBack/GoBack";
+import { AiOutlineReload } from "react-icons/ai";
+
 const AdminPanel = () => {
   const { teams: teamsFromContext } = useTeamsContext();
   const { players: playersFromContext } = usePlayersContext();
@@ -34,6 +36,7 @@ const AdminPanel = () => {
 
             <div className={styles.users_panel}>
               <div className={styles.users}>
+                <AiOutlineReload />
                 <Users />
               </div>
             </div>

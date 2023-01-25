@@ -44,6 +44,12 @@
     }
   }
   .controls {
+    * {
+      padding: 1vw;
+      &:hover {
+        border: 2px solid rgb(18, 45, 17);
+      }
+    }
     margin-top: 50px;
     display: flex;
   }

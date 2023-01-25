@@ -22,7 +22,7 @@ const Signup = () => {
     error: playersError,
   } = useFetch("/players");
   const teams = teamsData?.teams;
-  const { signup, error, isLoading } = useSignup();
+  const { signup, error, isLoading, isCompleted } = useSignup();
   useEffect(() => {
     if (playersData) {
       dispatch({ type: "SET_PLAYERS", payload: playersData.players });
@@ -35,18 +35,17 @@ const Signup = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  const handleSearch = (searchTerm) => {
-    setSearchTerm(searchTerm);
-    const filteredPlayers = players.filter((player) =>
-      player.firstName.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    dispatch({ type: "SET_PLAYERS", payload: filteredPlayers });
-  };
+  // const handleSearch = (searchTerm) => {
+  //   setSearchTerm(searchTerm);
+  //   const filteredPlayers = players.filter((player) =>
+  //     player.firstName.toLowerCase().includes(searchTerm.toLowerCase())
+  //   );
+  //   dispatch({ type: "SET_PLAYERS", payload: filteredPlayers });
+  // };
 
   useEffect(() => {
     if (players) {
       if (!searchTerm) {
-        console.log("siema");
         dispatch({ type: "SET_PLAYERS", payload: playersData.players });
       } else {
         const filteredPlayers = playersData.players.filter(
@@ -80,11 +79,14 @@ const Signup = () => {
       firstName: Yup.string()
         .required("Podaj imię")
         .max(10, "Imię nie może być dłuższe niż 10 znaków")
-        .matches(/^[a-zA-Z]+$/, "Imię może zawierać tylko litery"),
+        .matches(
+          /^[a-zA-ZĄĆŁĘÓŚŻŹąćłęóśżź]+$/,
+          "Imię może zawierać tylko litery"
+        ),
 
       lastName: Yup.string()
         .required("Podaj nazwisko")
-        .matches(/^[a-zA-Z]+$/, "Nazwisko może zawierać tylko litery"),
+        .matches(/^[a-zA-ZZĄĆŁĘÓŚŻŹ]+$/, "Nazwisko może zawierać tylko litery"),
 
       email: Yup.string()
         .required("Podaj email")
@@ -92,16 +94,12 @@ const Signup = () => {
 
       password: Yup.string()
         .required("Podaj hasło")
-        .min(8, "Hasło musi mieć przynajmniej 8 znaków")
+        .min(6, "Hasło musi mieć przynajmniej 6 znaków")
         .matches(
           /(?=.*[A-Z])/,
           "Hasło musi zawierać co najmniej jedną dużą literę"
         )
         .matches(/(?=.*[0-9])/, "Hasło musi zawierać co najmniej jedną cyfrę")
-        .matches(
-          /(?=.*[!@#\$%\^&])/,
-          "Hasło musi zawierać co najmniej jeden znak specjalny (!, @, #, $, %, ^, &)"
-        )
         .matches(confirmPassword, "Hasła nie są takie same"),
       auth_players: Yup.array().required("Podaj graczy"),
       auth_teams: Yup.array().required("Podaj drużyny"),
@@ -135,7 +133,7 @@ const Signup = () => {
       {teams && players && (
         <div className={styles.Signup}>
           <form onSubmit={formik.handleSubmit}>
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label htmlFor="firstName">Imię</label>
               <input
                 type="text"
@@ -146,11 +144,13 @@ const Signup = () => {
                 onChange={formik.handleChange}
               />
               {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.firstName}</p>
+                <p className={styles.validationInfo}>
+                  {formik.errors.firstName}
+                </p>
               )}
             </div>
 
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label htmlFor="lastName">Nazwisko</label>
               <input
                 type="text"
@@ -161,11 +161,13 @@ const Signup = () => {
                 onChange={formik.handleChange}
               />
               {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.lastName}</p>
+                <p className={styles.validationInfo}>
+                  {formik.errors.lastName}
+                </p>
               )}
             </div>
 
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label htmlFor="email">Email</label>
               <input
                 type="text"
@@ -176,11 +178,11 @@ const Signup = () => {
                 onChange={formik.handleChange}
               />
               {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.email}</p>
+                <p className={styles.validationInfo}>{formik.errors.email}</p>
               )}
             </div>
 
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label htmlFor="password">Hasło</label>
               <input
                 type="password"
@@ -191,11 +193,13 @@ const Signup = () => {
                 onChange={formik.handleChange}
               />
               {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.password}</p>
+                <p className={styles.validationInfo}>
+                  {formik.errors.password}
+                </p>
               )}
             </div>
 
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label htmlFor="password">Potwierdź hasło</label>
               <input
                 type="password"
@@ -207,59 +211,67 @@ const Signup = () => {
               />
             </div>
 
-            <div className="input-container">
-              <label>Wybierz drużyny którymi chcesz zarządzać</label>
-              <ul className={styles.listItems}>
-                {teams.map((team) => (
-                  <li key={team._id}>
-                    <input
-                      type="checkbox"
-                      name="auth_teams"
-                      id={team._id}
-                      value={team._id}
-                      onChange={formik.handleChange}
-                    />
-                    {team.name}
-                  </li>
-                ))}
-              </ul>
-              {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.auth_teams}</p>
-              )}
+            <div className={styles.inputContainer_2}>
+              <div className={styles.inputContainer}>
+                <label>Wybierz drużyny którymi chcesz zarządzać</label>
+                <ul className={styles.listItems}>
+                  {teams.map((team) => (
+                    <li key={team._id}>
+                      <input
+                        type="checkbox"
+                        name="auth_teams"
+                        id={team._id}
+                        value={team._id}
+                        onChange={formik.handleChange}
+                      />
+                      {team.name}
+                    </li>
+                  ))}
+                </ul>
+                {isSubmitClicked && (
+                  <p className={styles.validationInfo}>
+                    {formik.errors.auth_teams}
+                  </p>
+                )}
+              </div>
+
+              <div className={styles.inputContainer}>
+                <label>Wybierz graczy którymi chcesz zarządzać</label>
+                <input
+                  type="text"
+                  name="search"
+                  id="search"
+                  placeholder="Wyszukaj gracza"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                />
+
+                <ul className={styles.listItems}>
+                  {players.map((player) => (
+                    <li key={player._id}>
+                      <input
+                        type="checkbox"
+                        checked={formik.values.auth_players.includes(
+                          player._id
+                        )}
+                        name="auth_players"
+                        id={player._id}
+                        value={player._id}
+                        onChange={formik.handleChange}
+                      />
+                      {player.firstName + " " + player.lastName}
+                    </li>
+                  ))}
+                </ul>
+                {isSubmitClicked && (
+                  <p className={styles.validationInfo}>
+                    {formik.errors.auth_players}
+                  </p>
+                )}
+              </div>
             </div>
 
-            <div className="input-container">
-              <label>Wybierz graczy którymi chcesz zarządzać</label>
-              <input
-                type="text"
-                name="search"
-                id="search"
-                placeholder="Wyszukaj gracza"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-
-              <ul className={styles.listItems}>
-                {players.map((player) => (
-                  <li key={player._id}>
-                    <input
-                      type="checkbox"
-                      checked={formik.values.auth_players.includes(player._id)}
-                      name="auth_players"
-                      id={player._id}
-                      value={player._id}
-                      onChange={formik.handleChange}
-                    />
-                    {player.firstName + " " + player.lastName}
-                  </li>
-                ))}
-              </ul>
-              {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.auth_players}</p>
-              )}
-            </div>
-
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label>Czy będziesz na stoliku?</label>
               <input
                 type="checkbox"
@@ -270,11 +282,11 @@ const Signup = () => {
                 onChange={formik.handleChange}
               />
               {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.stolik}</p>
+                <p className={styles.validationInfo}>{formik.errors.stolik}</p>
               )}
             </div>
 
-            <div className="input-container">
+            <div className={styles.inputContainer}>
               <label>Włodarz?</label>
               <input
                 type="checkbox"
@@ -285,7 +297,7 @@ const Signup = () => {
                 onChange={formik.handleChange}
               />
               {isSubmitClicked && (
-                <p className="validation-info">{formik.errors.admin}</p>
+                <p className={styles.validationInfo}>{formik.errors.admin}</p>
               )}
             </div>
 
@@ -301,8 +313,17 @@ const Signup = () => {
                 Clear
               </button>
             )}
-            {isSignedup ? (
-              <p>Zarejestrowano, teraz admin musi potwierdzić twoje role :)</p>
+            {isCompleted ? (
+              <div className={styles.success}>
+                <p>Zarejestrowano, co dalej?</p>
+                <li>
+                  <ul>
+                    1. Wysłaliśmy Ci maila potwierdzającego, w celu weryfikacji
+                    konta. Potwierdź go
+                  </ul>
+                  <ul>2. Poczekaj na admina aż zatwierdzi zaznaczone role.</ul>
+                </li>
+              </div>
             ) : (
               <button
                 disabled={isLoading}
@@ -313,6 +334,7 @@ const Signup = () => {
                 Sign up
               </button>
             )}
+            {isLoading && <ClipLoader />}
             {error && <p className={styles.Error}>{error}</p>}
           </form>
         </div>
