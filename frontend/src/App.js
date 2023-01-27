@@ -21,11 +21,12 @@ import Standings from "./Pages/Standings/Standings";
 import Signup from "./Pages/Signup/Signup";
 import Profile from "./Pages/Profile/Profile";
 import Login from "./Pages/Login/Login";
+import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 
 //components
 import Navbar from "./Components/Navbar/Navbar";
-import AdminPanel from "./Pages/AdminPanel/AdminPanel";
 import Footer from "./Components/Footer/Footer";
+import UpcomingGames from "./Components/UpcomingGames/UpcomingGames";
 
 function App() {
   const { user } = useAuthContext();
@@ -34,6 +35,9 @@ function App() {
     <>
       <div className="App">
         <Navbar />
+        <div className="upcoming_games">
+          <UpcomingGames limit={5} team_id={"all"} />
+        </div>
         <main>
           <Routes>
             <Route path="/" element={<Home />} />

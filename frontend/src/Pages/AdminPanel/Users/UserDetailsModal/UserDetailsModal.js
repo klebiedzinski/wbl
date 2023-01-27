@@ -1,18 +1,18 @@
 import styles from "./SignupRequestsModal.module.scss";
-import useFetch from "../../../hooks/useFetch";
-import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
+import useFetch from "../../../../hooks/useFetch";
+import { useAuthContext } from "../../../../hooks/contexts/useAuthContext";
 import { useDispatch } from "react-redux";
 import {
   editUserReducer,
   deleteUserReducer,
-} from "../../../features/users/usersSlice";
+} from "../../../../features/users/usersSlice";
 import { ClipLoader } from "react-spinners";
 import {
   AiFillDelete,
   AiOutlineCheck,
   AiFillCloseCircle,
 } from "react-icons/ai";
-import axiosInstance from "../../../config/axios_config";
+import axiosInstance from "../../../../config/axios_config";
 
 const UserDetailsModal = ({ setShowModal, user: user_data }) => {
   const { user } = useAuthContext();

@@ -19,7 +19,7 @@ const Games = () => {
   const { data: teamsData } = useFetch("/teams");
   const teams = teamsData ? teamsData.teams : teamsFromContext;
 
-  //pobiernie meczy ze store, jeśli nie ma to setGamesReducer
+  //pobiernie meczy ze store, jeśli nie ma to z api
   const { games } = useSelector((state) => selectGames(state));
   const { data, isLoading, error } = useFetch(
     `/games/filter/?page=1&limit=5&from=2000-10-10&to=3000-10-10&status=wszystkie`

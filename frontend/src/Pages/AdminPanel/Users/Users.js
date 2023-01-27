@@ -1,12 +1,12 @@
 import ClipLoader from "react-spinners/ClipLoader";
 import styles from "./Users.module.scss";
-import { useAuthContext } from "../../hooks/contexts/useAuthContext";
-import useFetch from "../../hooks/useFetch";
+import { useAuthContext } from "../../../hooks/contexts/useAuthContext";
+import useFetch from "../../../hooks/useFetch";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import { setUsersReducer } from "../../features/users/usersSlice";
+import { setUsersReducer } from "../../../features/users/usersSlice";
 import { useSelector } from "react-redux";
-import { selectUsers } from "../../features/users/usersSlice";
+import { selectUsers } from "../../../features/users/usersSlice";
 import UserEntry from "./UserEntry";
 
 const Users = () => {

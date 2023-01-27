@@ -1,4 +1,4 @@
-import UserDetailsModal from "../Modals/UserDetailsModal/UserDetailsModal";
+import UserDetailsModal from "./UserDetailsModal/UserDetailsModal";
 import styles from "./Users.module.scss";
 import { useState } from "react";
 const UserEntry = ({ user }) => {

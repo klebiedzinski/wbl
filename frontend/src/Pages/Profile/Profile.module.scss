@@ -1,14 +1,24 @@
+.main{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.survey{
+  padding: 2vw;
+  h3{
+    padding: 1vw;
+  }
+  p{
+    text-align: center;
+  }
+}
 .Profile {
   border: 2px solid white;
   border-radius: 40px;
+  padding: 2vw;
   li {
     list-style: none;
-  }
-  margin: 5vh 20vw;
-  padding: 2vw 5vw;
-  @media (max-width: 800px) {
-    margin: 5vh 5vw;
-    padding: 2vw 5vw;
   }
   img {
     width: 100px;
@@ -16,12 +26,18 @@
     object-fit: cover;
     border-radius: 50%;
   }
+  h1{
+    margin-bottom: 2vh;
+  }
   h2 {
     font-size: 4ch;
     background-color: white;
   }
   h3 {
     font-size: 3ch;
+  }
+  h5{
+    text-align: center;
   }
   .teamsList {
     padding: 3vw;

@@ -1,8 +1,10 @@
 @import "../../Styles/variables.scss";
+
 .navbar {
   background-color: $mid;
   height: 100px;
   display: flex;
+
   justify-content: space-between;
   align-items: center;
   //make it stick on top

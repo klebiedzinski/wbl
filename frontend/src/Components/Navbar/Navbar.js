@@ -8,6 +8,7 @@ import { BiLogInCircle } from "react-icons/bi";
 //icons
 import { GiHamburgerMenu } from "react-icons/gi"; //open menu
 import { AiFillCloseCircle } from "react-icons/ai"; //close menu
+import UpcomingGames from "../UpcomingGames/UpcomingGames";
 const Navbar = () => {
   const { user } = useAuthContext();
   const { logout } = useLogout();
@@ -16,7 +17,7 @@ const Navbar = () => {
     logout();
   };
   return (
-    <div className="navbar">
+    <div className={styles.main}>
       <div className={styles.navbar}>
         <Link to="#" className={styles.menuBars}>
           <GiHamburgerMenu onClick={() => setSidebar(!sidebar)} />
@@ -80,24 +81,27 @@ const Navbar = () => {
 
         {/* {user &&
             <div className={styles.links}>
-                <Link to="/teams">Teams</Link>
-                <Link to="/players">Players</Link>
+            <Link to="/teams">Teams</Link>
+            <Link to="/players">Players</Link>
                 <Link to="/games">Games</Link>
                 <Link to="/standings">Standings</Link>
                 <Link to="/profile">Hi, {user.firstName}</Link>
                 {user.admin && <Link to="/admin">Panel admina</Link>}
                 <button onClick={handleLogout} className={styles.login}>Log out</button>
             </div>
-            }   
-            {!user &&
+          }   
+          {!user &&
             <div className={styles.links}>
                 <Link to="/teams">Teams</Link>
                 <Link to="/players">Players</Link>
                 <Link to="/games">Games</Link>
                 <Link to="/standings">Standings</Link>
                 <Link to="/login" className={styles.login}>Login</Link> 
-            </div>
-            } */}
+                </div>
+              } */}
+      </div>
+      <div className={styles.upcomingGames}>
+        {/* <UpcomingGames limit={5} team_id={"all"} /> */}
       </div>
     </div>
   );

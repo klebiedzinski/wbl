@@ -39,15 +39,18 @@ const Profile = () => {
       {(!teams || !players) && <ClipLoader />}
       <GoBack />
       {teams && players && (
+        <div className={styles.main}>
         <div className={styles.Profile}>
+          <div className={styles.userInfo}>
           <h3>Twoje dane:</h3>
           <p>Email: {user.email}</p>
           <p>Imię: {user.firstName}</p>
           <p>Nazwisko: {user.lastName}</p>
+          </div>
 
-          <h2 className={styles.subHeader}>Uprawnienia:</h2>
+          <h1 className={styles.subHeader}>Uprawnienia:</h1>
 
-          <h3>Zarządzanie drużyną:</h3>
+          <h5>Zarządzanie drużyną:</h5>
           <ul className={styles.teamsList}>
             {teams.map((team) => {
               return (
@@ -60,7 +63,7 @@ const Profile = () => {
               );
             })}
           </ul>
-          <h3 className={styles.subHeader}>Zarządzanie graczami:</h3>
+          <h5 className={styles.subHeader}>Zarządzanie graczem:</h5>
           <ul className={styles.playersList}>
             {players.map((player) => {
               return (
@@ -78,6 +81,16 @@ const Profile = () => {
               );
             })}
           </ul>
+        </div>
+
+        <div className={styles.survey}>
+          <h3>Wypełnij ankietę:</h3>
+          <p>
+            Wypełnij ankietę, aby pomóc nam w dalszym rozwoju strony.
+          </p>
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe91EzNotg6x4kyiD4Lx_RR0bwqOGvEMOYoB-zzX0gF1XP4tw/viewform?embedded=true" width="640" height="963" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+          
+        </div>
         </div>
       )}
     </>

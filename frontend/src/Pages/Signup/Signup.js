@@ -35,13 +35,6 @@ const Signup = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
 
-  // const handleSearch = (searchTerm) => {
-  //   setSearchTerm(searchTerm);
-  //   const filteredPlayers = players.filter((player) =>
-  //     player.firstName.toLowerCase().includes(searchTerm.toLowerCase())
-  //   );
-  //   dispatch({ type: "SET_PLAYERS", payload: filteredPlayers });
-  // };
 
   useEffect(() => {
     if (players) {

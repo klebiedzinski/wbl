@@ -41,7 +41,7 @@ const userSchema = new Schema({
   },
   emailConfirmed: Boolean,
   adminConfirmed: Boolean,
-});
+}, { timestamps: true });
 
 // static method to signup
 userSchema.statics.signup = async function (

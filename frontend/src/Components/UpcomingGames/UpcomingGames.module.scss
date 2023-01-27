@@ -1,0 +1,87 @@
+@import "../../Styles/variables.scss";
+.show {
+  //make this button look normally
+  margin-inline: auto;
+  width: 80vw;
+  display: flex;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  color: $main;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: 400ms;
+}
+.upcomingGames {
+  .games {
+    display: flex;
+    flex-wrap: wrap;
+    margin-inline: 1vw;
+    .game {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      flex: 1;
+      min-width: 150px;
+      min-height: 50px;
+      border: 1px solid black;
+      padding: 0vw 1vw 0 1vw;
+      margin-inline: 1vw;
+      .gameTop {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        border-bottom: 1px solid black;
+        .gameTeams {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-evenly;
+          align-items: center;
+          p {
+            font-size: 2.5ch;
+          }
+
+          .gameTeam {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+          }
+        }
+        .gameScore {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          .teamScore {
+            p {
+              font-size: 3ch;
+            }
+          }
+        }
+      }
+      .gameInfo {
+        width: 100%;
+        padding: 0.5vw;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .gameDate {
+          p {
+            font-size: 100%;
+          }
+        }
+
+        .gameLocation {
+          p {
+            font-size: 100%;
+          }
+        }
+      }
+    }
+  }
+}

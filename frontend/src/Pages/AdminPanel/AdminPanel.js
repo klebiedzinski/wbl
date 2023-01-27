@@ -1,12 +1,13 @@
 import styles from "./AdminPanel.module.scss";
-import GameForm from "../../Components/Forms/GameForm/GameForm";
+import GameForm from "./GameForm/GameForm";
 import { usePlayersContext } from "../../hooks/contexts/usePlayersContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
-import Users from "../../Components/Users/Users";
+import Users from "./Users/Users";
 import GoBack from "../../Components/GoBack/GoBack";
-import { AiOutlineReload } from "react-icons/ai";
+import AdminTools from "./AdminTools";
+
 
 const AdminPanel = () => {
   const { teams: teamsFromContext } = useTeamsContext();
@@ -34,15 +35,13 @@ const AdminPanel = () => {
               <GameForm teams={teams} />
             </div>
 
-            <div className={styles.users_panel}>
-              <div className={styles.users}>
-                <AiOutlineReload />
-                <Users />
+            <div className={styles.right}>
+              <div className={styles.users_panel}>
+                <div className={styles.users}>
+                  <Users />
+                </div>
               </div>
-            </div>
-
-            <div className={styles.surveys}>
-              <h1>Surveys</h1>
+              <AdminTools />
             </div>
           </div>
         </>

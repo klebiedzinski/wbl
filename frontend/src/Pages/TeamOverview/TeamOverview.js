@@ -9,6 +9,7 @@ import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import ClipLoader from "react-spinners/ClipLoader";
 import { AiFillEdit } from "react-icons/ai";
 import GoBack from "../../Components/GoBack/GoBack";
+import UpcomingGames from "../../Components/UpcomingGames/UpcomingGames";
 const TeamOverview = () => {
   const { id } = useParams();
   const { user } = useAuthContext();
@@ -60,6 +61,8 @@ const TeamOverview = () => {
               )}
             </div>
           </div>
+          <UpcomingGames team_id={id} limit={3} />
+          <TeamPlayersList />
         </div>
       )}
 
@@ -71,7 +74,6 @@ const TeamOverview = () => {
           id={id}
         />
       )}
-      <TeamPlayersList />
     </>
   );
 };
