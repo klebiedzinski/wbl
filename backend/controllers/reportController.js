@@ -3,7 +3,7 @@ const Player = require('../models/playerModel');
 const Game = require('../models/gameModel');
 const User = require('../models/userModel');
 const mongoose = require('mongoose');
-
+const { Parser } = require('json2csv');
 // get report about how many users controll each player
 const getPlayersReport = async (req, res) => {
     User.aggregate([
@@ -25,7 +25,7 @@ const getPlayersReport = async (req, res) => {
         }
     ])
     .then((result) => {
-        res.status(200).json({result});
+       res.status(200).json({result});
     }
     )
     .catch((err) => {
@@ -55,7 +55,7 @@ const getTeamsReport = async (req, res) => {
         }
     ])
     .then((result) => {
-        res.status(200).json({result});
+         res.status(200).json({result});
     }
     )
     .catch((err) => {
@@ -70,7 +70,7 @@ const getUsersReport = async (req, res) => {
         {
             $group: {
                 _id: { $month: "$createdAt" },
-                count: {$sum: 1}
+                users: {$sum: 1}
             }
         },
         {
@@ -82,7 +82,7 @@ const getUsersReport = async (req, res) => {
         }
     ])
     .then((result) => {
-        res.status(200).json({result});
+       res.status(200).json({result});
     }
     )
     .catch((err) => {
@@ -110,7 +110,7 @@ const getGamesReport = async (req, res) => {
         }
     ])
     .then((result) => {
-        res.status(200).json({result});
+         res.status(200).json({result});
     }
     )
     .catch((err) => {
@@ -154,9 +154,10 @@ const getPlayersInTeamsReport = async (req, res) => {
     )
 }
 
+
 // raport about how many games each team played (or will play)
 const getGamesInTeamsReport = async (req, res) => {
-    Game.aggregate([
+    const result = await Game.aggregate([
         {
             $group: {
                 _id: { $cond: [ { $eq: [ "$team1_id", mongoose.Types.ObjectId(req.params.teamId) ] }, "$team1_id", "$team2_id" ] },
@@ -170,24 +171,11 @@ const getGamesInTeamsReport = async (req, res) => {
                 count: 1
             }
         }
-
-    ])
-    .then((result) => {
-        Promise.all(result.map((item) => {
-            return Team.findById(item.team).then((team) => {
-                item.team = team.name;
-                return item;
-            });
-        })).then((updatedResult) => {
-            res.status(200).json({result: updatedResult});
-        });
-    }
-    )
-    .catch((err) => {
-        res.status(400).json({error: err.message});
-    }
-    )
+    ]);
+   res.status(200).json({result});
 }
+
+
 
 
 

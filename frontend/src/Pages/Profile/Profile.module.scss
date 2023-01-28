@@ -1,10 +1,41 @@
+@import "../../Styles/variables.scss";
 .main{
   display: flex;
-  flex-direction: row;
+    flex-direction: column;
+    
   align-items: center;
   justify-content: center;
 }
 .survey{
+  h3{
+    text-align: center;
+    background-color: $green;
+    color: white;
+    padding: 1vw;
+    border-radius: 20px;
+    margin-block: 2vh;
+    &:hover{
+      background-color: $lightGreen;
+    }
+
+  }
+  @media screen and (max-width: 768px) {
+    margin-top: 5vh;
+    width: 80vw;
+    *{
+      width: 100%;
+    }
+    
+  }
+  iframe{
+    @media screen and (min-width: 768px) {
+      padding-inline: 5vw;
+      width: 60vw;
+      height: 100vh;
+      
+    }
+    
+  }
   padding: 2vw;
   h3{
     padding: 1vw;
@@ -12,9 +43,13 @@
   p{
     text-align: center;
   }
+  
+ 
+
+
 }
 .Profile {
-  border: 2px solid white;
+  border: 2px solid $lightGreen;
   border-radius: 40px;
   padding: 2vw;
   li {
@@ -67,6 +102,13 @@
     justify-content: center;
     //scroll
     overflow-y: scroll;
+    //make scroll look nice
+    scrollbar-width: thin;
+    scrollbar-color: lighten($green, 30) $green;
+    //scrollbar width
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
     height: 40vh;
     gap: 1vw;
     .player {

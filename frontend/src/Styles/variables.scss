@@ -6,5 +6,6 @@ $mid: #FFFFFF;
 
 $red: #e83131;
 $green: #173114;
+$lightGreen: lighten($green, 30);
 
 $hover: linear-gradient(to right, #173114, #374200, #684d00, #a64b00, #e83131);

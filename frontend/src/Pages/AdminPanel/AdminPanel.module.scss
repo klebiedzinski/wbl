@@ -65,6 +65,37 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+      
+        .report{
+          @media screen and (max-width: 768px) {
+            font-size: smaller;
+            .icon{
+              width: 3vw;
+              height: 3vh;
+            }
+          }
+          height: 4vh;
+          width: 100%;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          //grab icon
+          .icon{
+            width: 2vw;
+            height: 2vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: $green;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            &:hover{
+              color: $red;
+            }
+          }
+        }
+        
+       
       }
       .icon{
         width: 10vw;

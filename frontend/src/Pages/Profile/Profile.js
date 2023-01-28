@@ -6,6 +6,7 @@ import ClipLoader from "react-spinners/ClipLoader";
 import useFetch from "../../hooks/useFetch";
 import styles from "./Profile.module.scss";
 import GoBack from "../../Components/GoBack/GoBack";
+import { useState } from "react";
 const Profile = () => {
   const { user } = useAuthContext();
 
@@ -15,6 +16,8 @@ const Profile = () => {
   const { data: teamsData } = useFetch("/teams");
   const { data: playersData } = useFetch("/players");
 
+  const [survey, setSurvey] = useState(false);
+  
   const allTeams = teamsData ? teamsData.teams : teamsFromContext;
   const teams = !user.admin
     ? teamsData
@@ -84,12 +87,14 @@ const Profile = () => {
         </div>
 
         <div className={styles.survey}>
-          <h3>Wypełnij ankietę:</h3>
+          {!survey && <h3 onClick={() => setSurvey(!survey)}>Wypełnij ankietę</h3>}
           <p>
             Wypełnij ankietę, aby pomóc nam w dalszym rozwoju strony.
           </p>
-          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe91EzNotg6x4kyiD4Lx_RR0bwqOGvEMOYoB-zzX0gF1XP4tw/viewform?embedded=true" width="640" height="963" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
           
+          {survey && 
+          <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe91EzNotg6x4kyiD4Lx_RR0bwqOGvEMOYoB-zzX0gF1XP4tw/viewform?embedded=true" width="640" height="963" frameborder="0" marginheight="0" marginwidth="0">Ładuję…</iframe>
+          }
         </div>
         </div>
       )}
