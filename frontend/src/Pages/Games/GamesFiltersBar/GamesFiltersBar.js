@@ -4,6 +4,7 @@ import axiosInstance from "../../../config/axios_config";
 import { AiOutlineFilter } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { setGamesReducer } from "../../../features/games/gamesSlice";
+import {GrFormPreviousLink ,GrFormNextLink} from 'react-icons/gr';
 const GamesFiltersBar = () => {
   const dispatch = useDispatch();
 
@@ -68,13 +69,14 @@ const GamesFiltersBar = () => {
           className={styles.paginationBtn}
           onClick={page === 1 ? null : () => setPage(page - 1)}
         >
-          Prev
+          <GrFormPreviousLink className={styles.icon}/>
         </button>
         <button
           className={styles.paginationBtn}
           onClick={() => setPage(page + 1)}
         >
-          Next
+          <GrFormNextLink className={styles.icon}/>
+
         </button>
       </div>
       <div className={filtersOpen ? styles.filtersActive : styles.filters}>
@@ -124,7 +126,7 @@ const GamesFiltersBar = () => {
       </div>
       <div className={styles.filtersBar}>
         <button onClick={() => setFiltersOpen(!filtersOpen)}>
-          <AiOutlineFilter />
+          <AiOutlineFilter className={styles.icon}/>
         </button>
       </div>
     </div>

@@ -234,6 +234,7 @@ const Signup = () => {
                   type="text"
                   name="search"
                   id="search"
+                  autoComplete="off"
                   placeholder="Wyszukaj gracza"
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}

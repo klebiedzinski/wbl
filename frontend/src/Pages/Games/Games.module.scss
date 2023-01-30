@@ -85,6 +85,57 @@
     // justify-content: flex-end;
   }
 }
+.paginationBtn {
+  margin: 1vw;
+  background-color: white;
+  padding: 4px 16px;
+  border-radius: 4px;
+  border: none;
+  transition: 400ms;
+  &:hover {
+    background-color: red;
+    cursor: pointer;
+    transform: scale(
+      1.08
+    ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+  .icon{
+    width: 20px;
+    height: 20px;
+    // font color react icon
+    *{
+      color: white;
+    }
+  }
+}
+.filtersBar {
+  
+  button{
+    margin: 1vw;
+    padding: 4px 16px;
+    border-radius: 4px;
+    border: none;
+    transition: 400ms;
+    background-color: $green;
+    &:hover {
+      cursor: pointer;
+      transform: scale(
+        1.08
+      ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    }
+    // font color react icon
+
+  }
+  .icon{
+    width: 20px;
+    height: 20px;
+    *{
+      color: white;
+    }
+  }
+}
+
+
 
 .teamImg {
   width: 100px;
@@ -212,3 +263,5 @@
     }
   }
 }
+
+

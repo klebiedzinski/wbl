@@ -9,6 +9,7 @@ import { useAuthContext } from "../../hooks/contexts/useAuthContext";
 import { useTeamsContext } from "../../hooks/contexts/useTeamsContext";
 import { useState } from "react";
 import GoBack from "../../Components/GoBack/GoBack";
+import {GrFormPreviousLink, GrFormNextLink} from 'react-icons/gr';
 const TeamPlayersList = () => {
   const { user } = useAuthContext();
   const { players, dispatch } = usePlayersContext();
@@ -69,29 +70,29 @@ const TeamPlayersList = () => {
       <div className={styles.toolsBar}>
         <input
           type="text"
-          placeholder="Search"
+          placeholder="Znajdź zawodnika..."
           className={styles.searchInput}
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
-        <button
+        {/* <button
           className={styles.searchBtn}
           onClick={() => handleSearch(search)}
         >
           Search
-        </button>
+        </button> */}
         <div className={styles.pagination}>
           <button
             className={styles.paginationBtn}
             onClick={page === 1 ? null : () => setPage(page - 1)}
           >
-            Prev
+            <GrFormPreviousLink className={styles.icon} />
           </button>
           <button
             className={styles.paginationBtn}
             onClick={() => setPage(page + 1)}
           >
-            Next
+            <GrFormNextLink className={styles.icon}/>
           </button>
         </div>
       </div>

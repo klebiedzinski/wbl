@@ -1,3 +1,4 @@
+@import "../../Styles/variables.scss";
 .playersList {
   min-height: 40vh;
 }
@@ -57,3 +58,45 @@
     }
   }
 }
+.searchInput {
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid grey;
+  width: 40%;
+  margin-inline: auto;
+  //height
+  height: 3vh;
+}
+
+.searchBtn {
+  background-color: blue;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  border: none;
+}
+
+.paginationBtn {
+  margin: 1vw;
+  background-color: white;
+  padding: 4px 16px;
+  border-radius: 4px;
+  border: none;
+  transition: 400ms;
+  &:hover {
+    background-color: red;
+    cursor: pointer;
+    transform: scale(
+      1.08
+    ); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+  }
+  .icon{
+    width: 20px;
+    height: 20px;
+    // font color react icon
+    *{
+      color: white;
+    }
+  }
+}
+
