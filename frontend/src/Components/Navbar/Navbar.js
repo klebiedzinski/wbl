@@ -79,30 +79,8 @@ const Navbar = () => {
           </ul>
         </nav>
 
-        {/* {user &&
-            <div className={styles.links}>
-            <Link to="/teams">Teams</Link>
-            <Link to="/players">Players</Link>
-                <Link to="/games">Games</Link>
-                <Link to="/standings">Standings</Link>
-                <Link to="/profile">Hi, {user.firstName}</Link>
-                {user.admin && <Link to="/admin">Panel admina</Link>}
-                <button onClick={handleLogout} className={styles.login}>Log out</button>
-            </div>
-          }   
-          {!user &&
-            <div className={styles.links}>
-                <Link to="/teams">Teams</Link>
-                <Link to="/players">Players</Link>
-                <Link to="/games">Games</Link>
-                <Link to="/standings">Standings</Link>
-                <Link to="/login" className={styles.login}>Login</Link> 
-                </div>
-              } */}
       </div>
-      <div className={styles.upcomingGames}>
-        {/* <UpcomingGames limit={5} team_id={"all"} /> */}
-      </div>
+      
     </div>
   );
 };

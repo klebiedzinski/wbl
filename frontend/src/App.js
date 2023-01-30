@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuthContext } from "./hooks/contexts/useAuthContext";
 
 //pages
@@ -36,7 +36,7 @@ function App() {
       <div className="App">
         <Navbar />
         <div className="upcoming_games">
-          <UpcomingGames limit={5} team_id={"all"} />
+          <UpcomingGames limit={5} team_id={"all"}/>
         </div>
         <main>
           <Routes>

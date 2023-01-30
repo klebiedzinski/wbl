@@ -31,6 +31,14 @@ const UpcomingGames = ({ team_id, limit }) => {
     }
   }, [gamesData, teamsData]);
 
+ //toggle off every time when location change
+  useEffect(() => {
+    if (window.innerWidth < 900){
+      setToggle(false);
+    }
+  }, [window.location.pathname]);
+
+
   return (
     <>
       {window.innerWidth < 900 && (
