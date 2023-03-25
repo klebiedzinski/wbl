@@ -1,7 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from '@reduxjs/toolkit';
 
 const usersSlice = createSlice({
-    name: "users",
+    name: 'users',
     initialState: {
         users: [],
         isLoading: false,
@@ -9,31 +9,35 @@ const usersSlice = createSlice({
     },
     reducers: {
         setUsersReducer: (state, action) => {
-            state.users = action.payload
+            state.users = action.payload;
         },
         addUserReducer: (state, action) => {
-                state.users.push(action.payload)
-            },
+            state.users.push(action.payload);
+        },
         deleteUserReducer: (state, action) => {
-            state.users = state.users.filter(user => user._id !== action.payload._id)
+            state.users = state.users.filter(
+                (user) => user._id !== action.payload._id
+            );
         },
         editUserReducer: (state, action) => {
-            state.users = state.users.map(user => {
-                console.log(action.payload)
-                if(user._id === action.payload._id) {
-                    return action.payload
+            state.users = state.users.map((user) => {
+                if (user._id === action.payload._id) {
+                    return action.payload;
                 } else {
-                    return user
+                    return user;
                 }
-            })
-        }
-    }
-    
-})
+            });
+        },
+    },
+});
 
-export const selectUsers = state => state.users;
+export const selectUsers = (state) => state.users;
 
-
-export const { addUserReducer, deleteUserReducer, editUserReducer, setUsersReducer} = usersSlice.actions;
+export const {
+    addUserReducer,
+    deleteUserReducer,
+    editUserReducer,
+    setUsersReducer,
+} = usersSlice.actions;
 
 export default usersSlice.reducer;
