@@ -8,7 +8,6 @@ https://wbl.klebiedzinski.pl
 
 - I made this app to learn the idea of Full Stack Development. At the same time, I wanted to create a tool that can be useful on daily basis.
 - WBL is a basketball league in Włocławek. We're planning to use the app to manage the league and to make it easier for players to find all the information about it.
-- It's a simple app with a lot of room for improvments. (better security, better UI, etc.)
 
 
 ## Technologies
